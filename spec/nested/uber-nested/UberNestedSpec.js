@@ -1,4 +1,4 @@
-describe('jasmine-node-nested', function(){
+describe('jasmine-node-uber-nested', function(){
   it('should report failure (THIS IS EXPECTED)', function(){
     expect(false).toBeFalsy();
   });
