@@ -4,6 +4,6 @@ var sys = require('sys');
 
 process.mixin(global, jasmine);
 
-jasmine.executeSpecsInFolder('spec', function(tests){
-  process.exit(tests.failed);
-});
+jasmine.executeSpecsInFolder('spec', function(runner, log){
+  process.exit(runner.results().failedCount);
+}, true);
