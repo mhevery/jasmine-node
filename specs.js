@@ -6,6 +6,6 @@ for(var key in jasmine) {
   global[key] = jasmine[key];
 }
 
-jasmine.executeSpecsInFolder('spec', function(runner, log){
+jasmine.executeSpecsInFolder(__dirname + '/spec', function(runner, log){
   process.exit(runner.results().failedCount);
 }, false);
