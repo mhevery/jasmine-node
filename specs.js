@@ -8,4 +8,4 @@ for(var key in jasmine) {
 
 jasmine.executeSpecsInFolder(__dirname + '/spec', function(runner, log){
   process.exit(runner.results().failedCount);
-}, false);
+}, false, true);
