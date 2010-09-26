@@ -1,0 +1,15 @@
+{
+  "name"          : "jasmine",
+  "version"       : "1.0.0rc1",
+  "description"   : "DOM-less simple JavaScript testing framework for node",
+  "homepage"      : "http://pivotal.github.com/jasmine",
+  "keywords"      : ["testing", "bdd"],
+  "author"        : "Davis W. Frank <dwfrank@pivotallabs.com>",
+  "contributors"  : ["Rajan Agaskar <rajan@pivotallabs.com>",
+                     "Christian Williams <xian@pivotallabs.com>",
+                     "Misko Hevery <misko@hevery.com>"],
+  "maintainers"   : ["Martin Häger <martin.haeger@gmail.com>"],
+  "licenses"      : ["MIT"],
+  "dependencies"  : [],
+  "main"          : "./lib/jasmine"
+}
