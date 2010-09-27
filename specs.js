@@ -6,17 +6,14 @@ for(var key in jasmine) {
   global[key] = jasmine[key];
 }
 
-var isVerbose = false;
-var showColors = true;
+jasmine.isVerbose = false;
+jasmine.showColors = true;
 process.argv.forEach(function(arg){
   switch(arg) {
-  case '--color': showColors = true; break;
-  case '--noColor': showColors = false; break;
-  case '--verbose': isVerbose = true; break;
+  case '--color': jasmine.showColors = true; break;
+  case '--noColor': jasmine.showColors = false; break;
+  case '--verbose': jasmine.isVerbose = true; break;
   }
 });
 
-
-jasmine.executeSpecsInFolder(__dirname + '/spec', function(runner, log){
-  process.exit(runner.results().failedCount);
-}, isVerbose, showColors);
+jasmine.requireAllSpecFiles(__dirname + "/spec")
