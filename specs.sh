@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/local/bin/node specs.js $@
+/usr/bin/env node specs.js $@
