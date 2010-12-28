@@ -16,5 +16,6 @@
 , "maintainers"   : "Martin Häger <martin.haeger@gmail.com>"
 , "licenses"      : ["MIT"]
 , "dependencies"  : []
-, "main"          : "./lib/jasmine"
+, "main"          : "./lib/jasmine",
+  "bin"           : { "jasmine" : "./lib/jasmine/cli.js" }
 }
