@@ -18,5 +18,9 @@ process.argv.forEach(function(arg){
 
 
 jasmine.executeSpecsInFolder(__dirname + '/spec', function(runner, log){
-  process.exit(runner.results().failedCount);
+  if (runner.results().failedCount == 0) {
+    process.exit(0);
+  } else {
+    process.exit(1);
+  }
 }, isVerbose, showColors);
