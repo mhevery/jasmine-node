@@ -10,7 +10,7 @@ Write the specifications for your code in *.js and *.coffee files in the spec/ d
 
 Run the specifications using:
 
-    nodejs specs.js
+    node specs.js
 
 You can supply the following arguments:
 
