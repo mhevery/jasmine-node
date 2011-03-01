@@ -14,8 +14,8 @@ Run the specifications using:
 
 You can supply the following arguments:
 
-  * <pre>--color</pre>, indicates spec output should uses color to indicates passing (green) or failing (red) specs
-  * <pre>--noColor</pre>, do not use color in the output
-  * <pre>--verbose</pre>, verbose output as the specs are run
+  * <code>--color</code>, indicates spec output should uses color to indicates passing (green) or failing (red) specs
+  * <code>--noColor</code>, do not use color in the output
+  * <code>--verbose</code>, verbose output as the specs are run
 
 Checkout specs.js in the root directory and spec/SampleSpecs.js to see how to use it.
