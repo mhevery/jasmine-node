@@ -1,6 +1,6 @@
 {
   "name"          : "jasmine-node"
-, "version"       : "1.0.1"
+, "version"       : "1.0.2"
 , "description"   : "DOM-less simple JavaScript BDD testing framework for Node"
 , "homepage"      : [ "http://pivotal.github.com/jasmine"
                     , "https://github.com/mhevery/jasmine-node"]
@@ -11,7 +11,7 @@
 , "author"        : "Misko Hevery <misko@hevery.com>"
 , "contributors"  : [ "Rajan Agaskar <rajan@pivotallabs.com"
                     , "Christian Williams <xian@pivotallabs.com"
-                    , "Davis W. Frank <dwfrank@pivotallabs.com>",
+                    , "Davis W. Frank <dwfrank@pivotallabs.com>"
                     , "Matteo Collina <matteo.collina@gmail.com>"
                     ]
 , "maintainers"   : "Martin Häger <martin.haeger@gmail.com>"
