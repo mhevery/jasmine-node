@@ -1,6 +1,6 @@
 {
   "name"          : "jasmine-node"
-, "version"       : "1.0.2"
+, "version"       : "1.0.3"
 , "description"   : "DOM-less simple JavaScript BDD testing framework for Node"
 , "homepage"      : [ "http://pivotal.github.com/jasmine"
                     , "https://github.com/mhevery/jasmine-node"]
@@ -16,7 +16,8 @@
                     ]
 , "maintainers"   : "Martin Häger <martin.haeger@gmail.com>"
 , "licenses"      : ["MIT"]
-, "dependencies"  : { "coffee-script" : ">=1.0.0"}
-, "bin"           : "./bin/jasmine-node"
-, "main"          : "./lib/jasmine-node"
+, "dependencies"  : { "coffee-script" : ">=1.0.1"}
+, "files"         : ["lib/jasmine-node/"]
+, "bin"           : "bin/jasmine-node"
+, "main"          : "jasmine-node"
 }
