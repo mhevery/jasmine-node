@@ -19,5 +19,5 @@
 , "dependencies"  : { "coffee-script" : ">=1.0.1"}
 , "files"         : ["lib/jasmine-node/"]
 , "bin"           : "bin/jasmine-node"
-, "main"          : "jasmine-node"
+, "main"          : "lib/jasmine-node"
 }
