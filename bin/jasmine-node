@@ -2,7 +2,4 @@
 
 var path = require('path');
 var fs   = require('fs');
-var lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
-require.paths.push(lib)
-
-require('jasmine-node/cli.js');
+require(path.join(__dirname,'../lib/jasmine-node/cli.js'));
