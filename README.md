@@ -8,9 +8,10 @@ node.js.
 usage
 ------
 
-Write the specifications for your code in *.js and *.coffee files in
-the spec/ directory (note: your specifications must have 'spec' in the filename or jasmine-node won't find them!). You can use sub-directories to better organise
-your specs.
+Write the specifications for your code in *.js and *.coffee files in the 
+spec/ directory (note: your specification files must end with either 
+.spec.js or .spec.coffee; otherwise jasmine-node won't find them!). You 
+can use sub-directories to better organise your specs.
 
 If you have installed the npm package, you can run it with:
 
