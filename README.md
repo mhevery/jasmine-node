@@ -24,6 +24,7 @@ environment variable, then run:
 
 You can supply the following arguments:
 
+  * <code>--coffee</code>, allow execution of .coffee specs
   * <code>--color</code>, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
   * <code>--noColor</code>, do not use color in the output
