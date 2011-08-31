@@ -28,5 +28,6 @@ You can supply the following arguments:
 indicates passing (green) or failing (red) specs
   * <code>--noColor</code>, do not use color in the output
   * <code>--verbose</code>, verbose output as the specs are run
+  * <code>--junitreport</code>, export tests results as junitreport xml format'
 
 Checkout spec/SampleSpecs.js to see how to use it.
