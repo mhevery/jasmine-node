@@ -17,6 +17,5 @@
 , "maintainers"   : "Martin Häger <martin.haeger@gmail.com>"
 , "licenses"      : ["MIT"]
 , "dependencies"  : { "coffee-script" : ">=1.0.1", "jasmine-reporters" : "0.1.0"}
-, "bin"           : "bin/jasmine-node"
-, "main"          : "lib/jasmine-node"
+, "main"           : "bin/jasmine-node"
 }
