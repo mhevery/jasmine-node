@@ -18,4 +18,5 @@
 , "licenses"      : ["MIT"]
 , "dependencies"  : { "coffee-script" : ">=1.0.1", "jasmine-reporters" : "0.1.0"}
 , "main"           : "bin/jasmine-node"
+, "bin"           : "./bin/jasmine-node"
 }
