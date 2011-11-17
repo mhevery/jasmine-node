@@ -8,3 +8,4 @@
 .settings
 .externalToolBuilders
 *.swp
+node_modules
