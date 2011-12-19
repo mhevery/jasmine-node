@@ -1,53 +1,179 @@
 var reporter = require(__dirname + "/../lib/jasmine-node/reporter");
 
-describe('reporter', function(){
-  it('initializes print_ from config', function(){
-    config = { print: true };
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.print_).toBeTruthy();
+describe('TerminalReporter', function() {
+  beforeEach(function() {
+    var config = {}
+    this.reporter = new reporter.TerminalReporter(config);
   });
 
-  it('initializes isVerbose_ from config', function(){
-    config = { verbose: true }
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.isVerbose_).toBeTruthy();
+  describe("initialize", function() {
+    it('initializes print_ from config', function() {
+      var config = { print: true };
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.print_).toBeTruthy();
+    });
+
+    it('initializes color_ from config', function() {
+      var config = { color: true }
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.color_).toEqual(ANSIColors);
+    });
+
+    it('sets the started_ flag to false', function() {
+      var config = {}
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.started_).toBeFalsy();
+    });
+
+    it('sets the finished_ flag to false', function() {
+      var config = {}
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.finished_).toBeFalsy();
+    });
+
+    it('initializes the suites_ array', function() {
+      var config = {}
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.suites_.length).toEqual(0);
+    });
+
+    it('initializes the specResults_ to an Object', function() {
+      var config = {}
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.specResults_).toBeDefined();
+    });
+
+    it('initializes the failures_ array', function() {
+      var config = {}
+      this.reporter = new reporter.TerminalReporter(config);
+      expect(this.reporter.failures_.length).toEqual(0);
+    });
   });
 
-  it('initializes onComplete_ from config', function(){
-    onCompleteFn = function() {};
-    config = { onComplete: onCompleteFn }
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.onComplete_).toEqual(onCompleteFn);
+  describe('when the report runner starts', function() {
+    beforeEach(function() {
+      this.spy = spyOn(this.reporter, 'printLine_');
+
+      var runner = {
+        topLevelSuites: function() {
+          var suites = [];
+          suite = { id: 25 };
+          suites.push(suite);
+          return suites;
+        }
+      };
+      this.reporter.reportRunnerStarting(runner);
+    });
+
+    it('sets the started_ field to true', function() {
+      expect(this.reporter.started_).toBeTruthy();
+    });
+
+    it('sets the startedAt field', function() {
+      expect(this.reporter.startedAt instanceof Date).toBeTruthy();
+    });
+
+    it('buildes the suites_ collection', function() {
+      expect(this.reporter.suites_.length).toEqual(1);
+      expect(this.reporter.suites_[0].id).toEqual(25);
+    });
   });
 
-  it('initializes color_ from config', function(){
-    config = { color: true }
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.color_).toEqual(ANSIColors);
+  describe('the summarize_ creates suite and spec tree', function() {
+    beforeEach(function() {
+      this.spec = {
+        id: 1,
+        description: 'the spec',
+        isSuite: false
+      }
+    });
+
+    it('creates a summary object from spec', function() {
+      var result = this.reporter.summarize_(this.spec);
+
+      expect(result.id).toEqual(1);
+      expect(result.name).toEqual('the spec');
+      expect(result.type).toEqual('spec');
+      expect(result.children.length).toEqual(0);
+    });
+
+    it('creates a summary object from suite with 1 spec', function() {
+      var env = { nextSuiteId: false }
+      var suite = new jasmine.Suite(env, 'suite name', undefined, undefined);
+      suite.description = 'the suite';
+      suite.children_.push(this.spec);
+
+      var result = this.reporter.summarize_(suite);
+      expect(result.name).toEqual('the suite');
+      expect(result.type).toEqual('suite');
+      expect(result.children.length).toEqual(1);
+
+      var suiteChildSpec = result.children[0];
+      expect(suiteChildSpec.id).toEqual(1);
+    });
   });
 
-  it('initializes stackFilter from config', function(){
-    stackFilterFn = function() {};
-    config = { stackFilter: stackFilterFn }
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.stackFilter).toEqual(stackFilterFn);
+  describe('reportRunnerResults', function() {
+    beforeEach(function() {
+      this.printLineSpy = spyOn(this.reporter, 'printLine_');
+    });
+
+    it('generates the report', function() {
+      var failuresSpy = spyOn(this.reporter, 'reportFailures_');
+      var printRunnerResultsSpy = spyOn(this.reporter, 'printRunnerResults_').
+                          andReturn('this is the runner result');
+
+      var runner = {
+        results: function() {
+          var result = { failedCount: 0 };
+          return result;
+        },
+        specs: function() { return []; }
+      };
+      this.reporter.startedAt = new Date();
+
+      this.reporter.reportRunnerResults(runner);
+
+      expect(failuresSpy).toHaveBeenCalled();
+      expect(this.printLineSpy).toHaveBeenCalled();
+    });
   });
 
-  it('initializes columnCounter_ to 0', function(){
-    config = {}
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.columnCounter_).toEqual(0);
-  });
+  describe('reportSpecResults', function() {
+    beforeEach(function() {
+      this.printSpy = spyOn(this.reporter, 'print_');
+      this.spec = {
+        id: 1,
+        description: 'the spec',
+        isSuite: false,
+        results: function() {
+          var result = {
+            passed: function() { return true; }
+          }
+          return result;
+        }
+      }
+    });
 
-  it('initializes log_ to be an empty array', function(){
-    config = {}
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.log_.length).toEqual(0);
-  });
+    it('prints a \'.\' for pass', function() {
+      this.reporter.reportSpecResults(this.spec);
+      expect(this.printSpy).toHaveBeenCalledWith('.');
+    });
 
-  it('initializes start_ to 0', function(){
-    config = {}
-    var _reporter = new reporter.TerminalReporter(config);
-    expect(_reporter.start_).toEqual(0);
+    it('prints an \'F\' for failure', function() {
+      var addFailureToFailuresSpy = spyOn(this.reporter, 'addFailureToFailures_');
+      var results = function() {
+        var result = {
+          passed: function() { return false; }
+        }
+        return result;
+      }
+      this.spec.results = results;
+
+      this.reporter.reportSpecResults(this.spec);
+
+      expect(this.printSpy).toHaveBeenCalledWith('F');
+      expect(addFailureToFailuresSpy).toHaveBeenCalled();
+    });
   });
 });
