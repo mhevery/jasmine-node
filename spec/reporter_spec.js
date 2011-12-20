@@ -176,4 +176,62 @@ describe('TerminalReporter', function() {
       expect(addFailureToFailuresSpy).toHaveBeenCalled();
     });
   });
+
+  describe('addFailureToFailures', function() {
+    it('adds message and stackTrace to failures_', function() {
+      var spec = {
+        description: 'the spec',
+        results: function() {
+          var result = {
+            items_: function() {
+              var theItems = new Array();
+              var item = {
+                passed_: false,
+                message: 'the message',
+                trace: {
+                  stack: 'the stack'
+                }
+              }
+              theItems.push(item);
+              return theItems;
+            }.call()
+          };
+          return result;
+        }
+      };
+
+      this.reporter.addFailureToFailures_(spec);
+
+      var failures = this.reporter.failures_;
+      expect(failures.length).toEqual(1);
+      var failure = failures[0];
+      expect(failure.spec).toEqual('the spec');
+      expect(failure.message).toEqual('the message');
+      expect(failure.stackTrace).toEqual('the stack');
+    });
+  });
+
+  describe('prints the runner results', function() {
+    beforeEach(function() {
+      this.runner = {
+        results: function() {
+          var _results = {
+            totalCount: 23,
+            failedCount: 52
+          };
+          return _results;
+        },
+        specs: function() {
+          var _specs = new Array();
+          _specs.push(1);
+          return _specs;
+        }
+      };
+    });
+
+    it('uses the specs\'s length, totalCount and failedCount', function() {
+      var message = this.reporter.printRunnerResults_(this.runner);
+      expect(message).toEqual('1 test, 23 assertions, 52 failures\n');
+    });
+  });
 });
