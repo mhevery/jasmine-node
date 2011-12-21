@@ -234,4 +234,47 @@ describe('TerminalReporter', function() {
       expect(message).toEqual('1 test, 23 assertions, 52 failures\n');
     });
   });
+
+  describe('reports failures', function() {
+    beforeEach(function() {
+      this.printSpy = spyOn(this.reporter, 'print_');
+      this.printLineSpy = spyOn(this.reporter, 'printLine_');
+    });
+
+    it('does not report anything when there are no failures', function() {
+      this.reporter.failures_ = new Array();
+
+      this.reporter.reportFailures_();
+
+      expect(this.printLineSpy).not.toHaveBeenCalled();
+    });
+
+    it('prints the failures', function() {
+      var failure = {
+        spec: 'the spec',
+        message: 'the message',
+        stackTrace: 'the stackTrace'
+      }
+
+      this.reporter.failures_ = new Array();
+      this.reporter.failures_.push(failure);
+
+      this.reporter.reportFailures_();
+
+      var generatedOutput =
+                 [ [ '\n' ],
+                 [ '\n' ],
+                 [ '  1) the spec' ],
+                 [ '   Message:' ],
+                 [ '     the message' ],
+                 [ '   Stacktrace:' ] ];
+
+      expect(this.printLineSpy).toHaveBeenCalled();
+      expect(this.printLineSpy.argsForCall).toEqual(generatedOutput);
+
+      expect(this.printSpy).toHaveBeenCalled();
+      expect(this.printSpy.argsForCall[0]).toEqual(['Failures:']);
+      expect(this.printSpy.argsForCall[1]).toEqual(['     the stackTrace']);
+    });
+  });
 });
