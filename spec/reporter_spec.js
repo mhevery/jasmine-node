@@ -1,51 +1,51 @@
-var reporter = require(__dirname + "/../lib/jasmine-node/reporter");
+var jasmineNode = require(__dirname + "/../lib/jasmine-node/reporter").jasmineNode;
 
 describe('TerminalReporter', function() {
   beforeEach(function() {
     var config = {}
-    this.reporter = new reporter.TerminalReporter(config);
+    this.reporter = new jasmineNode.TerminalReporter(config);
   });
 
   describe("initialize", function() {
     it('initializes print_ from config', function() {
       var config = { print: true };
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.print_).toBeTruthy();
     });
 
     it('initializes color_ from config', function() {
       var config = { color: true }
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.color_).toEqual(ANSIColors);
     });
 
     it('sets the started_ flag to false', function() {
       var config = {}
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.started_).toBeFalsy();
     });
 
     it('sets the finished_ flag to false', function() {
       var config = {}
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.finished_).toBeFalsy();
     });
 
     it('initializes the suites_ array', function() {
       var config = {}
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.suites_.length).toEqual(0);
     });
 
     it('initializes the specResults_ to an Object', function() {
       var config = {}
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.specResults_).toBeDefined();
     });
 
     it('initializes the failures_ array', function() {
       var config = {}
-      this.reporter = new reporter.TerminalReporter(config);
+      this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.failures_.length).toEqual(0);
     });
   });
@@ -276,5 +276,21 @@ describe('TerminalReporter', function() {
       expect(this.printSpy.argsForCall[0]).toEqual(['Failures:']);
       expect(this.printSpy.argsForCall[1]).toEqual(['     the stackTrace']);
     });
+  });
+});
+
+describe('TerminalVerboseReporter', function() {
+  beforeEach(function() {
+    var config = {}
+    this.verboseReporter = new jasmineNode.TerminalVerboseReporter(config);
+  });
+
+  it('does not build anything when the results collection is empty', function() {
+    var results = [],
+        messages = [];
+
+    this.verboseReporter.buildMessagesFromResult_(messages, results);
+
+    expect(messages.length).toEqual(0);
   });
 });
