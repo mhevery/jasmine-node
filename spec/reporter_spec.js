@@ -57,7 +57,7 @@ describe('TerminalReporter', function() {
       var runner = {
         topLevelSuites: function() {
           var suites = [];
-          suite = { id: 25 };
+          var suite = { id: 25 };
           suites.push(suite);
           return suites;
         }
@@ -283,14 +283,131 @@ describe('TerminalVerboseReporter', function() {
   beforeEach(function() {
     var config = {}
     this.verboseReporter = new jasmineNode.TerminalVerboseReporter(config);
+    this.addFailureToFailuresSpy = spyOn(this.verboseReporter, 'addFailureToFailures_');
+    this.spec = {
+      id: 23,
+      results: function() {
+        return {
+          failedCount: 1,
+          getItems: function() {
+            return ["this is the message"];
+          }
+        }
+      }
+    };
   });
 
-  it('does not build anything when the results collection is empty', function() {
-    var results = [],
-        messages = [];
+  describe('#reportSpecResults', function() {
+    it('adds the spec to the failures_', function() {
+      this.verboseReporter.reportSpecResults(this.spec);
 
-    this.verboseReporter.buildMessagesFromResult_(messages, results);
+      expect(this.addFailureToFailuresSpy).toHaveBeenCalledWith(this.spec);
+    });
 
-    expect(messages.length).toEqual(0);
+    it('adds a new object to the specResults_', function() {
+      this.verboseReporter.reportSpecResults(this.spec);
+
+      expect(this.verboseReporter.specResults_[23].messages).toEqual(['this is the message']);
+      expect(this.verboseReporter.specResults_[23].result).toEqual('failed');
+    });
+  });
+
+  describe('#buildMessagesFromResults_', function() {
+    beforeEach(function() {
+      this.suite = {
+        type: 'suite',
+        name: 'a describe block',
+        children: []
+      };
+
+      this.spec = {
+        id: 23,
+        type: 'spec',
+        name: 'a spec block',
+        children: []
+      };
+
+      this.verboseReporter.specResults_['23'] = {
+        result: 'passed'
+      };
+
+    });
+
+    it('does not build anything when the results collection is empty', function() {
+      var results = [],
+          messages = [];
+
+      this.verboseReporter.buildMessagesFromResults_(messages, results);
+
+      expect(messages.length).toEqual(0);
+    });
+
+    it('adds a single suite to the messages', function() {
+      var results = [],
+          messages = [];
+
+      results.push(this.suite);
+
+      this.verboseReporter.buildMessagesFromResults_(messages, results);
+
+      expect(messages.length).toEqual(2);
+      expect(messages[0]).toEqual('');
+      expect(messages[1]).toEqual('a describe block');
+    });
+
+    it('adds a single spec with success to the messages', function() {
+      var results = [],
+          messages = [];
+
+      this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
+
+      results.push(this.spec);
+
+      this.verboseReporter.buildMessagesFromResults_(messages, results);
+
+      expect(this.passSpy).toHaveBeenCalled();
+      expect(messages.length).toEqual(1);
+      expect(messages[0]).toEqual('  a spec block');
+    });
+
+    it('adds a single spec with failure to the messages', function() {
+      var results = [],
+          messages = [];
+
+      this.verboseReporter.specResults_['23'].result = 'failed';
+
+      this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
+      this.failSpy = spyOn(this.verboseReporter.color_, 'fail');
+
+      results.push(this.spec);
+
+      this.verboseReporter.buildMessagesFromResults_(messages, results);
+
+      expect(this.failSpy).toHaveBeenCalled();
+      expect(this.passSpy).not.toHaveBeenCalled();
+    });
+
+    it('adds a suite, a suite and a single spec with success to the messages', function() {
+      var results = [],
+          messages = [];
+
+      var subSuite = new Object();
+      subSuite.type = 'suite';
+      subSuite.name = 'a sub describe block';
+      subSuite.children = [];
+      subSuite.children.push(this.spec);
+
+      this.suite.children.push(subSuite);
+      results.push(this.suite);
+
+      this.verboseReporter.buildMessagesFromResults_(messages, results);
+
+      expect(messages.length).toEqual(5);
+      expect(messages[0]).toEqual('');
+      expect(messages[1]).toEqual('a describe block');
+      expect(messages[2]).toEqual('');
+      expect(messages[3]).toEqual('a sub describe block');
+      expect(messages[4]).toEqual('  a spec block');
+    });
   });
 });
