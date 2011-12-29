@@ -101,6 +101,7 @@ describe('TerminalReporter', function() {
       var env = { nextSuiteId: false }
       var suite = new jasmine.Suite(env, 'suite name', undefined, undefined);
       suite.description = 'the suite';
+      suite.parentSuite = null;
       suite.children_.push(this.spec);
 
       var result = this.reporter.summarize_(suite);
@@ -317,6 +318,7 @@ describe('TerminalVerboseReporter', function() {
       this.suite = {
         type: 'suite',
         name: 'a describe block',
+        suiteNestingLevel: 0,
         children: []
       };
 
@@ -394,6 +396,7 @@ describe('TerminalVerboseReporter', function() {
       var subSuite = new Object();
       subSuite.type = 'suite';
       subSuite.name = 'a sub describe block';
+      subSuite.suiteNestingLevel = 1;
       subSuite.children = [];
       subSuite.children.push(this.spec);
 
@@ -406,8 +409,8 @@ describe('TerminalVerboseReporter', function() {
       expect(messages[0]).toEqual('');
       expect(messages[1]).toEqual('a describe block');
       expect(messages[2]).toEqual('');
-      expect(messages[3]).toEqual('a sub describe block');
-      expect(messages[4]).toEqual('  a spec block');
+      expect(messages[3]).toEqual('  a sub describe block');
+      expect(messages[4]).toEqual('    a spec block');
     });
   });
 });
