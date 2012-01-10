@@ -5,6 +5,10 @@ This node.js module makes the wonderful Pivotal Lab's jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js.
 
+install
+------
+    npm install jasmine-node -g
+
 usage
 ------
 
