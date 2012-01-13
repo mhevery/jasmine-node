@@ -37,3 +37,14 @@ indicates passing (green) or failing (red) specs
   * <code>--junitreport</code>, export tests results as junitreport xml format'
 
 Checkout spec/SampleSpecs.js to see how to use it.
+
+development
+-----------
+Install the dependent packages by running:
+
+    npm install
+
+Run the specs before you send your pull request:
+
+    sh run_specs.sh
+
