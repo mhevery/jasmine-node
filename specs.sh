@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-jasmine-node --coffee "$@"
+./bin/jasmine-node --coffee "$@"
