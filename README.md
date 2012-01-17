@@ -5,6 +5,10 @@ This node.js module makes the wonderful Pivotal Lab's jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js.
 
+install
+------
+    npm install jasmine-node -g
+
 usage
 ------
 
@@ -35,3 +39,18 @@ indicates passing (green) or failing (red) specs
   * <code>--junitreport</code>, export tests results as junitreport xml format'
 
 Checkout spec/SampleSpecs.js to see how to use it.
+
+
+development
+-----------
+Install the dependent packages by running:
+
+    npm install
+
+Run the specs before you send your pull request:
+
+    scripts/specs
+
+or
+
+    scripts/specs --verbose
