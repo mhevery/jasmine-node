@@ -1,6 +1,6 @@
 {
   "name"          : "jasmine-node"
-, "version"       : "1.0.19"
+, "version"       : "1.0.20"
 , "description"   : "DOM-less simple JavaScript BDD testing framework for Node"
 , "homepage"      : [ "http://pivotal.github.com/jasmine"
                     , "https://github.com/mhevery/jasmine-node"]
