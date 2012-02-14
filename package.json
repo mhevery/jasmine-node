@@ -15,6 +15,7 @@
                     , "Matteo Collina <matteo.collina@gmail.com>"
                     ]
 , "maintainers"   : "Martin Häger <martin.haeger@gmail.com>"
+, "contributors"  : [ "Mike Swift <theycallmeswift@gmail.com> (http://theycallmeswift.com)" ]
 , "licenses"      : ["MIT"]
 , "dependencies"  : { "coffee-script" : ">=1.0.1"
                     , "jasmine-reporters" : "0.1.0"
