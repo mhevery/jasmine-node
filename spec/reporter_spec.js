@@ -48,6 +48,19 @@ describe('TerminalReporter', function() {
       this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.failures_.length).toEqual(0);
     });
+
+    it('sets the callback_ property to false by default', function() {
+      var config = {}
+      this.reporter = new jasmineNode.TerminalReporter(config);
+      expect(this.reporter.callback_).toEqual(false)
+    });
+
+    it('sets the callback_ property to onComplete if supplied', function() {
+      var foo = function() { }
+      var config = { onComplete: foo }
+      this.reporter = new jasmineNode.TerminalReporter(config);
+      expect(this.reporter.callback_).toBe(foo)
+    });
   });
 
   describe('when the report runner starts', function() {
@@ -124,6 +137,8 @@ describe('TerminalReporter', function() {
       var printRunnerResultsSpy = spyOn(this.reporter, 'printRunnerResults_').
                           andReturn('this is the runner result');
 
+      var callbackSpy = spyOn(this.reporter, 'callback_');
+
       var runner = {
         results: function() {
           var result = { failedCount: 0 };
@@ -137,6 +152,7 @@ describe('TerminalReporter', function() {
 
       expect(failuresSpy).toHaveBeenCalled();
       expect(this.printLineSpy).toHaveBeenCalled();
+      expect(callbackSpy).toHaveBeenCalled();
     });
   });
 
