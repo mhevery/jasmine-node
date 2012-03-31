@@ -17,7 +17,26 @@ describe('async-callback', function() {
 
       waitsFor(function() {
         return env.currentRunner().results().totalCount > 0;
+      }, 6000);
+
+      runs(function() {
+        expect(env.currentRunner().results().failedCount).toEqual(1);
+        expect(firstResult(env.currentRunner()).message).toMatch(/timeout/);;
       });
+    });
+
+    it("should accept timeout for individual spec", function() {
+      env.describe("it", function() {
+        env.it("doesn't wait", function(done) {
+          this.expect(1+2).toEqual(3);
+        }, 250);
+      });
+
+      env.currentRunner().execute();
+
+      waitsFor(function() {
+        return env.currentRunner().results().totalCount > 0;
+      }, 500);
 
       runs(function() {
         expect(env.currentRunner().results().failedCount).toEqual(1);
@@ -94,7 +113,7 @@ describe('async-callback', function() {
       runs(function() {
         expect(env.currentRunner().results().passedCount).toEqual(1);
       });
-    });
+      });
   });
 
   describe("afterEach", function() {
