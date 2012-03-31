@@ -40,6 +40,31 @@ indicates passing (green) or failing (red) specs
 
 Checkout spec/SampleSpecs.js to see how to use it.
 
+async tests
+-----------
+
+jasmine-node includes an alternate syntax for writing asynchronous tests. Accepting
+a done callback in the specification will trigger jasmine-node to run the test 
+asynchronously waiting until the done() callback is called.
+
+```javascript
+    it("should respond with hello world", function(done) {
+      request("http://localhost:3000/hello", function(error, response, body){
+        expect(body).toEqual("hello world");
+        done();
+      });
+    });
+```
+
+An asynchronous test will fail after 5000 ms if done() is not called. This timeout 
+can be changed by setting jasmine.DEFAULT_TIMEOUT_INTERVAL or by passing a timeout 
+interval in the specification.
+
+    it("should respond with hello world", function(done) {
+      request("http://localhost:3000/hello", function(error, response, body){
+        done();
+      }, 250);  // timeout after 250 ms
+    });
 
 development
 -----------
