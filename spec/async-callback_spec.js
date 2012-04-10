@@ -9,7 +9,7 @@ describe('async-callback', function() {
     it("should time out if callback is not called", function() {
       env.describe("it", function() {
         env.it("doesn't wait", function(done) {
-          this.expect(1+2).toEqual(3);
+          expect(1+2).toEqual(3);
         });
       });
 
@@ -28,7 +28,7 @@ describe('async-callback', function() {
     it("should accept timeout for individual spec", function() {
       env.describe("it", function() {
         env.it("doesn't wait", function(done) {
-          this.expect(1+2).toEqual(3);
+          expect(1+2).toEqual(3);
         }, 250);
       });
 
