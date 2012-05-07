@@ -1,6 +1,8 @@
 jasmine-node
 ======
 
+[![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
+
 This node.js module makes the wonderful Pivotal Lab's jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js.
@@ -12,9 +14,9 @@ install
 usage
 ------
 
-Write the specifications for your code in *.js and *.coffee files in the 
-spec/ directory (note: your specification files must end with either 
-.spec.js or .spec.coffee; otherwise jasmine-node won't find them!). You 
+Write the specifications for your code in *.js and *.coffee files in the
+spec/ directory (note: your specification files must end with either
+.spec.js or .spec.coffee; otherwise jasmine-node won't find them!). You
 can use sub-directories to better organise your specs.
 
 If you have installed the npm package, you can run it with:
@@ -44,7 +46,7 @@ async tests
 -----------
 
 jasmine-node includes an alternate syntax for writing asynchronous tests. Accepting
-a done callback in the specification will trigger jasmine-node to run the test 
+a done callback in the specification will trigger jasmine-node to run the test
 asynchronously waiting until the done() callback is called.
 
 ```javascript
@@ -56,8 +58,8 @@ asynchronously waiting until the done() callback is called.
     });
 ```
 
-An asynchronous test will fail after 5000 ms if done() is not called. This timeout 
-can be changed by setting jasmine.DEFAULT_TIMEOUT_INTERVAL or by passing a timeout 
+An asynchronous test will fail after 5000 ms if done() is not called. This timeout
+can be changed by setting jasmine.DEFAULT_TIMEOUT_INTERVAL or by passing a timeout
 interval in the specification.
 
     it("should respond with hello world", function(done) {
