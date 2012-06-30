@@ -197,6 +197,9 @@ describe('TerminalReporter', function() {
   describe('addFailureToFailures', function() {
     it('adds message and stackTrace to failures_', function() {
       var spec = {
+        suite: {
+          getFullName: function() { return 'Suite name' }
+        },
         description: 'the spec',
         results: function() {
           var result = {
@@ -222,7 +225,7 @@ describe('TerminalReporter', function() {
       var failures = this.reporter.failures_;
       expect(failures.length).toEqual(1);
       var failure = failures[0];
-      expect(failure.spec).toEqual('the spec');
+      expect(failure.spec).toEqual('Suite name the spec');
       expect(failure.message).toEqual('the message');
       expect(failure.stackTrace).toEqual('the stack');
     });
