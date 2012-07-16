@@ -28,4 +28,4 @@ echo "Running all tests located in the spec-requirejs directory with requirejs a
 command=$entry"--runWithRequireJs --coffee spec-requirejs"
 echo $command
 time $command
-echo -e "\033[1;35m--- Should have 2 tests and 4 assertions and 0 Failure. ---\033[0m"
+echo -e "\033[1;35m--- Should have 3 tests and 6 assertions and 0 Failure. ---\033[0m"
