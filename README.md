@@ -21,7 +21,7 @@ can use sub-directories to better organise your specs.
 
 If you have installed the npm package, you can run it with:
 
-    jasmine-node
+    jasmine-node spec/
 
 If you aren't using npm, you should add `pwd`/lib to the $NODE_PATH
 environment variable, then run:
