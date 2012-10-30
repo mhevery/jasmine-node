@@ -83,7 +83,7 @@ describe('TerminalReporter', function() {
     });
 
     it('sets the startedAt field', function() {
-      // instanceof does not work cross-context
+      // instanceof does not work cross-context (such as when run with requirejs)
       var ts = Object.prototype.toString;
       expect(ts.call(this.reporter.startedAt)).toBe(ts.call(new Date()));
     });
