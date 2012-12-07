@@ -4,5 +4,9 @@ require(['requirejs.sut'], function(sut){
       expect(sut.name).toBe('Subject To Test');
       expect(sut.method(2)).toBe(3);
     });
+
+    it('should run setup', function(){
+      expect(typeof setupHasRun).toBe('boolean');
+    });
   });
 });
