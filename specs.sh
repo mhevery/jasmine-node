@@ -18,7 +18,7 @@ echo ""
 
 echo "Running all tests located in the spec directory with requirejs option"
 #command=$entry"--nohelpers --runWithRequireJs spec-requirejs"
-command=$entry"--runWithRequireJs spec-requirejs"
+command=$entry"--runWithRequireJs spec"
 echo $command
 time $command
 echo -e "\033[1;35m--- Should have 41 tests and 76 assertions and 1 Failure. ---\033[0m"
