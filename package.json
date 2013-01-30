@@ -2,6 +2,7 @@
   "name"          : "jasmine-node"
 , "version"       : "1.0.28"
 , "description"   : "DOM-less simple JavaScript BDD testing framework for Node"
+, "contributors"  : [ "Chris Moultrie <chris@moultrie.org>" ]
 , "homepage"      : [ "http://pivotal.github.com/jasmine"
                     , "https://github.com/mhevery/jasmine-node"]
 , "repository"    : { "type" : "git"

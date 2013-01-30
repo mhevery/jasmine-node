@@ -70,6 +70,7 @@ interval in the specification.
 
 development
 -----------
+
 Install the dependent packages by running:
 
     npm install
@@ -81,3 +82,8 @@ Run the specs before you send your pull request:
 or
 
     scripts/specs --verbose
+
+changelog
+---------
+
+*  _1.1.0 - Updated Jasmine to 1.3.1, fixed fs missing, catching uncaught exceptions, other fixes_
