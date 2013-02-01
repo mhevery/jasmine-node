@@ -340,7 +340,8 @@ describe('TerminalVerboseReporter', function() {
         type: 'suite',
         name: 'a describe block',
         suiteNestingLevel: 0,
-        children: []
+        children: [],
+        getFullName: function() { return "A spec"; },
       };
 
       this.spec = {
@@ -382,6 +383,7 @@ describe('TerminalVerboseReporter', function() {
       var results = [],
           messages = [];
 
+      debugger;
       this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
 
       results.push(this.spec);
@@ -390,7 +392,7 @@ describe('TerminalVerboseReporter', function() {
 
       expect(this.passSpy).toHaveBeenCalled();
       expect(messages.length).toEqual(1);
-      expect(messages[0]).toEqual('  a spec block');
+      expect(messages[0]).toEqual('a spec block');
     });
 
     it('adds a single spec with failure to the messages', function() {
@@ -430,8 +432,8 @@ describe('TerminalVerboseReporter', function() {
       expect(messages[0]).toEqual('');
       expect(messages[1]).toEqual('a describe block');
       expect(messages[2]).toEqual('');
-      expect(messages[3]).toEqual('  a sub describe block');
-      expect(messages[4]).toEqual('    a spec block');
+      expect(messages[3]).toEqual('    a sub describe block');
+      expect(messages[4]).toEqual('        a spec block');
     });
   });
 });
