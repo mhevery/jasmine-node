@@ -42,6 +42,8 @@ describe('root', function () {
     expect(1).toBeTruthy();
   });
 
+});
+
 describe("Top level describe block", function() {
       it("first it block in top level describe", function() {
                 expect(true).toEqual(true);
