@@ -19,6 +19,9 @@
   ],
   "author": "Misko Hevery <misko@hevery.com>",
   "maintainers": "Martin Häger <martin.haeger@gmail.com>",
+  "contributors": [
+    "Chris Moultrie <chris@moultrie.org>"
+  ],
   "licenses": [
     "MIT"
   ],
