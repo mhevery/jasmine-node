@@ -383,7 +383,6 @@ describe('TerminalVerboseReporter', function() {
       var results = [],
           messages = [];
 
-      debugger;
       this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
 
       results.push(this.spec);
