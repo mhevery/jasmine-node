@@ -89,6 +89,16 @@ interval in the specification.
 
 Checkout spec/SampleSpecs.js to see how to use it.
 
+requirejs
+---------
+
+There is a sample project in `/spec-requirejs`. It is comprised of:
+
+1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
+1.  `requirejs-wrapper-template`, this builds up requirejs settings
+1.  `requirejs.sut.js`, this is a __S__ubject __T__o __T__est, something required by requirejs
+1.  `requirejs.spec.js`, the actual jasmine spec for testing
+
 development
 -----------
 
