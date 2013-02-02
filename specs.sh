@@ -6,14 +6,14 @@ echo "Running all tests located in the spec directory"
 command=$entry"spec"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 43 tests and 77 assertions and 1 Failure. ---\033[0m"
+echo -e "\033[1;35m--- Should have 50 tests and 84 assertions and 2 Failure. ---\033[0m"
 echo ""
 
 echo "Running all tests located in the spec directory with coffee option"
 command=$entry"--coffee spec"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 54 tests and 88 assertions and 3 Failures. ---\033[0m"
+echo -e "\033[1;35m--- Should have 54 tests and 88 assertions and 4 Failures. ---\033[0m"
 echo ""
 
 echo "Running all tests located in the spec directory with requirejs option"
@@ -25,7 +25,7 @@ echo -e "\033[1;35m--- Should have 50 tests and 84 assertions and 1 Failure. ---
 echo ""
 
 echo "Running all tests located in the spec-requirejs directory with requirejs, requirejs setup, and coffee option"
-command=$entry"--runWithRequireJs --requireJsSetup spec-requirejs/requirejs-setup.js --coffee spec-requirejs"
+command=$entry"--runWithRequireJs --requireJsSetup spec-requirejs-coffee/requirejs-setup.js --coffee spec-requirejs-coffee"
 echo $command
 time $command
 echo -e "\033[1;35m--- Should have 4 tests and 7 assertions and 0 Failure. ---\033[0m"
