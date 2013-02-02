@@ -12,6 +12,14 @@ jasmine
 
 Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
+what's new
+----------
+*  Jasmine Mock Clock now works!
+*  Autotest now works!
+*  Using the latest Jasmine!
+*  Verbose mode tabs describe blocks much more accurately!
+*  Now with more exclamation points!!
+
 install
 ------
 
@@ -42,8 +50,7 @@ environment variable, then run:
 
 You can supply the following arguments:
 
-  * <code>--autotest</code>, provides automatic execution of specs after
-    each changes
+  * <code>--autotest</code>, provides automatic execution of specs after each change
   * <code>--coffee</code>, allow execution of .coffee specs
   * <code>--color</code>, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
@@ -96,7 +103,7 @@ There is a sample project in `/spec-requirejs`. It is comprised of:
 
 1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
 1.  `requirejs-wrapper-template`, this builds up requirejs settings
-1.  `requirejs.sut.js`, this is a __S__ubject __T__o __T__est, something required by requirejs
+1.  `requirejs.sut.js`, this is a __Su__bject To __T__est, something required by requirejs
 1.  `requirejs.spec.js`, the actual jasmine spec for testing
 
 development
@@ -119,5 +126,6 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.2.0 - Fixed #149, #152, #171, #181, #195. --autotest now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_
 *  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_
 *  _1.1.0 - Updated Jasmine to 1.3.1, fixed fs missing, catching uncaught exceptions, other fixes_
