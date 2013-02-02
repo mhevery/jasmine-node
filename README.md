@@ -7,9 +7,20 @@ This node.js module makes the wonderful Pivotal Lab's jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js.
 
+jasmine
+-------
+
+Version 1.3.1 of Jasmine is currently included with node-jasmine.
+
 install
 ------
+
+To install the latest official version, use NPM:
+
     npm install jasmine-node -g
+
+To install the latest _bleeding edge_ version, clone this repository and check
+out the `beta` branch.
 
 usage
 ------
@@ -37,10 +48,18 @@ You can supply the following arguments:
   * <code>--color</code>, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
   * <code>--noColor</code>, do not use color in the output
+  * <code>-m, --match REGEXP</code>, match only specs comtaining "REGEXPspec"
+  * <code>--matchall</code>, relax requirement of "spec" in spec file names
   * <code>--verbose</code>, verbose output as the specs are run
-  * <code>--junitreport</code>, export tests results as junitreport xml format'
+  * <code>--junitreport</code>, export tests results as junitreport xml format
+  * <code>--output FOLDER</code>, defines the output folder for junitreport files
+  * <code>--teamcity</code>, converts all console output to teamcity custom test runner commands. (Normally auto detected.)
+  * <code>--runWithRequireJs</code>, loads all specs using requirejs instead of node's native require method
+  * <code>--requireJsSetup</code>, file run before specs to include and configure RequireJS
+  * <code>--test-dir</code>, the absolute root directory path where tests are located
+  * <code>--nohelpers</code>, does not load helpers
+  * <code>--forceexit</code>, force exit once tests complete
 
-Checkout spec/SampleSpecs.js to see how to use it.
 
 async tests
 -----------
@@ -68,6 +87,18 @@ interval in the specification.
       }, 250);  // timeout after 250 ms
     });
 
+Checkout spec/SampleSpecs.js to see how to use it.
+
+requirejs
+---------
+
+There is a sample project in `/spec-requirejs`. It is comprised of:
+
+1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
+1.  `requirejs-wrapper-template`, this builds up requirejs settings
+1.  `requirejs.sut.js`, this is a __S__ubject __T__o __T__est, something required by requirejs
+1.  `requirejs.spec.js`, the actual jasmine spec for testing
+
 development
 -----------
 
@@ -77,13 +108,16 @@ Install the dependent packages by running:
 
 Run the specs before you send your pull request:
 
-    scripts/specs
+    specs.sh
 
-or
+__Note:__ Some tests are designed to fail in the specs.sh. After each of the
+individual runs completes, there is a line that lists what the expected
+Pass/Assert/Fail count should be. If you add/remove/edit tests, please be sure
+to update this with your PR.
 
-    scripts/specs --verbose
 
 changelog
 ---------
 
+*  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_
 *  _1.1.0 - Updated Jasmine to 1.3.1, fixed fs missing, catching uncaught exceptions, other fixes_
