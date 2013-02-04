@@ -126,6 +126,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.2.1 - Emergency fix for path reference missing_
 *  _1.2.0 - Fixed #149, #152, #171, #181, #195. --autotest now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_
 *  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_
 *  _1.1.0 - Updated Jasmine to 1.3.1, fixed fs missing, catching uncaught exceptions, other fixes_
