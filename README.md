@@ -66,7 +66,7 @@ indicates passing (green) or failing (red) specs
   * <code>--test-dir</code>, the absolute root directory path where tests are located
   * <code>--nohelpers</code>, does not load helpers
   * <code>--forceexit</code>, force exit once tests complete
-
+  * <code>--captureExceptions</code>, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
 
 async tests
 -----------
@@ -126,6 +126,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_
+*  _1.2.1 - Emergency fix for path reference missing_
 *  _1.2.0 - Fixed #149, #152, #171, #181, #195. --autotest now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_
 *  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_
 *  _1.1.0 - Updated Jasmine to 1.3.1, fixed fs missing, catching uncaught exceptions, other fixes_

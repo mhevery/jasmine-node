@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Mike Swift <theycallmeswift@gmail.com> (http://theycallmeswift.com)"
