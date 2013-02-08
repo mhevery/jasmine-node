@@ -57,3 +57,25 @@ describe("Top level describe block", function() {
     expect(true).toEqual(true);
   });
 });
+
+describe('async', function () {
+
+    var request = function (str, func) {
+        func('1', '2', 'hello world');
+    };
+
+    it("should respond with hello world", function(done) {
+        request("http://localhost:3000/hello", function(error, response, body){
+            expect(body).toEqual("hello world");
+            done();
+        });
+    });
+
+    it("should respond with hello world", function(done) {
+        request("http://localhost:3000/hello", function(error, response, body){
+            expect(body).toEqual("hello world");
+            done();
+        });
+    }, 250); // timeout after 250 ms
+
+});
