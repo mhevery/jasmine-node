@@ -14,10 +14,14 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Terminal Reporters are now available in the Jasmine Object #184
+*  Done is now available in all timeout specs #199
+*  <code>afterEach</code> is available in requirejs #179
+*  Editors that replace instead of changing files should work with autotest #198
 *  Jasmine Mock Clock now works!
 *  Autotest now works!
 *  Using the latest Jasmine!
-*  Verbose mode tabs describe blocks much more accurately!
+*  Verbose mode tabs <code>describe</code> blocks much more accurately!
 *  Now with more exclamation points!!
 
 install
@@ -126,6 +130,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
 *  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_
 *  _1.2.1 - Emergency fix for path reference missing_
 *  _1.2.0 - Fixed #149, #152, #171, #181, #195. --autotest now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_
