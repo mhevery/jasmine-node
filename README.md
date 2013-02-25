@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  --config flag that allows you to assign variables to process.env
 *  Terminal Reporters are now available in the Jasmine Object #184
 *  Done is now available in all timeout specs #199
 *  <code>afterEach</code> is available in requirejs #179
@@ -71,6 +72,7 @@ indicates passing (green) or failing (red) specs
   * <code>--nohelpers</code>, does not load helpers
   * <code>--forceexit</code>, force exit once tests complete
   * <code>--captureExceptions</code>, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
+  * <code>--config NAME VALUE</code>, set a global variable in process.env
 
 async tests
 -----------
@@ -130,6 +132,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.3.0 - Added --config flag for changeable testing environments_
 *  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
 *  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_
 *  _1.2.1 - Emergency fix for path reference missing_
