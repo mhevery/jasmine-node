@@ -64,7 +64,7 @@ describe('async-callback', function() {
         expect(firstResult(env.currentRunner()).message).toEqual("Failed asynchronously");
       });
     });
-    
+
 
     it("should finish after callback is called", function() {
       env.describe("it", function() {
@@ -86,6 +86,30 @@ describe('async-callback', function() {
         expect(env.currentRunner().results().passedCount).toEqual(1);
       });
     });
+
+      it('should run in the context of the current spec', function(){
+          var actualContext;
+          var jasmineSpecContext;
+          env.describe("it", function() {
+              env.it("register context", function(done) {
+                  actualContext = this;
+                  jasmineSpecContext = env.currentSpec;
+                  env.expect(this).toBe(jasmineSpecContext);
+                  done();
+              });
+          });
+
+          env.currentRunner().execute();
+
+          waitsFor(function() {
+              return env.currentRunner().results().totalCount > 0;
+          }, 'tested jasmine env runner to run the test', 100);
+
+          runs(function() {
+              expect(actualContext).not.toBe(global);
+              expect(actualContext).toBe(jasmineSpecContext);
+          });
+      });
 
   });
 
