@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Async tests now run in the expected context instead of the global one
 *  --config flag that allows you to assign variables to process.env
 *  Terminal Reporters are now available in the Jasmine Object #184
 *  Done is now available in all timeout specs #199
@@ -132,6 +133,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
 *  _1.3.0 - Added --config flag for changeable testing environments_
 *  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
 *  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_
