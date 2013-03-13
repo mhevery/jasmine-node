@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Ability to suppress stack trace with <code>--noStack</code>
 *  Async tests now run in the expected context instead of the global one
 *  --config flag that allows you to assign variables to process.env
 *  Terminal Reporters are now available in the Jasmine Object #184
@@ -74,6 +75,7 @@ indicates passing (green) or failing (red) specs
   * <code>--forceexit</code>, force exit once tests complete
   * <code>--captureExceptions</code>, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
   * <code>--config NAME VALUE</code>, set a global variable in process.env
+  * <code>--noStack</code>, suppress the stack trace generated from a test failure
 
 async tests
 -----------
@@ -133,6 +135,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas)_
 *  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
 *  _1.3.0 - Added --config flag for changeable testing environments_
 *  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
