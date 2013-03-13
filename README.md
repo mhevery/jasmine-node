@@ -135,7 +135,7 @@ to update this with your PR.
 changelog
 ---------
 
-*  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas)_
+*  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))_
 *  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
 *  _1.3.0 - Added --config flag for changeable testing environments_
 *  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
