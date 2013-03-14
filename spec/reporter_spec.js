@@ -19,6 +19,12 @@ describe('TerminalReporter', function() {
       expect(this.reporter.color_).toEqual(jasmineNode.TerminalReporter.prototype.ANSIColors);
     });
 
+    it('initializes includeStackTrace_ from config', function () {
+        var config = {}
+        this.reporter = new jasmineNode.TerminalReporter(config);
+        expect(this.reporter.includeStackTrace_).toBeTruthy();
+    });
+
     it('sets the started_ flag to false', function() {
       var config = {}
       this.reporter = new jasmineNode.TerminalReporter(config);
@@ -297,6 +303,38 @@ describe('TerminalReporter', function() {
       expect(this.printSpy).toHaveBeenCalled();
       expect(this.printSpy.argsForCall[0]).toEqual(['Failures:']);
       expect(this.printSpy.argsForCall[1]).toEqual(['     the stackTrace']);
+    });
+
+    it('prints the failures without a Stacktrace', function () {
+        var config = { includeStackTrace: false };
+        this.reporter = new jasmineNode.TerminalReporter(config);
+        this.printSpy = spyOn(this.reporter, 'print_');
+        this.printLineSpy = spyOn(this.reporter, 'printLine_');
+
+        var failure = {
+            spec: 'the spec',
+            message: 'the message',
+            stackTrace: 'the stackTrace'
+        }
+
+        this.reporter.failures_ = new Array();
+        this.reporter.failures_.push(failure);
+
+        this.reporter.reportFailures_();
+
+        var generatedOutput =
+                 [ [ '\n' ],
+                 [ '\n' ],
+                 [ '  1) the spec' ],
+                 [ '   Message:' ],
+                 [ '     the message' ] ];
+
+        expect(this.printLineSpy).toHaveBeenCalled();
+        expect(this.printLineSpy.argsForCall).toEqual(generatedOutput);
+
+        expect(this.printSpy).toHaveBeenCalled();
+        expect(this.printSpy.argsForCall[0]).toEqual(['Failures:']);
+        expect(this.printSpy.argsForCall[1]).toBeUndefined();
     });
   });
 });
