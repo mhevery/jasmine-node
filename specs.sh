@@ -29,3 +29,9 @@ command=$entry"--runWithRequireJs --requireJsSetup spec-requirejs-coffee/require
 echo $command
 time $command
 echo -e "\033[1;35m--- Should have 2 tests and 4 assertions and 0 Failure. ---\033[0m"
+
+echo "Running three specs file in the spec directory with coffee option"
+command=$entry"--coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpecs.js"
+echo $command
+time $command
+echo -e "\033[1;35m--- Should have 3 tests and 3 assertions and 2 Failure. ---\033[0m"
