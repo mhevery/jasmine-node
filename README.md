@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Ability to specify multiple files to test via list in command line
 *  Ability to suppress stack trace with <code>--noStack</code>
 *  Async tests now run in the expected context instead of the global one
 *  --config flag that allows you to assign variables to process.env
@@ -40,7 +41,7 @@ out the `beta` branch.
 usage
 ------
 
-Write the specifications for your code in *.js and *.coffee files in the
+Write the specifications for your code in \*.js and \*.coffee files in the
 spec/ directory (note: your specification files must end with either
 .spec.js or .spec.coffee; otherwise jasmine-node won't find them!). You
 can use sub-directories to better organise your specs.
@@ -77,6 +78,12 @@ indicates passing (green) or failing (red) specs
   * <code>--config NAME VALUE</code>, set a global variable in process.env
   * <code>--noStack</code>, suppress the stack trace generated from a test failure
 
+Individual files to test can be added as bare arguments to the end of the args.
+
+Example:
+
+`jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpecs.js`
+
 async tests
 -----------
 
@@ -112,7 +119,7 @@ There is a sample project in `/spec-requirejs`. It is comprised of:
 
 1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
 1.  `requirejs-wrapper-template`, this builds up requirejs settings
-1.  `requirejs.sut.js`, this is a __Su__bject To __T__est, something required by requirejs
+1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs
 1.  `requirejs.spec.js`, the actual jasmine spec for testing
 
 development
@@ -135,6 +142,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_
 *  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))_
 *  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
 *  _1.3.0 - Added --config flag for changeable testing environments_
