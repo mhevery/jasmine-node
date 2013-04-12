@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
 *  Ability to suppress stack trace with <code>--noStack</code>
 *  Async tests now run in the expected context instead of the global one
@@ -26,7 +27,6 @@ what's new
 *  Autotest now works!
 *  Using the latest Jasmine!
 *  Verbose mode tabs <code>describe</code> blocks much more accurately!
-*  Now with more exclamation points!!
 
 install
 ------
@@ -142,6 +142,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
+*  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
 *  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_
 *  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))_
 *  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
