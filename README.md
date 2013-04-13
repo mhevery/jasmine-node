@@ -27,6 +27,7 @@ what's new
 *  Autotest now works!
 *  Using the latest Jasmine!
 *  Verbose mode tabs <code>describe</code> blocks much more accurately!
+*  --coffee now allows specs written in Literate CoffeeScript (.litcoffee)
 
 install
 ------
@@ -43,8 +44,7 @@ usage
 
 Write the specifications for your code in \*.js and \*.coffee files in the
 spec/ directory (note: your specification files must end with either
-.spec.js or .spec.coffee; otherwise jasmine-node won't find them!). You
-can use sub-directories to better organise your specs.
+.spec.js, .spec.coffee or .spec.litcoffee; otherwise jasmine-node won't find them!). You can use sub-directories to better organise your specs.
 
 If you have installed the npm package, you can run it with:
 
@@ -59,7 +59,7 @@ environment variable, then run:
 You can supply the following arguments:
 
   * <code>--autotest</code>, provides automatic execution of specs after each change
-  * <code>--coffee</code>, allow execution of .coffee specs
+  * <code>--coffee</code>, allow execution of .coffee and .litcoffee specs
   * <code>--color</code>, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
   * <code>--noColor</code>, do not use color in the output
