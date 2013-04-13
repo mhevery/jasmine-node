@@ -1,7 +1,7 @@
-Literal CoffeeScript
+Literate CoffeeScript
 ====================
 
-This is a spec using written in Literal CoffeeScript
+This is a spec using written in Literate CoffeeScript
 
     describe 'Coffee.litcoffee', ->
 
