@@ -14,6 +14,7 @@ Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Ability to test specs written in Literate Coffee-Script
 *  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
 *  Ability to suppress stack trace with <code>--noStack</code>
@@ -142,6 +143,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_
 *  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
 *  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
 *  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_
