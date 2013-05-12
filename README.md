@@ -143,6 +143,9 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.7.1 - Removed unneeded fs dependency (thanks to
+   [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
+   node 0.6 (thanks to [abe33](https://github.com/abe33))_
 *  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_
 *  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
 *  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
