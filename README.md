@@ -60,6 +60,8 @@ environment variable, then run:
 You can supply the following arguments:
 
   * <code>--autotest</code>, provides automatic execution of specs after each change
+  * <code>--watch</code>, when used with <code>--autotest</code>, paths after <code>--watch</code> will be 
+watched for changes, allowing to watch for changes outside of specs directory
   * <code>--coffee</code>, allow execution of .coffee and .litcoffee specs
   * <code>--color</code>, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
