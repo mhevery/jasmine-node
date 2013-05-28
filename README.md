@@ -145,6 +145,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.8.0 - Fixed bug in autotest with multiple paths and added --watch feature
+    (thanks to [davegb3](https://github.com/davegb3))_
 *  _1.7.1 - Removed unneeded fs dependency (thanks to
    [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
    node 0.6 (thanks to [abe33](https://github.com/abe33))_

@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Chris Moultrie <chris@moultrie.org>"
@@ -18,7 +18,10 @@
     "bdd"
   ],
   "author": "Misko Hevery <misko@hevery.com>",
-  "maintainers": "Martin Häger <martin.haeger@gmail.com>",
+  "maintainers": [
+    "Martin Häger <martin.haeger@gmail.com>",
+    "Chris Moultrie <chris@moultrie.org>"
+  ],
   "licenses": [
     "MIT"
   ],
