@@ -5,10 +5,7 @@
   "contributors": [
     "Chris Moultrie <chris@moultrie.org>"
   ],
-  "homepage": [
-    "http://pivotal.github.com/jasmine",
-    "https://github.com/mhevery/jasmine-node"
-  ],
+  "homepage": "https://github.com/mhevery/jasmine-node",
   "repository": {
     "type": "git",
     "url": "https://github.com/mhevery/jasmine-node.git"
