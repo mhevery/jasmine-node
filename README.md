@@ -104,7 +104,7 @@ asynchronously waiting until the done() callback is called.
 ```
 
 An asynchronous test will fail after 5000 ms if done() is not called. This timeout
-can be changed by setting jasmine.DEFAULT_TIMEOUT_INTERVAL or by passing a timeout
+can be changed by setting `jasmine.getEnv().defaultTimeoutInterval` or by passing a timeout
 interval in the specification.
 
     it("should respond with hello world", function(done) {
@@ -113,13 +113,17 @@ interval in the specification.
       }, 250);  // timeout after 250 ms
     });
 
+or
+
+    jasmine.getEnv().defaultTimeoutInterval = 500;
+    
+    it("should respond with hello world", function(done) {
+      request("http://localhost:3000/hello", function(error, response, body){
+        done();
+      });  // timeout after 500 ms
+    });
+
 Checkout spec/SampleSpecs.js to see how to use it.
-
-The default timeout interval can be changed like the following inside of a
-describe block:
-
-`jasmine.getEnv().defaultTimeoutInterval = myPreferredTimeoutInMillisecs;`
-
 
 
 requirejs
@@ -187,7 +191,8 @@ to update this with your PR.
 changelog
 ---------
 
-*  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md_
+*  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md,
+   printing version with `--version`_
 *  _1.8.1 - Fixed silent failure due to invalid REGEX (thanks to
    [pimterry](https://github.com/pimterry))_
 *  _1.8.0 - Fixed bug in autotest with multiple paths and added --watch feature
