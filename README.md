@@ -115,6 +115,13 @@ interval in the specification.
 
 Checkout spec/SampleSpecs.js to see how to use it.
 
+The default timeout interval can be changed like the following inside of a
+describe block:
+
+`jasmine.getEnv().defaultTimeoutInterval = myPreferredTimeoutInMillisecs;`
+
+
+
 requirejs
 ---------
 
@@ -124,6 +131,41 @@ There is a sample project in `/spec-requirejs`. It is comprised of:
 1.  `requirejs-wrapper-template`, this builds up requirejs settings
 1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs
 1.  `requirejs.spec.js`, the actual jasmine spec for testing
+
+exceptions
+----------
+
+Often you'll want to capture an uncaught exception and log it to the console,
+this is accomplished by using the `--captureExceptions` flag. Exceptions will
+be reported to the console, but jasmine-node will attempt to recover and
+continue. It was decided to not change the current functionality until 2.0. So,
+until then, jasmine-node will still return 0 and continue on without this flag.
+
+### Scenario ###
+
+You require a module, but it doesn't exist, ie `require('Q')` instead of
+`require('q')`. Jasmine-Node reports the error to the console, but carries on
+and returns 0. This messes up Travis-CI because you need it to return a
+non-zero status while doing CI tests.
+
+### Mitigation ###
+
+Before `--captureExceptions`
+
+```sh
+> jasmine-node --coffee spec
+> echo $status
+0
+```
+
+Run jasmine node with the `--captureExceptions` flag.
+
+```sh
+> jasmine-node --coffee --captureExceptions spec
+> echo $status
+1
+```
+
 
 development
 -----------
@@ -145,6 +187,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md_
 *  _1.8.1 - Fixed silent failure due to invalid REGEX (thanks to
    [pimterry](https://github.com/pimterry))_
 *  _1.8.0 - Fixed bug in autotest with multiple paths and added --watch feature
