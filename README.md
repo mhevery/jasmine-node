@@ -109,13 +109,20 @@ An asynchronous test will fail after 5000 ms if done() is not called. This timeo
 can be changed by setting `jasmine.getEnv().defaultTimeoutInterval` or by passing a timeout
 interval in the specification.
 
+```javascript
+    var request = require('request');
+
     it("should respond with hello world", function(done) {
       request("http://localhost:3000/hello", function(error, response, body){
         done();
       }, 250);  // timeout after 250 ms
     });
+```
 
 or
+
+```javascript
+    var request = require('request');
 
     jasmine.getEnv().defaultTimeoutInterval = 500;
     
@@ -124,6 +131,7 @@ or
         done();
       });  // timeout after 500 ms
     });
+```
 
 Checkout spec/SampleSpecs.js to see how to use it.
 
