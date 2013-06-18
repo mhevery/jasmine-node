@@ -201,6 +201,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.9.1 - Timeout now consistent between Async and Non-Async Calls (thanks to
+   [codemnky](https://github.com/codemnky))_
 *  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md,
    printing version with `--version`_
 *  _1.8.1 - Fixed silent failure due to invalid REGEX (thanks to

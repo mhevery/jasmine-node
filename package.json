@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Chris Moultrie <chris@moultrie.org>"
