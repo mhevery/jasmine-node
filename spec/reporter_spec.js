@@ -251,7 +251,15 @@ describe('TerminalReporter', function() {
         },
         specs: function() {
           var _specs = new Array();
-          _specs.push(1);
+          spec = {
+            results: function() {
+              var _results = {
+                skipped: false
+              }
+              return _results;
+            }
+          };
+          _specs.push(spec);
           return _specs;
         }
       };
@@ -259,7 +267,7 @@ describe('TerminalReporter', function() {
 
     it('uses the specs\'s length, totalCount and failedCount', function() {
       var message = this.reporter.printRunnerResults_(this.runner);
-      expect(message).toEqual('1 test, 23 assertions, 52 failures\n');
+      expect(message).toEqual('1 test, 23 assertions, 52 failures, 0 skipped\n');
     });
   });
 
