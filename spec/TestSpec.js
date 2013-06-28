@@ -5,6 +5,24 @@ describe('jasmine-node-flat', function(){
   });
 });
 
+describe('beforeEach Timeout', function(){
+  beforeEach(function(done) {
+      setTimeout(done, 1000);
+  }, 100);
+  it('should fail', function(){
+    expect(1+2).toEqual(3);
+  });
+});
+
+describe('afterEach Timeout', function(){
+  afterEach(function(done) {
+      setTimeout(done, 1000);
+  }, 100);
+  it('should pass and then afterEach will fail', function(){
+    expect(1+2).toEqual(3);
+  });
+});
+
 describe('Testing some characters', function()  {
     var chars = ['&', '\'', '"', '<', '>'];
     for(var i = 0; i < chars.length; i+=1)  {
