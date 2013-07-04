@@ -146,6 +146,10 @@ There is a sample project in `/spec-requirejs`. It is comprised of:
 1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs
 1.  `requirejs.spec.js`, the actual jasmine spec for testing
 
+To run it:
+
+    node lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/
+
 exceptions
 ----------
 
