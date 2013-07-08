@@ -205,6 +205,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.10.2 - Restored stack filter which was accidentally removed (thanks to
+   [kevinsawicki](https://github.com/kevinsawicki))_
 *  _1.10.1 - `beforeEach` and `afterEach` now properly handle the async-timeout function_
 *  _1.10.0 - Skipped tests now show in the terminal reporter's output (thanks
    to [kevinsawicki](https://github.com/kevinsawicki))_
