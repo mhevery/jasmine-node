@@ -72,6 +72,7 @@ indicates passing (green) or failing (red) specs
   * <code>--junitreport</code>, export tests results as junitreport xml format
   * <code>--output FOLDER</code>, defines the output folder for junitreport files
   * <code>--teamcity</code>, converts all console output to teamcity custom test runner commands. (Normally auto detected.)
+  * <code>--growl</code>, display test run summary in a growl notification (in addition to other outputs)
   * <code>--runWithRequireJs</code>, loads all specs using requirejs instead of node's native require method
   * <code>--requireJsSetup</code>, file run before specs to include and configure RequireJS
   * <code>--test-dir</code>, the absolute root directory path where tests are located
@@ -183,6 +184,15 @@ Run jasmine node with the `--captureExceptions` flag.
 > echo $status
 1
 ```
+
+
+growl notifications
+-------------------
+
+Jasmine node can display [Growl](http://growl.info) notifications of test
+run summaries in addition to other reports.
+Growl must be installed separately, see [node-growl](https://github.com/visionmedia/node-growl)
+for platform-specific instructions. Pass the `--growl` flag to enable the notifications.
 
 
 development
