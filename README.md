@@ -186,6 +186,15 @@ Run jasmine node with the `--captureExceptions` flag.
 ```
 
 
+growl notifications
+-------------------
+
+Jasmine node can display [Growl](http://growl.info) notifications of test
+run summaries in addition to other reports.
+Growl must be installed separately, see [node-growl](https://github.com/visionmedia/node-growl)
+for platform-specific instructions. Pass the `--growl` flag to enable the notifications.
+
+
 development
 -----------
 
