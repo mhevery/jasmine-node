@@ -10,7 +10,7 @@ node.js.
 jasmine
 -------
 
-Version 1.3.1 of Jasmine is currently included with node-jasmine.
+Version `1.3.1` of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
@@ -45,10 +45,13 @@ out the `beta` branch.
 usage
 ------
 
-Write the specifications for your code in `*.js` and `*.coffee` files in the
-`spec/` directory (note: your specification files must end with either
-`.spec.js`, `.spec.coffee` or `.spec.litcoffee`; otherwise jasmine-node won't find them!).
+Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
 You can use sub-directories to better organise your specs.
+
+**Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
+which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
+otherwise jasmine-node won't find them!
+For example, `sampleSpecs.js` is wrong, `sampleSpec.js` is right.
 
 If you have installed the npm package, you can run it with:
 
@@ -93,7 +96,7 @@ Individual files to test can be added as bare arguments to the end of the args.
 Example:
 
 ```bash
-jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpecs.js
+jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
 
 async tests
@@ -167,14 +170,14 @@ exceptions
 Often you'll want to capture an uncaught exception and log it to the console,
 this is accomplished by using the `--captureExceptions` flag. Exceptions will
 be reported to the console, but jasmine-node will attempt to recover and
-continue. It was decided to not change the current functionality until 2.0. So,
-until then, jasmine-node will still return 0 and continue on without this flag.
+continue. It was decided to not change the current functionality until `2.0`. So,
+until then, jasmine-node will still return `0` and continue on without this flag.
 
 ### Scenario ###
 
 You require a module, but it doesn't exist, ie `require('Q')` instead of
 `require('q')`. Jasmine-Node reports the error to the console, but carries on
-and returns 0. This messes up Travis-CI because you need it to return a
+and returns `0`. This messes up Travis-CI because you need it to return a
 non-zero status while doing CI tests.
 
 ### Mitigation ###
@@ -235,7 +238,7 @@ changelog
     (thanks to [davegb3](https://github.com/davegb3))_
 *  _1.7.1 - Removed unneeded fs dependency (thanks to
    [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
-   node 0.6 (thanks to [abe33](https://github.com/abe33))_
+   node `0.6` (thanks to [abe33](https://github.com/abe33))_
 *  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_
 *  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
 *  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
