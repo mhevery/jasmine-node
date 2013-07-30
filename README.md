@@ -14,6 +14,7 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
+*  Growl notifications with the `--growl` flat (requires Growl to be installed)
 *  Ability to test specs written in Literate Coffee-Script
 *  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
