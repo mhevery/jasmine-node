@@ -14,7 +14,7 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine.
 
 what's new
 ----------
-*  Growl notifications with the `--growl` flat (requires Growl to be installed)
+*  Growl notifications with the `--growl` flag (requires Growl to be installed)
 *  Ability to test specs written in Literate Coffee-Script
 *  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
@@ -47,7 +47,8 @@ usage
 ------
 
 Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
-You can use sub-directories to better organise your specs.
+You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly 
+as you would in client-side jasmine specs.
 
 **Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
 which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
