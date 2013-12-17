@@ -234,6 +234,11 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.2.0_
+  *  Changed `util.print` to `stdout.write` (thanks to [nrstott](https://github.com/nrstott))
+  *  Don’t affect line numbers with --requireJsSetup (thanks to [daviddaurelio](https://github.com/davidaurelio))
+  *  Catch errors when loading helpers (thanks to [pimterry](https://github.com/pimterry))
+  *  Keep autotesting until all tests have passed (thanks to [notclive](https://github.com/notclive))
 *  _1.11.0 - Added Growl notification option `--growl` (thanks to
    [AlphaHydrae](https://github.com/AlphaHydrae))_
 *  _1.10.2 - Restored stack filter which was accidentally removed (thanks to
