@@ -235,7 +235,7 @@ to update this with your PR.
 changelog
 ---------
 
-*  _1.2.0_
+*  _1.12.0_
   *  Changed `util.print` to `stdout.write` (thanks to [nrstott](https://github.com/nrstott))
   *  Don’t affect line numbers with --requireJsSetup (thanks to [daviddaurelio](https://github.com/davidaurelio))
   *  Catch errors when loading helpers (thanks to [pimterry](https://github.com/pimterry))
