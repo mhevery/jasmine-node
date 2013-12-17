@@ -1,9 +1,10 @@
 {
   "name": "jasmine-node",
-  "version": "1.11.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/mhevery/jasmine-node",
   "authors": [
-    "Chris M <http://www.endgame.com"
+    "Misko Hevery <https://github.com/mhevery>",
+    "Chris M <http://www.endgame.com>"
   ],
   "description": "Integration of Jasmine Spec framework with Node.js",
   "main": "lib/jasmine-node",
