@@ -47,7 +47,8 @@ usage
 ------
 
 Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
-You can use sub-directories to better organise your specs.
+You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly 
+as you would in client-side jasmine specs.
 
 **Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
 which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
