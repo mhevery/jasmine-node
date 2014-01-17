@@ -383,6 +383,7 @@ describe('TerminalVerboseReporter', function() {
   describe('#buildMessagesFromResults_', function() {
     beforeEach(function() {
       this.suite = {
+        id: 17,
         type: 'suite',
         name: 'a describe block',
         suiteNestingLevel: 0,
@@ -398,7 +399,12 @@ describe('TerminalVerboseReporter', function() {
       };
 
       this.verboseReporter.specResults_['23'] = {
-        result: 'passed'
+        result: 'passed',
+        runtime: 200
+      };
+
+      this.verboseReporter.suiteResults_['17'] = {
+        runtime: 500
       };
 
     });
@@ -422,7 +428,7 @@ describe('TerminalVerboseReporter', function() {
 
       expect(messages.length).toEqual(2);
       expect(messages[0]).toEqual('');
-      expect(messages[1]).toEqual('a describe block');
+      expect(messages[1]).toEqual('a describe block - 500 ms');
     });
 
     it('adds a single spec with success to the messages', function() {
@@ -437,7 +443,7 @@ describe('TerminalVerboseReporter', function() {
 
       expect(this.passSpy).toHaveBeenCalled();
       expect(messages.length).toEqual(1);
-      expect(messages[0]).toEqual('a spec block');
+      expect(messages[0]).toEqual('a spec block - 200 ms');
     });
 
     it('adds a single spec with failure to the messages', function() {
@@ -462,6 +468,7 @@ describe('TerminalVerboseReporter', function() {
           messages = [];
 
       var subSuite = new Object();
+      subSuite.id = '29';
       subSuite.type = 'suite';
       subSuite.name = 'a sub describe block';
       subSuite.suiteNestingLevel = 1;
@@ -471,14 +478,18 @@ describe('TerminalVerboseReporter', function() {
       this.suite.children.push(subSuite);
       results.push(this.suite);
 
+      this.verboseReporter.suiteResults_['29'] = {
+        runtime: 350
+      };
+
       this.verboseReporter.buildMessagesFromResults_(messages, results);
 
       expect(messages.length).toEqual(5);
       expect(messages[0]).toEqual('');
-      expect(messages[1]).toEqual('a describe block');
+      expect(messages[1]).toEqual('a describe block - 500 ms');
       expect(messages[2]).toEqual('');
-      expect(messages[3]).toEqual('    a sub describe block');
-      expect(messages[4]).toEqual('        a spec block');
+      expect(messages[3]).toEqual('    a sub describe block - 350 ms');
+      expect(messages[4]).toEqual('        a spec block - 200 ms');
     });
   });
 });
