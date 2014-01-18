@@ -235,6 +235,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful
+   exception in --watch Resolves #278
 *  _1.12.0_
   *  Changed `util.print` to `stdout.write` (thanks to [nrstott](https://github.com/nrstott))
   *  Don’t affect line numbers with --requireJsSetup (thanks to [daviddaurelio](https://github.com/davidaurelio))
