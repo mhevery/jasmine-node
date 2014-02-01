@@ -235,6 +235,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
 *  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
 *  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful
    exception in --watch Resolves #278
