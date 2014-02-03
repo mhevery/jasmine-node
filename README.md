@@ -3,14 +3,15 @@ jasmine-node
 
 [![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
 
-This node.js module makes the wonderful Pivotal Lab's jasmine
-(http://github.com/pivotal/jasmine) spec framework available in
-node.js.
+This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
+spec framework available in node.js.
 
 jasmine
 -------
 
-Version `1.3.1` of Jasmine is currently included with node-jasmine.
+Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a forked version from the
+[Karma project](https://github.com/karma-runner/karma-jasmine), which allows you to use the
+`ddescribe` and `iit` functions to run individual suites or specs.
 
 what's new
 ----------
@@ -47,7 +48,7 @@ usage
 ------
 
 Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
-You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly 
+You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly
 as you would in client-side jasmine specs.
 
 **Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
