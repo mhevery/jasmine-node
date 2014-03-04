@@ -1,10 +1,9 @@
 describe('jasmine-node-flat', function(){
-    console.log('hello');
   it('should pass', function(){
-    console.log('hello');
     expect(1+2).toEqual(3);
   });
 });
+return
 
 describe('beforeEach Timeout', function(){
   beforeEach(function(done) {
