@@ -1,7 +1,7 @@
 NOTE
 ====
 
-This branch is broken and in-development. Not recommended for use
+This branch is in-development. Not recommended for use
 
 jasmine-node
 ======
