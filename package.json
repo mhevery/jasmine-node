@@ -26,7 +26,6 @@
     "coffee-script": ">=1.0.1",
     "jasmine-reporters": ">=0.2.0",
     "jasmine-growl-reporter": "~0.0.2",
-    "requirejs": ">=0.27.1",
     "walkdir": ">= 0.0.1",
     "underscore": "^1.6.0",
     "gaze": "~0.3.2",
