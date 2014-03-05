@@ -25,12 +25,6 @@ describe('TerminalReporter', function() {
         expect(this.reporter.config.includeStackTrace).toBeTruthy();
     });
 
-    it('initializes the suites hash', function() {
-      var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
-      expect(this.reporter.suites).toEqual({});
-    });
-
     it('initializes the specCounts to an Object', function() {
       var config = {}
       this.reporter = new jasmineNode.TerminalReporter(config);
@@ -75,7 +69,7 @@ describe('TerminalReporter', function() {
           "status": ""
       };
       this.reporter.suiteStarted(suite);
-      expect(this.reporter.suites['suite1']).toEqual(suite);
+      expect(this.reporter.suiteTimes['suite1']).toEqual(jasmine.any(Number));
     });
   });
 });

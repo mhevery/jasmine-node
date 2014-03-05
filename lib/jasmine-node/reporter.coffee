@@ -28,6 +28,7 @@ class TerminalReporter
         defaults =
             callback: noOp
             includeStackTrace: true
+            verbose: false
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
@@ -37,14 +38,14 @@ class TerminalReporter
         @config = _.defaults @config, defaults
         @config.color = if @config.color then @ANSIColors else @NoColors
 
-        @specResults = ''
         @counts =
             tests: 0
             failures: 0
             skipped: 0
-        @suites = {}
         @allSpecs = {}
+        @suiteNestLevel = 0
         @done = false
+        @suiteTimes = {}
 
         return
 
@@ -90,9 +91,20 @@ class TerminalReporter
     #       "status": ""
     #   }
     suiteStarted: (suite) =>
-        @suites[suite.id] = suite
+        @suiteTimes[suite.id] = +new Date
+        @printVerboseSuiteStart(suite) if @config.verbose
+        @suiteNestLevel++
+        suite.parent = @currentSuite
         @currentSuite = suite
         return
+
+    # Prints the suite name
+    printVerboseSuiteStart: (suite) ->
+        msg = ''
+        for i in [0..@suiteNestLevel]
+            msg += "  "
+        msg += @stringWithColor "#{suite.description} Start\n", @config.color.ignore()
+        @config.print msg
 
     # Callback for when a suite is finished running
     # Note: nested suites will finish before their parents, maybe this will be
@@ -105,7 +117,24 @@ class TerminalReporter
     #       "status": ""
     #   }
     suiteDone: (suite) =>
+        # Suite done gets called multiple times, just take the first one
+        return unless @suiteTimes[suite.id]
+        @suiteNestLevel--
+        @suiteTimes[suite.id] = (+new Date) - @suiteTimes[suite.id]
+        if @config.verbose
+            @printVerboseSuiteDone suite
+        delete @suiteTimes[suite.id]
+        @currentSuite = @currentSuite.parent ? null
         return
+
+    # Prints the suite name + time
+    printVerboseSuiteDone: (suite) ->
+        msg = ''
+        for i in [0..@suiteNestLevel]
+            msg += "  "
+        msg += @stringWithColor "#{suite.description} Finish", @config.color.ignore()
+        msg += @stringWithColor " - #{@suiteTimes[suite.id]} ms\n\n", @config.color.suiteTiming()
+        @config.print msg
 
     # Example Packet:
     #   {
@@ -115,6 +144,7 @@ class TerminalReporter
     #       "id": "spec1"
     #   }
     specStarted: (spec) =>
+        @specStart = +new Date
         @counts.tests++
         return
 
@@ -144,8 +174,18 @@ class TerminalReporter
     #       "id": "spec0",
     #       "status": "passed"
     #   }
-    specDone: (spec) ->
+    specDone: (spec) =>
         (@allSpecs[@currentSuite.id] ?= []).push spec
+        if @config.verbose
+            msg = @makeVerbose spec
+        else
+            msg = @makeSimple spec
+
+        @config.print msg
+        return
+
+    # Make a simple printing line
+    makeSimple: (spec) ->
         msg = ''
         switch spec.status
             when 'pending'
@@ -158,9 +198,28 @@ class TerminalReporter
                 msg = @stringWithColor 'F', @config.color.fail()
             else
                 msg = @stringWithColor 'U', @config.color.fail()
-        @specResults += msg
-        @config.print msg
-        return
+        return msg
+
+    makeVerbose: (spec) ->
+        elapsed = (+new Date) - @specStart
+        msg = ''
+        for i in [0..@suiteNestLevel]
+            msg += "  "
+        switch spec.status
+            when 'pending'
+                @counts.skipped++
+                msg += @stringWithColor "#{spec.description}", @config.color.ignore()
+            when 'passed'
+                msg += @stringWithColor "#{spec.description}", @config.color.pass()
+            when 'failed'
+                @counts.failures++
+                msg += @stringWithColor "#{spec.description}", @config.color.fail()
+            else
+                msg += @stringWithColor "#{spec.description}", @config.color.fail()
+
+        msg += @stringWithColor " - #{elapsed} ms\n", @config.color.specTiming()
+
+        return msg
 
     # Print out failed specs
     printFailures: ->
