@@ -49,11 +49,17 @@ class TerminalReporter
 
         return
 
+    # Callback for when Jasmine starts running
+    # Example Packet:
+    #   {
+    #       "totalSpecsDefined": 3
+    #   }
     jasmineStarted: (runner) =>
         @startedAt = +new Date
         return
 
-    jasmineDone: (runner) =>
+    # Callback for when Jasmine is finished running
+    jasmineDone: =>
         now = +new Date
         elapsed = now - @startedAt
 
@@ -74,11 +80,29 @@ class TerminalReporter
         @config.print @stringWithColor results.join(', '), color
         return
 
+    # Callback for when a suite starts running
+    # Example Packet:
+    #   {
+    #       "description": "jasmine-node-flat",
+    #       "fullName": "jasmine-node-flat",
+    #       "id": "suite1",
+    #       "status": ""
+    #   }
     suiteStarted: (suite) =>
         @suites[suite.id] = suite
         @currentSuite = suite
         return
 
+    # Callback for when a suite is finished running
+    # Note: nested suites will finish before their parents, maybe this will be
+    #   useful information?
+    # Example Packet:
+    #   {
+    #       "description": "jasmine-node-flat",
+    #       "fullName": "jasmine-node-flat",
+    #       "id": "suite1",
+    #       "status": ""
+    #   }
     suiteDone: (suite) =>
         return
 
@@ -121,7 +145,7 @@ class TerminalReporter
         return "#{color}#{string}#{@config.color.neutral()}"
 
     # Prints out the status for the completed spec
-    # Example Packet:
+    # Example Failure:
     #   {
     #       "description": "should pass",
     #       "failedExpectations": [
@@ -137,6 +161,14 @@ class TerminalReporter
     #       "fullName": "jasmine-node-flat should pass",
     #       "id": "spec1",
     #       "status": "failed"
+    #   }
+    # Example Success:
+    #   {
+    #       "description": "should pass",
+    #       "failedExpectations": [],
+    #       "fullName": "jasmine-node-flat should pass",
+    #       "id": "spec0",
+    #       "status": "passed"
     #   }
     specDone: (spec) ->
         (@allSpecs[@currentSuite.id] ?= []).push spec
