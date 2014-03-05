@@ -10,7 +10,6 @@ noOp = -> return
 
 class TerminalReporter
     ANSIColors:
-        pass        : (str) -> return str.green
         pass        : -> return '\x1B[32m' # Green
         fail        : -> return '\x1B[31m' # Red
         specTiming  : -> return '\x1B[34m' # Blue
