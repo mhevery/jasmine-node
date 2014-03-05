@@ -27,7 +27,7 @@ class TerminalReporter
     constructor: (@config={}) ->
         defaults =
             callback: noOp
-            includeStackTrace: false
+            includeStackTrace: true
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
@@ -40,11 +40,11 @@ class TerminalReporter
         @specResults = ''
         @counts =
             tests: 0
-            assertions: 0
             failures: 0
             skipped: 0
         @suites = {}
         @allSpecs = {}
+        @done = false
 
         return
 
@@ -59,6 +59,8 @@ class TerminalReporter
 
     # Callback for when Jasmine is finished running
     jasmineDone: =>
+        return if @done
+        @done = true
         now = +new Date
         elapsed = now - @startedAt
 
@@ -67,7 +69,6 @@ class TerminalReporter
         @config.print "\n\nFinished in #{elapsed/1000} seconds\n"
         results = [
             "#{@counts.tests} Tests"
-            "#{null} Assertions"
             "#{@counts.failures} Failures"
             "#{@counts.skipped} Skipped\n\n"
         ]
@@ -77,6 +78,7 @@ class TerminalReporter
             color = @config.color.pass()
 
         @config.print @stringWithColor results.join(', '), color
+        @config.callback?()
         return
 
     # Callback for when a suite starts running
@@ -116,33 +118,6 @@ class TerminalReporter
         @counts.tests++
         return
 
-    # Print out failed specs
-    printFailures: ->
-        return unless @counts.failures > 0
-        @config.print "\n\nFailures:"
-        indent = "  "
-        count = 1
-        for suite, specs of @allSpecs
-            for spec in specs
-                for failure in spec.failedExpectations
-                    @config.print """
-\n
-#{indent}#{count}) #{spec.fullName}
-#{indent}#{indent}Message:
-#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}
-                    """
-                    if @config.includeStackTrace
-                        @config.print """
-\n
-#{indent}#{indent}Stacktrace:
-#{indent}#{indent}#{indent}#{failure.stack}
-                        """
-
-        return
-
-    stringWithColor: (string, color=@config.color.neutral()) ->
-        return "#{color}#{string}#{@config.color.neutral()}"
-
     # Prints out the status for the completed spec
     # Example Failure:
     #   {
@@ -173,7 +148,7 @@ class TerminalReporter
         (@allSpecs[@currentSuite.id] ?= []).push spec
         msg = ''
         switch spec.status
-            when 'skipped'
+            when 'pending'
                 @counts.skipped++
                 msg = @stringWithColor '-', @config.color.ignore()
             when 'passed'
@@ -186,5 +161,33 @@ class TerminalReporter
         @specResults += msg
         @config.print msg
         return
+
+    # Print out failed specs
+    printFailures: ->
+        return unless @counts.failures > 0
+        @config.print "\n\nFailures:"
+        indent = "  "
+        count = 0
+        for suite, specs of @allSpecs
+            for spec in specs
+                for failure in spec.failedExpectations
+                    count++
+                    @config.print """
+\n
+#{indent}#{count}) #{spec.fullName}
+#{indent}#{indent}Message:
+#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}
+                    """
+                    if @config.includeStackTrace
+                        @config.print """
+\n
+#{indent}#{indent}Stacktrace:
+#{indent}#{indent}#{indent}#{failure.stack}
+                        """
+
+        return
+
+    stringWithColor: (string, color=@config.color.neutral()) ->
+        return "#{color}#{string}#{@config.color.neutral()}"
 
 exports.terminalReporters = {TerminalReporter, TerminalVerboseReporter:TerminalReporter}

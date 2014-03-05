@@ -3,7 +3,10 @@ describe("Manually ticking the Jasmine Mock Clock", function() {
 
   beforeEach(function() {
     timerCallback = jasmine.createSpy('timerCallback');
-    jasmine.Clock.useMock();
+    jasmine.clock().install();
+  });
+  afterEach(function() {
+      jasmine.clock().uninstall();
   });
 
   it("causes a timeout to be called synchronously", function() {
@@ -11,7 +14,7 @@ describe("Manually ticking the Jasmine Mock Clock", function() {
 
     expect(timerCallback).not.toHaveBeenCalled();
 
-    jasmine.Clock.tick(101);
+    jasmine.clock().tick(101);
 
     expect(timerCallback).toHaveBeenCalled();
   });
@@ -21,14 +24,14 @@ describe("Manually ticking the Jasmine Mock Clock", function() {
 
     expect(timerCallback).not.toHaveBeenCalled();
 
-    jasmine.Clock.tick(102);
+    jasmine.clock().tick(102);
     expect(timerCallback).toHaveBeenCalled();
-    expect(timerCallback.callCount).toEqual(1);
+    expect(timerCallback.calls.count()).toEqual(1);
 
-    jasmine.Clock.tick(50);
-    expect(timerCallback.callCount).toEqual(1);
+    jasmine.clock().tick(50);
+    expect(timerCallback.calls.count()).toEqual(1);
 
-    jasmine.Clock.tick(50);
-    expect(timerCallback.callCount).toEqual(2);
+    jasmine.clock().tick(50);
+    expect(timerCallback.calls.count()).toEqual(2);
   });
 });
