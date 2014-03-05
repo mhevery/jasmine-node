@@ -6,7 +6,7 @@ echo "Running all tests located in the spec directory"
 command=$entry"spec"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 59 tests and 104 assertions and 4 Failure. ---\033[0m"
+echo -e "\033[1;35m--- Should have 29 tests and 1 Failure. ---\033[0m"
 echo ""
 
 echo "Running all tests located in the spec directory with coffee option"
