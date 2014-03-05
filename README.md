@@ -26,6 +26,7 @@ what's new
 *  Rewrote Terminal Reporter
 *  Removed TeamCity Reporter (no support for Jasmine 2.0)
 *  Removed JUnit Reporter (no support for Jasmine 2.0)
+*  Removed Growl Reporter (no support for Jasmine 2.0)
 
 install
 ------
