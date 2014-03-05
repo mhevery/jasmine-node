@@ -23,7 +23,9 @@ what's new
 *  Removed Support for RequireJS
 *  Removed Support for Custom Helpers (have to be inside a beforeEach)
 *  Removed Custom Timeout
-*  Rewrote Terminal Reporter (missing some things)
+*  Rewrote Terminal Reporter
+*  Removed TeamCity Reporter (no support for Jasmine 2.0)
+*  Removed JUnit Reporter (no support for Jasmine 2.0)
 
 install
 ------

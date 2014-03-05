@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.13.1",
+  "version": "2.0.0",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Chris Moultrie <chris@moultrie.org>"
@@ -23,8 +23,7 @@
     "MIT"
   ],
   "dependencies": {
-    "coffee-script": ">=1.0.1",
-    "jasmine-reporters": ">=0.2.0",
+    "coffee-script": "~1.7.1",
     "jasmine-growl-reporter": "~0.0.2",
     "walkdir": ">= 0.0.1",
     "underscore": "^1.6.0",
