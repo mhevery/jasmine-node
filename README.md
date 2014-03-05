@@ -12,6 +12,8 @@ jasmine
 
 Version `1.3.1` of Jasmine is currently included with node-jasmine.
 
+BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
+
 what's new
 ----------
 *  Growl notifications with the `--growl` flag (requires Growl to be installed)
