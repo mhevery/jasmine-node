@@ -2,8 +2,13 @@ describe('jasmine-node-flat', function(){
   it('should pass', function(){
     expect(1+2).toEqual(3);
   });
+  describe('jasmine-node-flat-nested', function(){
+      it('should also pass', function(){
+          expect(3).toBe(3);
+      });
+  });
 });
-describe('jasmine-node-flat', function(){
+describe('jasmine-node-flat-fail', function(){
   it('should pass', function(){
     expect(1+2).toEqual(4);
   });
