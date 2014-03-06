@@ -85,8 +85,7 @@ jasmine.executeSpecsInFolder = (options) ->
 
     jasmineEnv.addReporter new jasmine.TerminalReporter reporterOptions
 
-    # Broken Currently
-    # if growl?
+    # if options.growl?
     #   jasmineEnv.addReporter new jasmine.GrowlReporter()
 
     specsList = specs.getSpecs()

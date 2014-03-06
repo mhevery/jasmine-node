@@ -56,6 +56,7 @@ minimistOpts =
         "noColor"
         "noStackTrace"
         "verbose"
+        # "growl"
     ]
     string: [
         "watch"
@@ -74,6 +75,7 @@ minimistOpts =
         noColor           : false
         noStackTrace      : false
         verbose           : false
+        # growl             : false
 
 args = minimist process.argv.slice(2), minimistOpts
 
@@ -118,9 +120,6 @@ if args.watch?
         unless fs.existsSync dir
             throw new Error "Watch path '#{dir}' doesn't exist!"
         options.watchFolders.push dir
-
-# if args.growl
-#     options.growl = true
 
 if args.h
     help()
@@ -188,7 +187,6 @@ try
         matcher = "#{options.match}spec\\.(#{options.extensions})$"
 
     options.regExpSpec = new RegExp matcher, "i"
-    #(match + (matchall ? "" : "spec\\.") + "(" + extensions + ")$", 'i')
 catch error
     console.error "Failed to build spec-matching regex: #{error}"
     process.exit 2
