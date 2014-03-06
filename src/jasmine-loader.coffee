@@ -74,6 +74,7 @@ jasmine.executeSpecsInFolder = (options) ->
     defaults =
         regExpSpec: new RegExp ".(js)$", "i"
         showColors: false
+        stackFilter: removeJasmineFrames
 
     reporterOptions = _.defaults options, defaults
     jasmineEnv        = jasmine.getEnv()

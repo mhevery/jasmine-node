@@ -238,10 +238,11 @@ class TerminalReporter
 #{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}
                     """
                     if @config.includeStackTrace
+                        stack = @config.stackFilter failure.stack
                         @config.print """
 \n
 #{indent}#{indent}Stacktrace:
-#{indent}#{indent}#{indent}#{failure.stack}
+#{indent}#{indent}#{indent}#{stack}
                         """
 
         return
