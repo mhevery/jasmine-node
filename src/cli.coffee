@@ -96,6 +96,9 @@ options =
 
 options = _.defaults options, args
 
+# If it's not a TTY, no color for you!
+unless process.stdout.isTTY
+    options.noColor = true
 
 if args.version?
     printVersion()
