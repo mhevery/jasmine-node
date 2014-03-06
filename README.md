@@ -67,26 +67,18 @@ node lib/jasmine-node/cli.js
 
 
 You can supply the following arguments:
-
-  * `--autotest`, provides automatic execution of specs after each change
-  * `--watch`, when used with `--autotest`, paths after `--watch` will be
-watched for changes, allowing to watch for changes outside of specs directory
-  * `--coffee`, allow execution of `.coffee` and `.litcoffee` specs
-  * `--color`, indicates spec output should uses color to
-indicates passing (green) or failing (red) specs
-  * `--noColor`, do not use color in the output
-  * `-m, --match REGEXP`, match only specs comtaining "REGEXPspec"
-  * `--matchall`, relax requirement of "spec" in spec file names
-  * `--verbose`, verbose output as the specs are run
-  * `--junitreport`, export tests results as junitreport xml format
-  * `--output FOLDER`, defines the output folder for junitreport files
-  * `--teamcity`, converts all console output to teamcity custom test runner commands. (Normally auto detected.)
-  * `--growl`, display test run summary in a growl notification (in addition to other outputs)
-  * `--test-dir`, the absolute root directory path where tests are located
-  * `--forceexit`, force exit once tests complete
-  * `--captureExceptions`, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
-  * `--config NAME VALUE`, set a global variable in `process.env`
-  * `--noStack`, suppress the stack trace generated from a test failure
+  * `--autoTest`         - rerun automatically the specs when a file changes
+  * `--watch PATH`       - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
+  * `--noColor`          - do not use color coding for output
+  * `-m, --match REGEXP` - load only specs containing "REGEXPspec"
+  * `--matchAll`         - relax requirement of "spec" in spec file names
+  * `--verbose`          - print extra information per each test run
+  * `--coffee`           - load coffee-script which allows execution .coffee files
+  * `--forceExit`        - force exit once tests complete.
+  * `--captureExceptions`- listen to global exceptions, report them and exit (interferes with Domains)
+  * `--noStackTrace`     - suppress the stack trace generated from a test failure
+  * `--version`          - show the current version
+  * `-h, --help`         - display this help and exit
 
 Individual files to test can be added as bare arguments to the end of the args.
 
