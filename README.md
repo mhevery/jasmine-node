@@ -238,6 +238,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.14.1_ Default to noColors if not in a TTY
 *  _1.14.0_ Add support for `iit`, `ddescribe` (thanks to [mgcrea](https://github.com/mgcrea))
 *  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
 *  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
