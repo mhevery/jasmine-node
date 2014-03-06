@@ -1,3 +1,8 @@
+NOTE
+====
+
+This branch is in-development. Not recommended for use
+
 jasmine-node
 ======
 
@@ -10,28 +15,19 @@ node.js.
 jasmine
 -------
 
-Version `1.3.1` of Jasmine is currently included with node-jasmine.
+Version `2.0.0` of Jasmine is currently included with node-jasmine.
 
 BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
 
 what's new
 ----------
-*  Growl notifications with the `--growl` flag (requires Growl to be installed)
-*  Ability to test specs written in Literate Coffee-Script
-*  Teamcity Reporter reinstated.
-*  Ability to specify multiple files to test via list in command line
-*  Ability to suppress stack trace with `--noStack`
-*  Async tests now run in the expected context instead of the global one
-*  `--config` flag that allows you to assign variables to process.env
-*  Terminal Reporters are now available in the Jasmine Object #184
-*  Done is now available in all timeout specs #199
-*  `afterEach` is available in requirejs #179
-*  Editors that replace instead of changing files should work with autotest #198
-*  Jasmine Mock Clock now works!
-*  Autotest now works!
-*  Using the latest Jasmine!
-*  Verbose mode tabs `describe` blocks much more accurately!
-*  `--coffee` now allows specs written in Literate CoffeeScript (`.litcoffee`)
+*  Now using Jasmine 2.0.0
+*  Removed Support for RequireJS
+*  Removed Support for Custom Helpers (have to be inside a beforeEach)
+*  Removed Custom Timeout
+*  Rewrote Terminal Reporter
+*  Removed TeamCity Reporter (no support for Jasmine 2.0)
+*  Removed JUnit Reporter (no support for Jasmine 2.0)
 
 install
 ------
@@ -87,10 +83,7 @@ indicates passing (green) or failing (red) specs
   * `--output FOLDER`, defines the output folder for junitreport files
   * `--teamcity`, converts all console output to teamcity custom test runner commands. (Normally auto detected.)
   * `--growl`, display test run summary in a growl notification (in addition to other outputs)
-  * `--runWithRequireJs`, loads all specs using requirejs instead of node's native require method
-  * `--requireJsSetup`, file run before specs to include and configure RequireJS
   * `--test-dir`, the absolute root directory path where tests are located
-  * `--nohelpers`, does not load helpers
   * `--forceexit`, force exit once tests complete
   * `--captureExceptions`, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
   * `--config NAME VALUE`, set a global variable in `process.env`
@@ -152,22 +145,6 @@ it("should respond with hello world", function(done) {
 
 Checkout [`spec/SampleSpecs.js`](https://github.com/mhevery/jasmine-node/blob/master/spec/SampleSpecs.js) to see how to use it.
 
-
-requirejs
----------
-
-There is a sample project in `/spec-requirejs`. It is comprised of:
-
-1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
-1.  `requirejs-wrapper-template`, this builds up requirejs settings
-1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs
-1.  `requirejs.spec.js`, the actual jasmine spec for testing
-
-To run it:
-
-```sh
-node lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/
-```
 
 exceptions
 ----------
@@ -237,6 +214,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _2.0.0_ Upgrade to Jasmine 2.0.0, remove support for legacy/unused items
 *  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
 *  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
 *  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful

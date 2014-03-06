@@ -1,7 +1,14 @@
-
 describe('jasmine-node-flat', function(){
   it('should pass', function(){
     expect(1+2).toEqual(3);
+  });
+  xit('should skip this one', function(){
+    expect(1+2).toEqual(3);
+  });
+  describe('jasmine-node-flat-nested', function(){
+      it('should also pass', function(){
+          expect(3).toBe(3);
+      });
   });
 });
 
@@ -23,27 +30,11 @@ describe('afterEach Timeout', function(){
   });
 });
 
-describe('Testing some characters', function()  {
-    var chars = ['&', '\'', '"', '<', '>'];
-    for(var i = 0; i < chars.length; i+=1)  {
-        currentChar = chars[i];
-        it('should reject ' + currentChar, (function(currentChar)  {
-            expect(false).toEqual(false);
-        })(currentChar));
-    }
-});
-
-describe('Testing waitsfor functionality', function() {
-    it("Runs and then waitsFor", function() {
-        runs(function() {
-            1+1;
-        });
-        waitsFor(function() {
-            return true === false;
-        }, "the impossible", 1000);
-        runs(function() {
-            expect(true).toBeTruthy();
-        });
+describe('Testing done functionality', function() {
+    it("calls done", function(done) {
+        1+1;
+        expect(true).toBeTruthy();
+        done();
     });
 });
 
