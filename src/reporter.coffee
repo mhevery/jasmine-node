@@ -26,9 +26,9 @@ class TerminalReporter
 
     constructor: (@config={}) ->
         defaults =
-            callback: noOp
+            onComplete: noOp
             includeStackTrace: true
-            verbose: false
+            isVerbose: false
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
@@ -36,7 +36,7 @@ class TerminalReporter
                 return t
 
         @config = _.defaults @config, defaults
-        @config.color = if @config.color then @ANSIColors else @NoColors
+        @config.color = if @config.showColors then @ANSIColors else @NoColors
 
         @counts =
             tests: 0
@@ -79,7 +79,7 @@ class TerminalReporter
             color = @config.color.pass()
 
         @config.print @stringWithColor results.join(', '), color
-        @config.callback?()
+        @config.onComplete?()
         return
 
     # Callback for when a suite starts running
@@ -92,7 +92,7 @@ class TerminalReporter
     #   }
     suiteStarted: (suite) =>
         @suiteTimes[suite.id] = +new Date
-        @printVerboseSuiteStart(suite) if @config.verbose
+        @printVerboseSuiteStart(suite) if @config.isVerbose
         @suiteNestLevel++
         suite.parent = @currentSuite
         @currentSuite = suite
@@ -121,7 +121,7 @@ class TerminalReporter
         return unless @suiteTimes[suite.id]
         @suiteNestLevel--
         @suiteTimes[suite.id] = (+new Date) - @suiteTimes[suite.id]
-        if @config.verbose
+        if @config.isVerbose
             @printVerboseSuiteDone suite
         delete @suiteTimes[suite.id]
         @currentSuite = @currentSuite.parent ? null
@@ -176,7 +176,7 @@ class TerminalReporter
     #   }
     specDone: (spec) =>
         (@allSpecs[@currentSuite.id] ?= []).push spec
-        if @config.verbose
+        if @config.isVerbose
             msg = @makeVerbose spec
         else
             msg = @makeSimple spec
@@ -249,4 +249,4 @@ class TerminalReporter
     stringWithColor: (string, color=@config.color.neutral()) ->
         return "#{color}#{string}#{@config.color.neutral()}"
 
-exports.terminalReporters = {TerminalReporter, TerminalVerboseReporter:TerminalReporter}
+module.exports = {TerminalReporter}

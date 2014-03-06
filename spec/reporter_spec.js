@@ -1,4 +1,4 @@
-var jasmineNode = require(__dirname + "/../lib/jasmine-node/reporter").terminalReporters
+var jasmineNode = require(__dirname + "/../lib/jasmine-node/reporter")
 
 describe('TerminalReporter', function() {
   beforeEach(function() {
@@ -14,7 +14,7 @@ describe('TerminalReporter', function() {
     });
 
     it('initializes color from config', function() {
-      var config = { color: true }
+      var config = { showColors: true }
       this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.config.color).toEqual(jasmineNode.TerminalReporter.prototype.ANSIColors);
     });
@@ -34,14 +34,14 @@ describe('TerminalReporter', function() {
     it('sets the callback property to false by default', function() {
       var config = {}
       this.reporter = new jasmineNode.TerminalReporter(config);
-      expect(this.reporter.config.callback).toEqual(jasmine.any(Function))
+      expect(this.reporter.config.onComplete).toEqual(jasmine.any(Function))
     });
 
     it('sets the callback property to callback if supplied', function() {
       var foo = function() { }
-      var config = { callback: foo }
+      var config = { onComplete: foo }
       this.reporter = new jasmineNode.TerminalReporter(config);
-      expect(this.reporter.config.callback).toBe(foo)
+      expect(this.reporter.config.onComplete).toBe(foo)
     });
   });
 

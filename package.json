@@ -29,6 +29,11 @@
     "gaze": "~0.5.1",
     "mkdirp": "~0.3.5"
   },
+  "devDependencies": {
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt": "^0.4.2"
+  },
   "bin": "bin/jasmine-node",
   "preferGlobal": true,
   "main": "lib/jasmine-node",
