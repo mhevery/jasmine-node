@@ -8,7 +8,7 @@ _                = require 'underscore'
 jasmine          = require './jasmine-loader'
 helperCollection = require './spec-collection'
 
-# hositing not found?
+# hositing not found? Don't know why it's not hoisting these
 help = ->
   process.stdout.write """
 USAGE: jasmine-node [--color|--noColor] [--verbose] [--coffee] directory
@@ -43,7 +43,7 @@ jasmine.setInterval = jasmine.getGlobal().setInterval
 
 global[key] = value for key, value of jasmine
 
-exitCode          = 0
+exitCode = 0
 # growl = false
 
 minimistOpts =
@@ -56,6 +56,10 @@ minimistOpts =
         "noColor"
         "noStackTrace"
         "verbose"
+    ]
+    string: [
+        "watch"
+        "m"
     ]
 
     alias:
@@ -72,6 +76,15 @@ minimistOpts =
         verbose           : false
 
 args = minimist process.argv.slice(2), minimistOpts
+
+# Verify that our commands are valid
+for key of args
+    allowed = key in minimistOpts.boolean
+    allowed = key in minimistOpts.string or allowed
+    allowed = key is '_' or allowed
+    unless allowed
+        console.warn "#{key} was not a valid option"
+        help()
 
 options =
     extensions        : "js"
@@ -99,12 +112,12 @@ if args.testDir?
     options.specFolders.push args.testDir
 
 if args.watch?
+    unless _.isArray args.watch
+        args.watch = [args.watch]
     for dir in args.watch
-        unless fs.existsSync nextWatchDir
+        unless fs.existsSync dir
             throw new Error "Watch path '#{dir}' doesn't exist!"
         options.watchFolders.push dir
-if args.forceexit
-    options.forceExit = true
 
 # if args.growl
 #     options.growl = true
@@ -138,7 +151,6 @@ if options.autoTest
     require('./autotest').start(options.specFolders, options.watchFolders, options.patterns)
 
     return
-
 
 if options.captureExceptions
     process.on 'uncaughtException', (error) ->
