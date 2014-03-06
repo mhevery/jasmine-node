@@ -14,15 +14,15 @@ describe('TerminalReporter', function() {
     });
 
     it('initializes color from config', function() {
-      var config = { showColors: true }
+      var config = { noColor: false}
       this.reporter = new jasmineNode.TerminalReporter(config);
       expect(this.reporter.config.color).toEqual(jasmineNode.TerminalReporter.prototype.ANSIColors);
     });
 
-    it('initializes includeStackTrace from config', function () {
+    it('initializes noStackTrace from config', function () {
         var config = {}
         this.reporter = new jasmineNode.TerminalReporter(config);
-        expect(this.reporter.config.includeStackTrace).toBeTruthy();
+        expect(this.reporter.config.noStackTrace).toBeTruthy();
     });
 
     it('initializes the specCounts to an Object', function() {

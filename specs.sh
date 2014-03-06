@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-entry="node lib/jasmine-node/cli.js --noStack "
+entry="node lib/jasmine-node/cli.js --noStackTrace "
 
 echo "Running all tests located in the spec directory"
 command=$entry"spec"

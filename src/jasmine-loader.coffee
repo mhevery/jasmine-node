@@ -66,14 +66,13 @@ removeJasmineFrames = (text) ->
     lines = []
     for line in text.split /\n/
         continue if line.indexOf(jasminejs) >= 0
-        lines.push(line)
+        lines.push line
 
     return lines.join "\n"
 
 jasmine.executeSpecsInFolder = (options) ->
     defaults =
         regExpSpec: new RegExp ".(js)$", "i"
-        showColors: false
         stackFilter: removeJasmineFrames
 
     reporterOptions = _.defaults options, defaults
@@ -107,5 +106,4 @@ jasmine.executeSpecsInFolder = (options) ->
 print = (str) ->
   process.stdout.write util.format(str)
 
-for key, value of jasmine
-    exports[key]  = value
+exports[key] = value for key, value of jasmine

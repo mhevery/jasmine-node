@@ -27,8 +27,8 @@ class TerminalReporter
     constructor: (@config={}) ->
         defaults =
             onComplete: noOp
-            includeStackTrace: true
-            isVerbose: false
+            noStackTrace: true
+            verbose: false
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
@@ -36,7 +36,7 @@ class TerminalReporter
                 return t
 
         @config = _.defaults @config, defaults
-        @config.color = if @config.showColors then @ANSIColors else @NoColors
+        @config.color = if @config.noColor then @NoColors else @ANSIColors
 
         @counts =
             tests: 0
@@ -92,7 +92,7 @@ class TerminalReporter
     #   }
     suiteStarted: (suite) =>
         @suiteTimes[suite.id] = +new Date
-        @printVerboseSuiteStart(suite) if @config.isVerbose
+        @printVerboseSuiteStart(suite) if @config.verbose
         @suiteNestLevel++
         suite.parent = @currentSuite
         @currentSuite = suite
@@ -121,7 +121,7 @@ class TerminalReporter
         return unless @suiteTimes[suite.id]
         @suiteNestLevel--
         @suiteTimes[suite.id] = (+new Date) - @suiteTimes[suite.id]
-        if @config.isVerbose
+        if @config.verbose
             @printVerboseSuiteDone suite
         delete @suiteTimes[suite.id]
         @currentSuite = @currentSuite.parent ? null
@@ -176,7 +176,7 @@ class TerminalReporter
     #   }
     specDone: (spec) =>
         (@allSpecs[@currentSuite.id] ?= []).push spec
-        if @config.isVerbose
+        if @config.verbose
             msg = @makeVerbose spec
         else
             msg = @makeSimple spec
@@ -237,7 +237,7 @@ class TerminalReporter
 #{indent}#{indent}Message:
 #{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}
                     """
-                    if @config.includeStackTrace
+                    unless @config.noStackTrace
                         stack = @config.stackFilter failure.stack
                         @config.print """
 \n
