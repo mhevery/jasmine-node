@@ -1,12 +1,14 @@
 _              = require 'underscore'
-fileFinder     = require './file-finder'
 fs             = require 'fs'
 growlReporter  = require 'jasmine-growl-reporter'
 mkdirp         = require 'mkdirp'
-nodeReporters  = require './reporter'
 path           = require 'path'
 util           = require 'util'
 vm             = require 'vm'
+
+fileFinder     = require './file-finder'
+booter         = require './jasmine/boot'
+nodeReporters  = require './reporter'
 
 # Begin real code
 isWindowDefined = global.window?
@@ -18,22 +20,23 @@ unless isWindowDefined
         clearInterval : clearInterval
 
 jasminejs  = __dirname + '/jasmine/jasmine-2.0.0.js';
-bootjs     = __dirname + '/jasmine/boot.js';
 jasmineSrc = fs.readFileSync(jasminejs);
-bootSrc    = fs.readFileSync(bootjs);
 
 # Put jasmine in the global context, this is somewhat like running in a
 # browser where every file will have access to `jasmine`
 vm.runInThisContext jasmineSrc, jasminejs
-jasmine = vm.runInThisContext "#{bootSrc}\njasmine = window.jasmine;", bootjs
+jasmineEnv = booter.boot global.window.jasmineRequire
+# Load the jasmine variable into the scope so that you can do things like:
+#   jasmine.any(Function)
+jasmineEnv['jasmine'] = jasmineEnv
 
 delete global.window unless isWindowDefined
 
-jasmine.TerminalReporter = nodeReporters.TerminalReporter
-jasmine.GrowlReporter = growlReporter
+jasmineEnv.TerminalReporter = nodeReporters.TerminalReporter
+jasmineEnv.GrowlReporter = growlReporter
 
 # Define helper functions
-jasmine.loadHelpersInFolder = (folder, matcher) ->
+jasmineEnv.loadHelpersInFolder = (folder, matcher) ->
     # Check to see if the folder is actually a file, if so, back up to the
     # parent directory and find some helpers
     folderStats = fs.statSync folder
@@ -68,23 +71,23 @@ removeJasmineFrames = (text) ->
 
     return lines.join "\n"
 
-jasmine.executeSpecsInFolder = (options) ->
+jasmineEnv.executeSpecsInFolder = (options) ->
     defaults =
         regExpSpec: new RegExp ".(js)$", "i"
         stackFilter: removeJasmineFrames
 
     reporterOptions = _.defaults options, defaults
-    jasmineEnv        = jasmine.getEnv()
+    jasmine        = jasmineEnv.getEnv()
 
     # Bind all of the rest of the functions
-    global[funcName] = jasFunc for funcName, jasFunc of jasmineEnv
+    global[funcName] = jasFunc for funcName, jasFunc of jasmine
 
     matchedSpecs = fileFinder.find options.specFolders, options.regExpSpec
 
-    jasmineEnv.addReporter new jasmine.TerminalReporter reporterOptions
+    jasmine.addReporter new jasmineEnv.TerminalReporter reporterOptions
 
     if options.growl
-        jasmineEnv.addReporter new jasmine.GrowlReporter options.growl
+        jasmine.addReporter new jasmineEnv.GrowlReporter options.growl
 
     specsList = fileFinder.sortFiles matchedSpecs
 
@@ -98,10 +101,10 @@ jasmine.executeSpecsInFolder = (options) ->
             console.log error
             throw error
 
-    jasmineEnv.execute()
+    jasmine.execute()
     return
 
 print = (str) ->
   process.stdout.write util.format(str)
 
-exports[key] = value for key, value of jasmine
+exports[key] = value for key, value of jasmineEnv
