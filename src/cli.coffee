@@ -184,7 +184,7 @@ for specFolder in options.specFolders
 
 try
     matcher = ""
-    if options.matchall
+    if options.matchAll
         matcher = "#{options.match}(#{options.extensions})$"
     else
         matcher = "#{options.match}spec\\.(#{options.extensions})$"
