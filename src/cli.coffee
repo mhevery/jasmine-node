@@ -6,6 +6,7 @@ coffee           = require 'coffee-script/register'
 _                = require 'underscore'
 
 jasmine          = require './jasmine-loader'
+autoTest         = require './auto-test'
 
 # hositing not found? Don't know why it's not hoisting these
 help = ->
@@ -150,7 +151,7 @@ if options.autoTest
     if options.extensions.indexOf("coffee") isnt -1
         options.patterns.push '**/*.coffee'
 
-    require('./autotest').start(options.specFolders, options.watchFolders, options.patterns)
+    autoTest.start options.specFolders, options.watchFolders, options.patterns
 
     return
 
@@ -163,6 +164,7 @@ if options.captureExceptions
 
 onExit = ->
     process.removeListener "exit", onExit
+    exitCode = 1 if global.jasmineResult?.fail
     process.exit exitCode
     return
 

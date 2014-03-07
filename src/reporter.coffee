@@ -78,6 +78,8 @@ class TerminalReporter
         else
             color = @config.color.pass()
 
+        global.jasmineResult = fail: @counts.failures > 0
+
         @config.print @stringWithColor results.join(', '), color
         @config.onComplete?()
         return

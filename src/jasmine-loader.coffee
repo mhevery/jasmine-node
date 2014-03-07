@@ -99,6 +99,7 @@ jasmine.executeSpecsInFolder = (options) ->
             throw error
 
     jasmineEnv.execute()
+    return
 
 print = (str) ->
   process.stdout.write util.format(str)
