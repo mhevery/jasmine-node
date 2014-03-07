@@ -61,10 +61,11 @@ minimistOpts =
     string: [
         "watch"
         "m"
+        "match"
     ]
 
     alias:
-        m: "match"
+        match: "m"
 
     default:
         autoTest          : false
@@ -75,6 +76,7 @@ minimistOpts =
         noColor           : false
         noStackTrace      : false
         verbose           : false
+        match             : '.'
         # growl             : false
 
 args = minimist process.argv.slice(2), minimistOpts
@@ -89,10 +91,9 @@ for key of args
         help()
 
 options =
-    extensions        : "js"
-    match             : '.'
     specFolders       : []
     watchFolders      : []
+    extensions        : "js"
 
 options = _.defaults options, args
 
@@ -105,9 +106,6 @@ if args.version?
 
 if args.coffee
     options.extensions += "|coffee|litcoffee"
-
-if args.m? or args.match?
-    options.match = args.m ? args.match
 
 if args.testDir?
     unless fs.existsSync args.testDir
@@ -184,7 +182,9 @@ for specFolder in options.specFolders
 
 try
     matcher = ""
-    if options.matchAll
+    if options.match isnt minimistOpts.default.match
+        matcher = options.match
+    else if options.matchAll
         matcher = "#{options.match}(#{options.extensions})$"
     else
         matcher = "#{options.match}spec\\.(#{options.extensions})$"
