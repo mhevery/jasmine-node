@@ -6,7 +6,6 @@ coffee           = require 'coffee-script/register'
 _                = require 'underscore'
 
 jasmine          = require './jasmine-loader'
-helperCollection = require './spec-collection'
 
 # hositing not found? Don't know why it's not hoisting these
 help = ->
@@ -52,20 +51,23 @@ minimistOpts =
         "captureExceptions"
         "coffee"
         "forceExit"
+        # "growl"
+        "h"
+        "help"
         "matchAll"
         "noColor"
         "noStackTrace"
         "verbose"
-        # "growl"
     ]
     string: [
-        "watch"
         "m"
         "match"
+        "watch"
     ]
 
     alias:
         match: "m"
+        help: "h"
 
     default:
         autoTest          : false

@@ -1,14 +1,12 @@
-_                = require 'underscore'
-fs               = require 'fs'
-#growlReporter    = require 'jasmine-growl-reporter'
-mkdirp           = require 'mkdirp'
-path             = require 'path'
-util             = require 'util'
-vm               = require 'vm'
-nodeReporters    = require './reporter'
-# TODO: Make this library only need to be required once
-specs            = require './spec-collection'
-helperCollection = require './spec-collection'
+_              = require 'underscore'
+fileFinder     = require './file-finder'
+fs             = require 'fs'
+#growlReporter = require 'jasmine-growl-reporter'
+mkdirp         = require 'mkdirp'
+nodeReporters  = require './reporter'
+path           = require 'path'
+util           = require 'util'
+vm             = require 'vm'
 
 # Begin real code
 isWindowDefined = global.window?
@@ -41,8 +39,8 @@ jasmine.loadHelpersInFolder = (folder, matcher) ->
     folderStats = fs.statSync folder
     folder = path.dirname(folder) if folderStats.isFile()
 
-    helperCollection.load [folder], matcher
-    helpers = helperCollection.getSpecs()
+    matchedHelpers = fileFinder.find [folder], matcher
+    helpers = fileFinder.sortFiles matchedHelpers
 
     for helper in helpers
         file = helper.path()
@@ -81,14 +79,14 @@ jasmine.executeSpecsInFolder = (options) ->
     # Bind all of the rest of the functions
     global[funcName] = jasFunc for funcName, jasFunc of jasmineEnv
 
-    specs.load options.specFolders, options.regExpSpec
+    matchedSpecs = fileFinder.find options.specFolders, options.regExpSpec
 
     jasmineEnv.addReporter new jasmine.TerminalReporter reporterOptions
 
     # if options.growl?
     #   jasmineEnv.addReporter new jasmine.GrowlReporter()
 
-    specsList = specs.getSpecs()
+    specsList = fileFinder.sortFiles matchedSpecs
 
     for spec in specsList
         delete require.cache[spec.path()]
