@@ -189,17 +189,11 @@ Install the dependent packages by running:
 npm install
 ```
 
-Run the specs before you send your pull request:
+Run the specs before you send your pull request and ensure all pass:
 
 ```sh
 specs.sh
 ```
-
-__Note:__ Some tests are designed to fail in the specs.sh. After each of the
-individual runs completes, there is a line that lists what the expected
-Pass/Assert/Fail count should be. If you add/remove/edit tests, please be sure
-to update this with your PR.
-
 
 changelog
 ---------

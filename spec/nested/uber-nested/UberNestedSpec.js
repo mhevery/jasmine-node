@@ -4,7 +4,7 @@ describe('jasmine-node-uber-nested', function(){
   });
 
   describe('failure', function(){
-    it('should report failure (THIS IS EXPECTED)', function(){
+    it('should report passing', function(){
       expect(false).toBeFalsy();
     });
   });
