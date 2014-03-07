@@ -47,5 +47,8 @@
   "bugs": {
     "url": "https://github.com/mhevery/jasmine-node/issues"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+      "node": ">=0.10.0"
+  }
 }

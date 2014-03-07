@@ -7,7 +7,6 @@ if (require.main === module) {
     if( !process.env.NODE_ENV ) process.env.NODE_ENV = 'test';
 
     options = runner.parseArgs();
-    console.log(JSON.stringify(options));
     runner.runSpecs(options);
 } else {
     exports.runner = runner;

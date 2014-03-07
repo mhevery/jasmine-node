@@ -91,6 +91,10 @@ jasmineEnv.executeSpecsInFolder = (options) ->
 
     specsList = fileFinder.sortFiles matchedSpecs
 
+    if _.isEmpty specsList
+        console.error "\nNo Specs Matching #{options.regExpSpec} Found"
+        console.error "Consider using --matchAll or --match REGEXP"
+
     for spec in specsList
         delete require.cache[spec.path()]
         # Catch exceptions in loading the spec
