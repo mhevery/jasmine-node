@@ -20,6 +20,7 @@ Options:
   -m, --match REGEXP - load only specs containing "REGEXPspec"
   --matchAll         - relax requirement of "spec" in spec file names
   --verbose          - print extra information per each test run
+  --growl            - display test run summary in a growl notification (in addition to other outputs)
   --coffee           - load coffee-script which allows execution .coffee files
   --forceExit        - force exit once tests complete.
   --captureExceptions- listen to global exceptions, report them and exit (interferes with Domains)
@@ -30,7 +31,6 @@ Options:
 
 #  --testDir          - the absolute root directory path where tests are located
 #  --config NAME VALUE- set a global variable in process.env
-#  --growl            - display test run summary in a growl notification (in addition to other outputs)
   process.exit -1
 
 printVersion = ->
@@ -44,7 +44,7 @@ jasmine.setInterval = jasmine.getGlobal().setInterval
 global[key] = value for key, value of jasmine
 
 exitCode = 0
-# growl = false
+growl = false
 
 minimistOpts =
     boolean: [
@@ -56,7 +56,7 @@ minimistOpts =
         "noColor"
         "noStackTrace"
         "verbose"
-        # "growl"
+        "growl"
     ]
     string: [
         "watch"
@@ -75,7 +75,7 @@ minimistOpts =
         noColor           : false
         noStackTrace      : false
         verbose           : false
-        # growl             : false
+        growl             : false
 
 args = minimist process.argv.slice(2), minimistOpts
 
