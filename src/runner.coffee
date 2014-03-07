@@ -26,6 +26,7 @@ minimistOpts =
         "noColor"
         "noStackTrace"
         "verbose"
+        "version"
     ]
     string: [
         "m"
@@ -49,6 +50,8 @@ minimistOpts =
         noStackTrace      : false
         verbose           : false
         watchFolders      : []
+        specFolders       : []
+        extensions        : "js"
 
 exitCode         = 0
 
@@ -91,22 +94,16 @@ onExit = ->
 
 # Parse the args out of the command line
 parseArgs = ->
-    args = minimist process.argv.slice(2), minimistOpts
+    options = minimist process.argv.slice(2), minimistOpts
 
     # Verify that our commands are valid
-    for key of args
+    for key of options
         allowed = key in minimistOpts.boolean
         allowed = key in minimistOpts.string or allowed
-        allowed = key is '_' or allowed
+        allowed = key in ['_', 'specFolders', 'extensions'] or allowed
         unless allowed
             console.warn "#{key} was not a valid option"
             help()
-
-    options =
-        specFolders       : []
-        extensions        : "js"
-
-    options = _.defaults options, args
 
     # If it's not a TTY, no color for you!
     unless process.stdout.isTTY
@@ -129,10 +126,10 @@ parseArgs = ->
         unless _.isArray options.watchFolders
             options.watchFolders = [options.watchFolders]
 
-    if args.h
+    if options.h
         help()
 
-    for spec in args._
+    for spec in options._
         if spec.match(/^\/.*/)
             options.specFolders.push spec
         else
@@ -199,4 +196,8 @@ runSpecs = (options) ->
 
     return
 
-module.exports = {runSpecs, parseArgs}
+module.exports = {
+    defaults: minimistOpts.default
+    runSpecs
+    parseArgs
+}

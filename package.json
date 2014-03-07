@@ -36,10 +36,16 @@
     "grunt-contrib-watch": "^0.5.3",
     "grunt": "^0.4.2"
   },
-  "bin": "bin/jasmine-node",
+  "bin": {
+    "jasmine-node": "./bin/jasmine-node"
+  },
   "preferGlobal": true,
-  "main": "lib/jasmine-node",
+  "main": "./lib/jasmine-node",
   "scripts": {
     "test": "node lib/jasmine-node/cli.js spec"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/mhevery/jasmine-node/issues"
+  },
+  "license": "ISC"
 }
