@@ -1,7 +1,7 @@
 _              = require 'underscore'
 fileFinder     = require './file-finder'
 fs             = require 'fs'
-#growlReporter = require 'jasmine-growl-reporter'
+growlReporter  = require 'jasmine-growl-reporter'
 mkdirp         = require 'mkdirp'
 nodeReporters  = require './reporter'
 path           = require 'path'
@@ -30,7 +30,7 @@ jasmine = vm.runInThisContext "#{bootSrc}\njasmine = window.jasmine;", bootjs
 delete global.window unless isWindowDefined
 
 jasmine.TerminalReporter = nodeReporters.TerminalReporter
-# jasmine.GrowlReporter = growlReporter
+jasmine.GrowlReporter = growlReporter
 
 # Define helper functions
 jasmine.loadHelpersInFolder = (folder, matcher) ->
@@ -83,8 +83,8 @@ jasmine.executeSpecsInFolder = (options) ->
 
     jasmineEnv.addReporter new jasmine.TerminalReporter reporterOptions
 
-    # if options.growl?
-    #   jasmineEnv.addReporter new jasmine.GrowlReporter()
+    if options.growl
+        jasmineEnv.addReporter new jasmine.GrowlReporter options.growl
 
     specsList = fileFinder.sortFiles matchedSpecs
 
