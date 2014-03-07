@@ -108,3 +108,5 @@ print = (str) ->
   process.stdout.write util.format(str)
 
 exports[key] = value for key, value of jasmineEnv
+exports['setTimeout'] = jasmineEnv.getGlobal().setTimeout
+exports['setInterval'] = jasmineEnv.getGlobal().setInterval

@@ -43,7 +43,7 @@ usage
 ------
 
 Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
-You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly 
+You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly
 as you would in client-side jasmine specs.
 
 **Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
@@ -67,7 +67,7 @@ node lib/jasmine-node/cli.js
 
 You can supply the following arguments:
   * `--autoTest`         - rerun automatically the specs when a file changes
-  * `--watch PATH`       - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
+  * `--watchFolders PATH`- when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
   * `--noColor`          - do not use color coding for output
   * `-m, --match REGEXP` - load only specs containing "REGEXPspec"
   * `--matchAll`         - relax requirement of "spec" in spec file names
