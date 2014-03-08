@@ -1,10 +1,5 @@
-_ = require 'underscore'
-util = null
-
-try
-    util = require 'util'
-catch
-    util = require 'sys'
+_    = require 'underscore'
+util = require 'util'
 
 noOp = -> return
 
@@ -26,17 +21,17 @@ class TerminalReporter
 
     constructor: (@config={}) ->
         defaults =
-            onComplete: noOp
+            color: if @config.noColor then @NoColors else @ANSIColors
             noStackTrace: true
-            verbose: false
+            onComplete: noOp
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
             stackFilter: (t) ->
                 return t
+            verbose: false
 
         @config = _.defaults @config, defaults
-        @config.color = if @config.noColor then @NoColors else @ANSIColors
 
         @counts =
             tests: 0

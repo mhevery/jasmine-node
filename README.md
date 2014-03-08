@@ -1,3 +1,5 @@
+![Jasmine Node](/res/JasmineNode.png)
+
 NOTE
 ====
 
