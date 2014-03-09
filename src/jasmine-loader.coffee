@@ -26,9 +26,10 @@ jasmineSrc = fs.readFileSync(jasminejs);
 # browser where every file will have access to `jasmine`
 vm.runInThisContext jasmineSrc, jasminejs
 jasmineEnv = booter.boot global.window.jasmineRequire
-# Load the jasmine variable into the scope so that you can do things like:
-#   jasmine.any(Function)
-jasmineEnv['jasmine'] = jasmineEnv
+# Load the jasmine variable into the global scope so that you can do things
+#   like:
+#     jasmine.any(Function)
+global.jasmine = jasmineEnv
 
 delete global.window unless isWindowDefined
 
@@ -36,7 +37,7 @@ jasmineEnv.TerminalReporter = nodeReporters.TerminalReporter
 jasmineEnv.GrowlReporter = growlReporter
 
 # Define helper functions
-jasmineEnv.loadHelpersInFolder = (folder, matcher) ->
+loadHelpersInFolder = (folder, matcher) ->
     # Check to see if the folder is actually a file, if so, back up to the
     # parent directory and find some helpers
     folderStats = fs.statSync folder
@@ -71,16 +72,13 @@ removeJasmineFrames = (text) ->
 
     return lines.join "\n"
 
-jasmineEnv.executeSpecsInFolder = (options) ->
+executeSpecsInFolder = (options) ->
     defaults =
         regExpSpec: new RegExp ".(js)$", "i"
         stackFilter: removeJasmineFrames
 
     reporterOptions = _.defaults options, defaults
     jasmine        = jasmineEnv.getEnv()
-
-    # Bind all of the rest of the functions
-    global[funcName] = jasFunc for funcName, jasFunc of jasmine
 
     matchedSpecs = fileFinder.find options.specFolders, options.regExpSpec
 
@@ -110,7 +108,9 @@ jasmineEnv.executeSpecsInFolder = (options) ->
 
 print = (str) ->
   process.stdout.write util.format(str)
+  return
 
-exports[key] = value for key, value of jasmineEnv
-exports['setTimeout'] = jasmineEnv.getGlobal().setTimeout
-exports['setInterval'] = jasmineEnv.getGlobal().setInterval
+module.exports = { executeSpecsInFolder, loadHelpersInFolder}
+
+# exports['setTimeout'] = jasmineEnv.getGlobal().setTimeout
+# exports['setInterval'] = jasmineEnv.getGlobal().setInterval

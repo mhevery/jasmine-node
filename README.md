@@ -3,7 +3,7 @@
 NOTE
 ====
 
-This branch is in-development. Not recommended for use
+This branch is in-development. Not recommended for production use
 
 jasmine-node
 ======
