@@ -1,6 +1,5 @@
 _              = require 'underscore'
 fs             = require 'fs'
-growlReporter  = require 'jasmine-growl-reporter'
 mkdirp         = require 'mkdirp'
 path           = require 'path'
 util           = require 'util'
@@ -8,7 +7,6 @@ vm             = require 'vm'
 
 fileFinder     = require './file-finder'
 booter         = require './jasmine/boot'
-nodeReporters  = require './reporter'
 
 # Begin real code
 isWindowDefined = global.window?
@@ -24,17 +22,14 @@ jasmineSrc = fs.readFileSync(jasminejs);
 
 # Put jasmine in the global context, this is somewhat like running in a
 # browser where every file will have access to `jasmine`
-vm.runInThisContext jasmineSrc, jasminejs
+contextObj =
+    window: global.window
+    console: console
+context = vm.createContext contextObj
+vm.runInContext jasmineSrc, context, jasminejs
 jasmineEnv = booter.boot global.window.jasmineRequire
-# Load the jasmine variable into the global scope so that you can do things
-#   like:
-#     jasmine.any(Function)
-#global.jasmine = jasmineEnv
 
-delete global.window unless isWindowDefined
-
-jasmineEnv.TerminalReporter = nodeReporters.TerminalReporter
-jasmineEnv.GrowlReporter = growlReporter
+#delete global.window unless isWindowDefined
 
 # Define helper functions
 loadHelpersInFolder = (folder, matcher) ->

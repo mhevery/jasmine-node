@@ -12,6 +12,45 @@ describe('jasmine-node-flat', function(){
   });
 });
 
+describe('jasmine.any tests', function() {
+  it('handles string and not string', function() {
+      expect('abc').toEqual(jasmine.any(String));
+      expect(function(){}).not.toEqual(jasmine.any(String));
+      expect(123123).not.toEqual(jasmine.any(String));
+      expect({a:true}).not.toEqual(jasmine.any(String));
+      expect(true).not.toEqual(jasmine.any(String));
+  });
+  it('handles number and not number', function() {
+      expect(123123).toEqual(jasmine.any(Number));
+      expect('abc').not.toEqual(jasmine.any(Number));
+      expect(function(){}).not.toEqual(jasmine.any(Number));
+      expect({a:true}).not.toEqual(jasmine.any(Number));
+      expect(true).not.toEqual(jasmine.any(Number));
+  });
+  it('handles function and not function', function() {
+      expect(function(){}).toEqual(jasmine.any(Function));
+      expect(123123).not.toEqual(jasmine.any(Function));
+      expect('abc').not.toEqual(jasmine.any(Function));
+      expect({a:true}).not.toEqual(jasmine.any(Function));
+      expect(true).not.toEqual(jasmine.any(Function));
+  });
+  it('handles object and not object', function() {
+      expect({a:true}).toEqual(jasmine.any(Object));
+      expect(function(){}).not.toEqual(jasmine.any(Object));
+      expect(123123).not.toEqual(jasmine.any(Object));
+      expect('abc').not.toEqual(jasmine.any(Object));
+      expect(true).not.toEqual(jasmine.any(Object));
+  });
+  it('handles boolean and not boolean', function() {
+      expect(true).toEqual(jasmine.any(Boolean));
+      expect({a:true}).not.toEqual(jasmine.any(Boolean));
+      expect(function(){}).not.toEqual(jasmine.any(Boolean));
+      expect(123123).not.toEqual(jasmine.any(Boolean));
+      expect('abc').not.toEqual(jasmine.any(Boolean));
+  });
+});
+
+
 describe('beforeEach Timeout', function(){
   beforeEach(function(done) {
       setTimeout(done, 1000);

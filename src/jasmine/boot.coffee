@@ -1,3 +1,6 @@
+growlReporter  = require 'jasmine-growl-reporter'
+nodeReporters  = require '../reporter'
+
 # Node Translation of the Jasmine boot.js file. Seems to work quite well
 boot = (jasmineRequire) ->
     jasmine = jasmineRequire.core jasmineRequire
@@ -13,6 +16,10 @@ boot = (jasmineRequire) ->
     Create the Jasmine environment. This is used to run all specs in a project.
     ###
     env = jasmine.getEnv()
+
+    # Attach our reporters
+    jasmine.TerminalReporter = nodeReporters.TerminalReporter
+    jasmine.GrowlReporter    = growlReporter
 
     ###
     ## The Global Interface
@@ -47,7 +54,13 @@ boot = (jasmineRequire) ->
         spyOn: (obj, methodName) ->
             return env.spyOn(obj, methodName)
 
-        jsApiReporter: new jasmine.JsApiReporter(timer: new jasmine.Timer())
+        # Modify the global Set Timeout
+        setTimeout: (cb, ms) ->
+            return env.setTimeout(cb, ms)
+
+        # Modify the global Set Interval
+        setInterval: (cb, ms) ->
+            return env.setInterval(cb, ms)
 
     ###
     Add all of the Jasmine global/public interface to the proper global, so a project can use the public interface directly. For example, calling `describe` in specs instead of `jasmine.getEnv().describe`.
