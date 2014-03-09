@@ -53,6 +53,7 @@ boot = (jasmineRequire) ->
     Add all of the Jasmine global/public interface to the proper global, so a project can use the public interface directly. For example, calling `describe` in specs instead of `jasmine.getEnv().describe`.
     ###
     extend global, jasmineInterface
+    global.jasmine = jasmine
 
     ###
     Expose the interface for adding custom equality testers.

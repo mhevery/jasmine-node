@@ -29,7 +29,7 @@ jasmineEnv = booter.boot global.window.jasmineRequire
 # Load the jasmine variable into the global scope so that you can do things
 #   like:
 #     jasmine.any(Function)
-global.jasmine = jasmineEnv
+#global.jasmine = jasmineEnv
 
 delete global.window unless isWindowDefined
 
