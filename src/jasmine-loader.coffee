@@ -7,6 +7,7 @@ vm             = require 'vm'
 
 fileFinder     = require './file-finder'
 booter         = require './jasmine/boot'
+jasminejs      = __dirname + '/jasmine/jasmine-2.0.0.js'
 
 # Begin real code
 contextObj = {
@@ -28,7 +29,6 @@ contextObj = {
 }
 
 loadJasmine = ->
-    jasminejs  = __dirname + '/jasmine/jasmine-2.0.0.js'
     jasmineSrc = fs.readFileSync jasminejs
 
     # Put jasmine in the global context, this is somewhat like running in a

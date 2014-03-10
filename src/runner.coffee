@@ -16,9 +16,7 @@ autoTest         = require './auto-test'
 minimistOpts =
     boolean: [
         "autoTest"
-        "captureExceptions"
         "coffee"
-        "forceExit"
         "growl"
         "h"
         "help"
@@ -40,9 +38,7 @@ minimistOpts =
 
     default:
         autoTest          : false
-        captureExceptions : false
         coffee            : false
-        forceExit         : false
         growl             : false
         match             : '.'
         matchAll          : false
@@ -54,12 +50,12 @@ minimistOpts =
         specFolders       : []
         extensions        : "js"
 
-exitCode         = 0
+exitCode = 0
 
 printVersion = ->
-  console.log "2.0.0"
-  process.exit 0
-  return
+    console.log "2.0.0"
+    process.exit 0
+    return
 
 # hositing not found? Don't know why it's not hoisting these
 help = ->
@@ -75,8 +71,6 @@ Options:
   --verbose          - print extra information per each test run
   --growl            - display test run summary in a growl notification (in addition to other outputs)
   --coffee           - load coffee-script which allows execution .coffee files
-  --forceExit        - force exit once tests complete.
-  --captureExceptions- listen to global exceptions, report them and exit (interferes with Domains)
   --noStackTrace     - suppress the stack trace generated from a test failure
   --version          - show the current version
   -h, --help         - display this help and exit
@@ -156,7 +150,6 @@ runSpecs = (config) ->
         global[key] = func for key, func of global.savedFunctions
         delete global['savedFunctions']
 
-
     # Sanity Check Watch Dirs
     for dir in options.watchFolders
         continue if fs.existsSync dir
@@ -179,14 +172,6 @@ runSpecs = (config) ->
 
         autoTest.start options.specFolders, options.watchFolders, options.patterns
         return
-
-    if options.captureExceptions
-        process.on 'uncaughtException', (error) ->
-            console.error error.stack ? error
-            exitCode = 1
-            process.exit exitCode
-            return
-
 
     process.on "exit", onExit
 

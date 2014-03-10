@@ -1,10 +1,3 @@
-![Jasmine Node](/res/JasmineNode.png)
-
-NOTE
-====
-
-This branch is in-development. Not recommended for production use
-
 jasmine-node
 ======
 
@@ -18,15 +11,29 @@ jasmine
 
 Version `2.0.0` of Jasmine is currently included with node-jasmine.
 
+requirements
+------------
+
+Requires version `10.x` of Node.js, please upgrade if you're on `0.8`, that's
+just painful.
+
 what's new
 ----------
+*  90% Refactor, Convert to Coffee-Script
+*  Isolate jasmine.js into a vm with a separate context for clean re-execution
+     of specs
 *  Now using Jasmine 2.0.0
-*  Removed Support for RequireJS
-*  Removed Support for Custom Helpers (have to be inside a beforeEach)
-*  Removed Custom Timeout
-*  Rewrote Terminal Reporter
-*  Removed TeamCity Reporter (no support for Jasmine 2.0)
-*  Removed JUnit Reporter (no support for Jasmine 2.0)
+*  Removed Support for RequireJS as it was buggy, confusing, and I'm pretty
+     sure no one was using it.
+*  Removed Support for Custom Helpers (have to be inside a beforeEach, this is
+     a jasmine change, check out their docs on how to write one)
+*  Removed Custom Timeout (jasmine has added a done function and
+     `jasmine.DEfAULT_TIMEOUT_INTERVAL`, just use that instead of expecting a
+     test to take no longer than `x` milliseconds)
+*  Removed TeamCity Reporter (no support for Jasmine 2.0) will be re-added when
+     support is available
+*  Removed JUnit Reporter (no support for Jasmine 2.0) will be re-added when
+     support is available
 
 install
 ------
@@ -34,16 +41,13 @@ install
 To install the latest official version, use NPM:
 
 ```sh
-npm install jasmine-node -g
+npm install -g jasmine-node
 ```
-
-To install the latest _bleeding edge_ version, clone this repository and check
-out the `beta` branch.
 
 usage
 ------
 
-Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
+Write the specifications for your code in `*Spec.js` and `*Spec.coffee` files in the `spec/` directory.
 You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly
 as you would in client-side jasmine specs.
 
@@ -51,6 +55,7 @@ as you would in client-side jasmine specs.
 which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
 otherwise jasmine-node won't find them!
 For example, `sampleSpecs.js` is wrong, `sampleSpec.js` is right.
+You can work around this by using either `--matchAll` or `-m REGEXP`
 
 If you have installed the npm package, you can run it with:
 
@@ -62,8 +67,20 @@ If you aren't using npm, you should add `pwd`/lib to the `$NODE_PATH`
 environment variable, then run:
 
 ```sh
-node lib/jasmine-node/cli.js
+node bin/jasmine-node
 ```
+
+You can also require jasmine-node as a node module
+
+```javascript
+jn = require('jasmine-node');
+jn.run({specFolders:['./spec']});
+```
+
+The jasmine-node object returned contains a defaults object so that you can see
+what the expected args are. Pass only the options you need (the rest will be
+filled in by the defaults) to the `.run(<options>)` command and away you go!
+
 
 
 You can supply the following arguments:
@@ -74,8 +91,6 @@ You can supply the following arguments:
   * `--matchAll`         - relax requirement of "spec" in spec file names
   * `--verbose`          - print extra information per each test run
   * `--coffee`           - load coffee-script which allows execution .coffee files
-  * `--forceExit`        - force exit once tests complete.
-  * `--captureExceptions`- listen to global exceptions, report them and exit (interferes with Domains)
   * `--noStackTrace`     - suppress the stack trace generated from a test failure
   * `--version`          - show the current version
   * `-h, --help`         - display this help and exit
@@ -87,90 +102,6 @@ Example:
 ```bash
 jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
-
-async tests
------------
-
-jasmine-node includes an alternate syntax for writing asynchronous tests. Accepting
-a done callback in the specification will trigger jasmine-node to run the test
-asynchronously waiting until the `done()` callback is called.
-
-```javascript
-var request = require('request');
-
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    expect(body).toEqual("hello world");
-    done();
-  });
-});
-```
-
-An asynchronous test will fail after `5000` ms if `done()` is not called. This timeout
-can be changed by setting `jasmine.getEnv().defaultTimeoutInterval` or by passing a timeout
-interval in the specification.
-
-```javascript
-var request = require('request');
-
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    done();
-  });
-}, 250); // timeout after 250 ms
-```
-
-or
-
-```javascript
-var request = require('request');
-
-jasmine.getEnv().defaultTimeoutInterval = 500;
-
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    done();
-  });  // timeout after 500 ms
-});
-```
-
-Checkout [`spec/SampleSpecs.js`](https://github.com/mhevery/jasmine-node/blob/master/spec/SampleSpecs.js) to see how to use it.
-
-
-exceptions
-----------
-
-Often you'll want to capture an uncaught exception and log it to the console,
-this is accomplished by using the `--captureExceptions` flag. Exceptions will
-be reported to the console, but jasmine-node will attempt to recover and
-continue. It was decided to not change the current functionality until `2.0`. So,
-until then, jasmine-node will still return `0` and continue on without this flag.
-
-### Scenario ###
-
-You require a module, but it doesn't exist, ie `require('Q')` instead of
-`require('q')`. Jasmine-Node reports the error to the console, but carries on
-and returns `0`. This messes up Travis-CI because you need it to return a
-non-zero status while doing CI tests.
-
-### Mitigation ###
-
-Before `--captureExceptions`
-
-```sh
-> jasmine-node --coffee spec
-> echo $status
-0
-```
-
-Run jasmine node with the `--captureExceptions` flag.
-
-```sh
-> jasmine-node --coffee --captureExceptions spec
-> echo $status
-1
-```
-
 
 growl notifications
 -------------------
