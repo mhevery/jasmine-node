@@ -48,6 +48,7 @@ minimistOpts =
         matchAll          : false
         noColor           : false
         noStackTrace      : false
+        onComplete        : -> return
         verbose           : false
         watchFolders      : []
         specFolders       : []
@@ -100,7 +101,9 @@ parseArgs = ->
     for key of options
         allowed = key in minimistOpts.boolean
         allowed = key in minimistOpts.string or allowed
-        allowed = key in ['_', 'specFolders', 'extensions'] or allowed
+        # These don't come in via cli, but might programatically
+        secretOptions = ['_', 'specFolders', 'extensions', 'onComplete']
+        allowed = key in secretOptions or allowed
         unless allowed
             console.warn "#{key} was not a valid option"
             help()
