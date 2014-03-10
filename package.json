@@ -42,7 +42,7 @@
   "preferGlobal": true,
   "main": "./lib/jasmine-node",
   "scripts": {
-    "test": "node lib/jasmine-node/cli.js spec"
+    "test": "node bin/jasmine-node ./spec"
   },
   "bugs": {
     "url": "https://github.com/mhevery/jasmine-node/issues"
