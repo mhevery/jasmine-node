@@ -35,16 +35,16 @@ minimistOpts =
     default:
         autoTest          : false
         coffee            : false
+        extensions        : "js"
         growl             : false
         match             : '.'
         matchAll          : false
         noColor           : false
         noStackTrace      : false
         onComplete        : -> return
+        specFolders       : []
         verbose           : false
         watchFolders      : []
-        specFolders       : []
-        extensions        : "js"
 
 exitCode = 0
 
@@ -72,7 +72,6 @@ Options:
   -h, --help         - display this help and exit
 """
 
-#  --testDir          - the absolute root directory path where tests are located
 #  --config NAME VALUE- set a global variable in process.env
   process.exit -1
   return
@@ -107,13 +106,6 @@ parseArgs = ->
 
     if options.coffee
         options.extensions += "|coffee|litcoffee"
-
-    if options.testDir?
-        unless fs.existsSync options.testDir
-            throw new Error "Test root path '#{dir}' doesn't exist!"
-
-        # NOTE: Does not look from current working directory.
-        options.specFolders.push options.testDir
 
     if options.watchFolders?
         unless _.isArray options.watchFolders
