@@ -24,6 +24,7 @@ contextObj = {
     setTimeout
     setInterval
     clearTimeout
+    console
 }
 
 loadJasmine = ->
@@ -34,7 +35,35 @@ loadJasmine = ->
     # browser where every file will have access to `jasmine`
     context = vm.createContext contextObj
     vm.runInContext jasmineSrc, context, jasminejs
-    jasmineEnv = booter.boot contextObj.window.jasmineRequire
+    # Save off so that we can manually reset in case someone didn't call
+    #   `uninstall`
+    global.savedFunctions = {
+        setTimeout
+        setInterval
+        clearInterval
+        clearTimeout
+    }
+
+    # Because jasmine is in the vm context, it doesn't have access to our
+    #   setTimeout and setInterval, let's make a bridge
+    clockCallback = (installing, clock) ->
+        # Let's wrap the callback and set it like it would do inside of jasmine
+        if installing
+            global.setTimeout = (callback, millis) ->
+                return clock.setTimeout(callback, millis)
+            global.setInterval = (callback, millis) ->
+                return clock.setInterval(callback, millis)
+            global.clearInterval = (id) ->
+                return clock.clearInterval(id)
+            global.clearTimeout = (id) ->
+                return clock.clearTimeout(id)
+        # Let's undo all that dirty work and re-install the original functions
+        else
+            global[key] = func for key, func of global.savedFunctions
+
+        return
+
+    jasmineEnv = booter.boot contextObj.window.jasmineRequire, clockCallback
     return jasmineEnv
 
 # Define helper functions

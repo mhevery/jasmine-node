@@ -145,8 +145,13 @@ runSpecs = (config) ->
     options = _.clone config
     _.defaults options, minimistOpts.default
 
+    # Clean up after the last run
     if _.isArray global.loadedHelpers
         delete global[helper] for helper in global.loadedHelpers
+        delete global['loadedHelpers']
+    if _.isObject global.savedFunctions
+        global[key] = func for key, func of global.savedFunctions
+        delete global['savedFunctions']
 
 
     # Sanity Check Watch Dirs

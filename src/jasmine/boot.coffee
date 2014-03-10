@@ -2,7 +2,7 @@ growlReporter  = require 'jasmine-growl-reporter'
 nodeReporters  = require '../reporter'
 
 # Node Translation of the Jasmine boot.js file. Seems to work quite well
-boot = (jasmineRequire) ->
+boot = (jasmineRequire, clockCallback) ->
     jasmine = jasmineRequire.core jasmineRequire
     ###
     Helper function for readability above.
@@ -54,11 +54,26 @@ boot = (jasmineRequire) ->
         spyOn: (obj, methodName) ->
             return env.spyOn(obj, methodName)
 
+        # setTimeout: (callback, millis) ->
+        #     return env.clock.setTimeout(callback, millis)
+
+        # setInterval: (callback, millis) ->
+        #     return env.clock.setInterval(callback, millis)
+
     ###
     Add all of the Jasmine global/public interface to the proper global, so a project can use the public interface directly. For example, calling `describe` in specs instead of `jasmine.getEnv().describe`.
     ###
     extend global, jasmineInterface
     global.jasmine = jasmine
+
+    clockInstaller = jasmine.currentEnv_.clock.install
+    clockUninstaller = jasmine.currentEnv_.clock.uninstall
+    jasmine.currentEnv_.clock.install = ->
+        clockCallback(true, env.clock)
+        return clockInstaller()
+    jasmine.currentEnv_.clock.uninstall = ->
+        clockCallback(false, env.clock)
+        return clockUninstaller()
 
     ###
     Expose the interface for adding custom equality testers.

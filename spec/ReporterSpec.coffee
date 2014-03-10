@@ -30,12 +30,6 @@ describe "TerminalReporter", ->
       expect(@reporter.counts).toBeDefined()
       return
 
-    it "sets the callback property to false by default", ->
-      config = {}
-      @reporter = new jasmineNode.TerminalReporter(config)
-      expect(@reporter.config.onComplete).toEqual jasmine.any(Function)
-      return
-
     it "sets the callback property to callback if supplied", ->
       foo = ->
 

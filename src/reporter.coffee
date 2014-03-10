@@ -23,7 +23,6 @@ class TerminalReporter
         defaults =
             color: if options.noColor then @NoColors else @ANSIColors
             noStackTrace: true
-            onComplete: noOp
             print: (str) ->
                 process.stdout.write util.format(str)
                 return
