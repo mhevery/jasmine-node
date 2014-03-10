@@ -13,6 +13,7 @@ minimistOpts =
     boolean: [
         "autoTest"
         "coffee"
+        "captureExceptions"
         "growl"
         "h"
         "help"
@@ -34,6 +35,7 @@ minimistOpts =
 
     default:
         autoTest          : false
+        captureExceptions : false
         coffee            : false
         extensions        : "js"
         growl             : false
@@ -68,6 +70,7 @@ Options:
   --growl            - display test run summary in a growl notification (in addition to other outputs)
   --coffee           - load coffee-script which allows execution .coffee files
   --noStackTrace     - suppress the stack trace generated from a test failure
+  --captureExceptions- listen to global exceptions, report them and exit (interferes with Domains)
   --version          - show the current version
   -h, --help         - display this help and exit
 """
@@ -160,6 +163,13 @@ runSpecs = (config) ->
 
         autoTest.start options.specFolders, options.watchFolders, options.patterns
         return
+
+    if options.captureExceptions
+        process.on 'uncaughtException', (error) ->
+            console.error error.stack ? error
+            exitCode = 1
+            process.exit exitCode
+            return
 
     process.on "exit", onExit
 

@@ -116,7 +116,8 @@ executeSpecsInFolder = (options) ->
 
     matchedSpecs = fileFinder.find options.specFolders, options.regExpSpec
 
-    jasmine.addReporter new jasmineEnv.TerminalReporter reporterOptions
+    #jasmine.addReporter new jasmineEnv.TerminalReporter reporterOptions
+    jasmine.addReporter new jasmineEnv.JUnitReporter reporterOptions
 
     if options.growl
         jasmine.addReporter new jasmineEnv.GrowlReporter options.growl

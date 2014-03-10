@@ -1,5 +1,6 @@
 growlReporter  = require 'jasmine-growl-reporter'
 nodeReporters  = require '../reporter'
+junitReporter  = require '../junit-reporter'
 
 # Node Translation of the Jasmine boot.js file. Seems to work quite well
 boot = (jasmineRequire, clockCallback) ->
@@ -19,6 +20,7 @@ boot = (jasmineRequire, clockCallback) ->
 
     # Attach our reporters
     jasmine.TerminalReporter = nodeReporters.TerminalReporter
+    jasmine.JUnitReporter    = junitReporter.JUnitReporter
     jasmine.GrowlReporter    = growlReporter
 
     ###
