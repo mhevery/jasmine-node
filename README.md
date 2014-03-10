@@ -2,7 +2,7 @@ jasmine-node
 ======
 
 [![Build Status](https://travis-ci.org/tebriel/jasmine-node.png?branch=Jasmine2.0)](https://travis-ci.org/tebriel/jasmine-node)
-[![Dependencies](https://david-dm.org/tebriel/jasmine-node.png)]
+![Dependencies](https://david-dm.org/tebriel/jasmine-node.png)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework available in node.js.
