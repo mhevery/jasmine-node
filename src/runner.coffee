@@ -141,7 +141,14 @@ parseArgs = ->
     return options
 
 # Run the specs with the given options hash
-runSpecs = (options) ->
+runSpecs = (config) ->
+    options = _.clone config
+    _.defaults options, minimistOpts.default
+
+    if _.isArray global.loadedHelpers
+        delete global[helper] for helper in global.loadedHelpers
+
+
     # Sanity Check Watch Dirs
     for dir in options.watchFolders
         continue if fs.existsSync dir

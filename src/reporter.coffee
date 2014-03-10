@@ -19,9 +19,9 @@ class TerminalReporter
         ignore      : -> return ''
         neutral     : -> return ''
 
-    constructor: (@config={}) ->
+    constructor: (options={}) ->
         defaults =
-            color: if @config.noColor then @NoColors else @ANSIColors
+            color: if options.noColor then @NoColors else @ANSIColors
             noStackTrace: true
             onComplete: noOp
             print: (str) ->
@@ -31,10 +31,12 @@ class TerminalReporter
                 return t
             verbose: false
 
-        @config = _.defaults @config, defaults
+        @config = _.clone options
+        _.defaults @config, defaults
 
         @counts =
-            tests: 0
+            testsStarted: 0
+            testsFinished: 0
             failures: 0
             skipped: 0
         @allSpecs = {}
@@ -64,20 +66,29 @@ class TerminalReporter
 
         @config.print "\n\nFinished in #{elapsed/1000} seconds\n"
         results = [
-            "#{@counts.tests} Tests"
+            "#{@counts.testsFinished} Tests"
             "#{@counts.failures} Failures"
             "#{@counts.skipped} Skipped\n\n"
         ]
-        if @counts.failures > 0
+        if @counts.failures > 0 or @counts.testsStarted isnt @counts.testsFinished
             color = @config.color.fail()
         else
             color = @config.color.pass()
+
+        @reportUnfinished()
 
         global.jasmineResult = fail: @counts.failures > 0
 
         @config.print @stringWithColor results.join(', '), color
         @config.onComplete?()
         return
+
+    reportUnfinished: ->
+        return if @counts.testsStarted is @counts.testsFinished
+        msg = """
+Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} complete\n
+            """
+        @config.print @stringWithColor msg, @config.color.fail()
 
     # Callback for when a suite starts running
     # Example Packet:
@@ -142,7 +153,7 @@ class TerminalReporter
     #   }
     specStarted: (spec) =>
         @specStart = +new Date
-        @counts.tests++
+        @counts.testsStarted++
         return
 
     # Prints out the status for the completed spec
@@ -173,6 +184,7 @@ class TerminalReporter
     #   }
     specDone: (spec) =>
         (@allSpecs[@currentSuite.id] ?= []).push spec
+        @counts.testsFinished++
         if @config.verbose
             msg = @makeVerbose spec
         else

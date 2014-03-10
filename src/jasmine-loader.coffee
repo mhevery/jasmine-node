@@ -9,27 +9,33 @@ fileFinder     = require './file-finder'
 booter         = require './jasmine/boot'
 
 # Begin real code
-isWindowDefined = global.window?
-unless isWindowDefined
-    global.window =
-        setTimeout    : setTimeout
-        clearTimeout  : clearTimeout
-        setInterval   : setInterval
-        clearInterval : clearInterval
+contextObj = {
+    window: {
+        setTimeout
+        clearTimeout
+        setInterval
+        clearInterval
+    }
+    String
+    Number
+    Function
+    Object
+    Boolean
+    setTimeout
+    setInterval
+    clearTimeout
+}
 
-jasminejs  = __dirname + '/jasmine/jasmine-2.0.0.js';
-jasmineSrc = fs.readFileSync(jasminejs);
+loadJasmine = ->
+    jasminejs  = __dirname + '/jasmine/jasmine-2.0.0.js'
+    jasmineSrc = fs.readFileSync jasminejs
 
-# Put jasmine in the global context, this is somewhat like running in a
-# browser where every file will have access to `jasmine`
-contextObj =
-    window: global.window
-    console: console
-context = vm.createContext contextObj
-vm.runInContext jasmineSrc, context, jasminejs
-jasmineEnv = booter.boot global.window.jasmineRequire
-
-#delete global.window unless isWindowDefined
+    # Put jasmine in the global context, this is somewhat like running in a
+    # browser where every file will have access to `jasmine`
+    context = vm.createContext contextObj
+    vm.runInContext jasmineSrc, context, jasminejs
+    jasmineEnv = booter.boot contextObj.window.jasmineRequire
+    return jasmineEnv
 
 # Define helper functions
 loadHelpersInFolder = (folder, matcher) ->
@@ -40,6 +46,8 @@ loadHelpersInFolder = (folder, matcher) ->
 
     matchedHelpers = fileFinder.find [folder], matcher
     helpers = fileFinder.sortFiles matchedHelpers
+
+    helperNames = []
 
     for helper in helpers
         file = helper.path()
@@ -54,8 +62,9 @@ loadHelpersInFolder = (folder, matcher) ->
 
         for key, help of helper
             global[key] = help
+            helperNames.push key
 
-    return
+    return global.loadedHelpers = helperNames
 
 removeJasmineFrames = (text) ->
     return unless text?
@@ -68,6 +77,7 @@ removeJasmineFrames = (text) ->
     return lines.join "\n"
 
 executeSpecsInFolder = (options) ->
+    jasmineEnv = loadJasmine()
     defaults =
         regExpSpec: new RegExp ".(js)$", "i"
         stackFilter: removeJasmineFrames
@@ -106,6 +116,3 @@ print = (str) ->
   return
 
 module.exports = { executeSpecsInFolder, loadHelpersInFolder}
-
-# exports['setTimeout'] = jasmineEnv.getGlobal().setTimeout
-# exports['setInterval'] = jasmineEnv.getGlobal().setInterval

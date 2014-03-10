@@ -54,14 +54,6 @@ boot = (jasmineRequire) ->
         spyOn: (obj, methodName) ->
             return env.spyOn(obj, methodName)
 
-        # Modify the global Set Timeout
-        setTimeout: (cb, ms) ->
-            return env.setTimeout(cb, ms)
-
-        # Modify the global Set Interval
-        setInterval: (cb, ms) ->
-            return env.setInterval(cb, ms)
-
     ###
     Add all of the Jasmine global/public interface to the proper global, so a project can use the public interface directly. For example, calling `describe` in specs instead of `jasmine.getEnv().describe`.
     ###
