@@ -8,10 +8,6 @@ _                = require 'underscore'
 jasmine          = require './jasmine-loader'
 autoTest         = require './auto-test'
 
-# Bring all the jasmine keys into the global scope. Ugly, TODO Refactor this
-# someday?
-#global[key] = value for key, value of jasmine
-
 # Command Line Options Hash
 minimistOpts =
     boolean: [
