@@ -61,18 +61,18 @@ help = ->
 USAGE: jasmine-node [--color|--noColor] [--verbose] [--coffee] directory
 
 Options:
-  --autoTest         - rerun automatically the specs when a file changes
-  --watch PATH       - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
-  --noColor          - do not use color coding for output
-  -m, --match REGEXP - load only specs containing "REGEXPspec"
-  --matchAll         - relax requirement of "spec" in spec file names
-  --verbose          - print extra information per each test run
-  --growl            - display test run summary in a growl notification (in addition to other outputs)
-  --coffee           - load coffee-script which allows execution .coffee files
-  --noStackTrace     - suppress the stack trace generated from a test failure
-  --captureExceptions- listen to global exceptions, report them and exit (interferes with Domains)
-  --version          - show the current version
-  -h, --help         - display this help and exit
+  --autoTest          - rerun automatically the specs when a file changes
+  --watch PATH        - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
+  --noColor           - do not use color coding for output
+  -m, --match REGEXP  - load only specs containing "REGEXPspec"
+  --matchAll          - relax requirement of "spec" in spec file names
+  --verbose           - print extra information per each test run
+  --growl             - display test run summary in a growl notification (in addition to other outputs)
+  --coffee            - load coffee-script which allows execution .coffee files
+  --noStackTrace      - suppress the stack trace generated from a test failure
+  --captureExceptions - listen to global exceptions, report them and exit (interferes with Domains)
+  --version           - show the current version
+  -h, --help          - display this help and exit
 """
 
 #  --config NAME VALUE- set a global variable in process.env
