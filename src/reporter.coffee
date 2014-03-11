@@ -243,14 +243,14 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
 \n
 #{indent}#{count}) #{spec.fullName}
 #{indent}#{indent}Message:
-#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}
+#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}\n
                     """
                     unless @config.noStackTrace
                         stack = @config.stackFilter failure.stack
                         @config.print """
 \n
 #{indent}#{indent}Stacktrace:
-#{indent}#{indent}#{indent}#{stack}
+#{indent}#{indent}#{indent}#{stack}\n
                         """
 
         return
