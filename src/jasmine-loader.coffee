@@ -131,13 +131,12 @@ executeSpecsInFolder = (options) ->
     for spec in specsList
         delete require.cache[spec]
         # Catch exceptions in loading the spec
+        if options.debug
+            console.log "Loading: #{spec}"
         try
-            specPath = spec.replace(/\.\w+$/, "")
-            if options.debug
-                console.log "Loading: #{specPath}"
-            require specPath
+            require spec
         catch error
-            console.log "Exception loading: #{spec.path()}"
+            console.log "Exception loading: #{spec}"
             console.log error
             throw error
 

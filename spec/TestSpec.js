@@ -12,6 +12,28 @@ describe('jasmine-node-flat', function(){
   });
 });
 
+describe('jasmine-node-deep-nest-incorrect', function(){
+    describe('jasmine-sub-describe', function() {
+        it("should handle an it within a deep describe", function() {
+            expect(1).toBe(1);
+        });
+        it("should handle an it within a deep describe2", function() {
+            expect(1).toBe(1);
+        });
+    });
+    it('should pass', function(){
+        expect(1+2).toEqual(3);
+    });
+  xit('should skip this one', function(){
+    expect(1+2).toEqual(3);
+  });
+  describe('jasmine-node-flat-nested', function(){
+      it('should also pass', function(){
+          expect(3).toBe(3);
+      });
+  });
+});
+
 describe('jasmine.any tests', function() {
   it('handles string and not string', function() {
       expect('abc').toEqual(jasmine.any(String));
