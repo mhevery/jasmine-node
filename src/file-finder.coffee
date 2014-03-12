@@ -5,16 +5,24 @@ walkdir = require 'walkdir'
 find = (loadpaths, matcher) ->
     wannaBeSpecs = []
     specs = []
-    loadpaths.forEach (loadpath) ->
-        wannaBeSpecs = walkdir.sync loadpath, follow_symlinks: true
-        for wannaBeSpec in wannaBeSpecs
-            try
-                continue unless fs.statSync(wannaBeSpec).isFile()
-                relative = path.relative(loadpath, wannaBeSpec)
-                basename = path.basename(wannaBeSpec)
-                isInNodeModules = /.*node_modules.*/.test(relative)
-                if matcher.test(basename) and not isInNodeModules
-                    specs.push wannaBeSpec
+    walkOpts =
+        follow_symlinks: true
+        no_return:true
+    fileTester = (filePath, stat) ->
+        try
+            return unless fs.statSync(filePath).isFile()
+        catch
+            console.error "Couldn't stat file: #{filePath}"
+            return
+
+        basename = path.basename(filePath)
+        isInNodeModules = /.*node_modules.*/.test(filePath)
+        if matcher.test(basename) and not isInNodeModules
+            specs.push filePath
+        return
+
+    for loadpath in loadpaths
+        walkdir.sync loadpath, walkOpts, fileTester
 
     return specs
 

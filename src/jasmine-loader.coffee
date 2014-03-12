@@ -73,8 +73,8 @@ loadHelpersInFolder = (folder, matcher) ->
     folderStats = fs.statSync folder
     folder = path.dirname(folder) if folderStats.isFile()
 
-    matchedHelpers = fileFinder.find [folder], matcher
-    helpers = fileFinder.sortFiles matchedHelpers
+    helpers = fileFinder.find [folder], matcher
+    fileFinder.sortFiles helpers
 
     helperNames = []
 
@@ -111,18 +111,18 @@ executeSpecsInFolder = (options) ->
         regExpSpec: new RegExp ".(js)$", "i"
         stackFilter: removeJasmineFrames
 
-    reporterOptions = _.defaults options, defaults
-    jasmine        = jasmineEnv.getEnv()
+    _.defaults options, defaults
+    jasmine = jasmineEnv.getEnv()
 
-    matchedSpecs = fileFinder.find options.specFolders, options.regExpSpec
+    specsList = fileFinder.find options.specFolders, options.regExpSpec
 
-    jasmine.addReporter new jasmineEnv.TerminalReporter reporterOptions
-    #jasmine.addReporter new jasmineEnv.JUnitReporter reporterOptions
+    jasmine.addReporter new jasmineEnv.TerminalReporter options
+    #jasmine.addReporter new jasmineEnv.JUnitReporter options
 
     if options.growl
         jasmine.addReporter new jasmineEnv.GrowlReporter options.growl
 
-    specsList = fileFinder.sortFiles matchedSpecs
+    fileFinder.sortFiles specsList
 
     if _.isEmpty specsList
         console.error "\nNo Specs Matching #{options.regExpSpec} Found"
@@ -142,9 +142,5 @@ executeSpecsInFolder = (options) ->
 
     jasmine.execute()
     return
-
-print = (str) ->
-  process.stdout.write util.format(str)
-  return
 
 module.exports = { executeSpecsInFolder, loadHelpersInFolder}
