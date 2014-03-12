@@ -79,17 +79,17 @@ loadHelpersInFolder = (folder, matcher) ->
     helperNames = []
 
     for helper in helpers
-        file = helper.path()
+        file = helper
 
         try
-            helper = require file.replace(/\.*$/, "")
+            helperItem = require file.replace(/\.*$/, "")
         catch e
             console.log "Exception loading helper: #{file}"
             console.log e
             # If any of the helpers fail to load, fail everything
             throw e
 
-        for key, help of helper
+        for key, help of helperItem
             global[key] = help
             helperNames.push key
 
@@ -129,10 +129,13 @@ executeSpecsInFolder = (options) ->
         console.error "Consider using --matchAll or --match REGEXP"
 
     for spec in specsList
-        delete require.cache[spec.path()]
+        delete require.cache[spec]
         # Catch exceptions in loading the spec
         try
-            require spec.path().replace(/\.\w+$/, "")
+            specPath = spec.replace(/\.\w+$/, "")
+            if options.debug
+                console.log "Loading: #{specPath}"
+            require specPath
         catch error
             console.log "Exception loading: #{spec.path()}"
             console.log error

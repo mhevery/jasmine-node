@@ -14,6 +14,7 @@ minimistOpts =
         "autoTest"
         "coffee"
         "captureExceptions"
+        "debug"
         "growl"
         "h"
         "help"
@@ -37,6 +38,7 @@ minimistOpts =
         autoTest          : false
         captureExceptions : false
         coffee            : false
+        debug             : false
         extensions        : "js"
         growl             : false
         match             : '.'

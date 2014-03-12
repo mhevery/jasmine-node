@@ -1,20 +1,6 @@
-walkdir = require 'walkdir'
-path    = require 'path'
 fs      = require 'fs'
-
-createSpecObj = (path, root) ->
-    return {
-        path: ->
-            return path
-        relativePath: ->
-            return path.replace(root, '').replace(/^[\/\\]/, '').replace(/\\/g, '/')
-        directory: ->
-            return path.replace(/[\/\\][\s\w\.-]*$/, "").replace(/\\/g, '/')
-        relativeDirectory: ->
-            return relativePath().replace(/[\/\\][\s\w\.-]*$/, "").replace(/\\/g, '/')
-        filename: ->
-            return path.replace(/^.*[\\\/]/, '')
-    }
+path    = require 'path'
+walkdir = require 'walkdir'
 
 find = (loadpaths, matcher) ->
     wannaBeSpecs = []
@@ -28,7 +14,7 @@ find = (loadpaths, matcher) ->
                 basename = path.basename(wannaBeSpec)
                 isInNodeModules = /.*node_modules.*/.test(relative)
                 if matcher.test(basename) and not isInNodeModules
-                    specs.push createSpecObj(wannaBeSpec)
+                    specs.push wannaBeSpec
 
     return specs
 
@@ -36,7 +22,7 @@ sortFiles = (specs) ->
   # Sorts spec paths in ascending alphabetical order to be able to
   #   run tests in a deterministic order.
   specs.sort (a, b) ->
-    return a.path().localeCompare b.path()
+    return a.localeCompare b
   return specs
 
 module.exports = {find, sortFiles}
