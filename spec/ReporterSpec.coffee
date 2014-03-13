@@ -60,7 +60,7 @@ describe "TerminalReporter", ->
         status: ""
 
       @reporter.suiteStarted suite
-      expect(+@reporter.suiteTimes["suite1"]).toEqual jasmine.any(Number)
+      expect(+@reporter.suiteTimeStart["suite1"]).toEqual jasmine.any(Number)
       return
 
     return
