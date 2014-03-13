@@ -38,10 +38,15 @@ class TerminalReporter
             testsFinished: 0
             failures: 0
             skipped: 0
+            doneErrors: 0
         @allSpecs = {}
         @suiteNestLevel = 0
         @done = false
-        @suiteTimes = {}
+        @suiteTimeStart = {}
+        @suiteTimeDone = {}
+        @specTimeStart = {}
+        @specTimeDone = {}
+        @doneErrorNames = []
 
         return
 
@@ -51,17 +56,31 @@ class TerminalReporter
     #       "totalSpecsDefined": 3
     #   }
     jasmineStarted: (runner) =>
+        if @config.debug
+            @config.print """
+\nJasmine Starting with #{runner.totalSpecsDefined} Specs\n
+                """
+
         @startedAt = +new Date
         return
 
     # Callback for when Jasmine is finished running
     jasmineDone: =>
-        return if @done
+        if @config.debug
+            @config.print "\nJasmine Reports Complete\n"
+            if @done
+                @config.print "\nAlready seen done before\n"
+
+        if @done
+            @printDoneFailures()
+            return
+
         @done = true
         now = +new Date
         elapsed = now - @startedAt
 
         @printFailures()
+        @printDoneFailures()
 
         @config.print "\n\nFinished in #{elapsed/1000} seconds\n"
         results = [
@@ -98,7 +117,15 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "status": ""
     #   }
     suiteStarted: (suite) =>
-        @suiteTimes[suite.id] = +new Date
+        if @config.debug
+            @config.print "\nSuite #{suite.description} Started\n"
+            if @suiteTimeStart[suite.id]?
+                @config.print "\nSuite already seen before\n"
+
+        if @suiteTimeStart[suite.id]?
+            @counts.doneErrors++
+            return
+        @suiteTimeStart[suite.id] = +new Date
         @printVerboseSuiteStart(suite) if @config.verbose
         @suiteNestLevel++
         suite.parent = @currentSuite
@@ -124,13 +151,20 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "status": ""
     #   }
     suiteDone: (suite) =>
+        if @config.debug
+            @config.print "\nSuite #{suite.description} done\n"
+            unless @suiteTimeStart[suite.id]?
+                @config.print JSON.stringify suite
+                @config.print "\nSuite start wasn't reported\n"
+
         # Suite done gets called multiple times, just take the first one
-        return unless @suiteTimes[suite.id]
+        if @suiteTimeDone[suite.id]? or not @suiteTimeStart[suite.id]?
+            @counts.doneErrors++
+            return
         @suiteNestLevel--
-        @suiteTimes[suite.id] = (+new Date) - @suiteTimes[suite.id]
+        @suiteTimeDone[suite.id] = (+new Date) - @suiteTimeStart[suite.id]
         if @config.verbose
             @printVerboseSuiteDone suite
-        delete @suiteTimes[suite.id]
         @currentSuite = @currentSuite.parent ? null
         return
 
@@ -140,7 +174,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         for i in [0..@suiteNestLevel]
             msg += "  "
         msg += @stringWithColor "#{suite.description} Finish", @config.color.ignore()
-        msg += @stringWithColor " - #{@suiteTimes[suite.id]} ms\n\n", @config.color.suiteTiming()
+        msg += @stringWithColor " - #{@suiteTimeDone[suite.id]} ms\n\n", @config.color.suiteTiming()
         @config.print msg
 
     # Example Packet:
@@ -151,7 +185,11 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "id": "spec1"
     #   }
     specStarted: (spec) =>
-        @specStart = +new Date
+        if @specTimeStart[spec.id]?
+            @counts.doneErrors++
+            @doneErrorNames.push spec.fullName
+            return
+        @specTimeStart[spec.id] = +new Date
         @counts.testsStarted++
         return
 
@@ -182,6 +220,12 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "status": "passed"
     #   }
     specDone: (spec) =>
+        if @specTimeDone[spec.id]? or not @specTimeStart[spec.id]?
+            @counts.doneErrors++
+            @doneErrorNames.push spec.fullName
+            return
+        @specTimeDone[spec.id] = (+new Date) - @specTimeStart[spec.id]
+
         (@allSpecs[@currentSuite.id] ?= []).push spec
         @counts.testsFinished++
         if @config.verbose
@@ -209,7 +253,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         return msg
 
     makeVerbose: (spec) ->
-        elapsed = (+new Date) - @specStart
+        elapsed = @specTimeDone[spec.id]
         msg = ''
         for i in [0..@suiteNestLevel]
             msg += "  "
@@ -228,6 +272,26 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         msg += @stringWithColor " - #{elapsed} ms\n", @config.color.specTiming()
 
         return msg
+
+    # Print Done Failures
+    printDoneFailures: ->
+        return unless @counts.doneErrors > 0
+        @doneErrorNames = _.uniq @doneErrorNames
+        @config.print "\n\nSpec Misconfiguration: \n"
+        indent = "    "
+        msg = """
+#{indent}Saw #{@counts.doneErrors} misfires on #{@doneErrorNames.length} spec/suite completions
+#{indent}This is likely because you executed more code after a `done()` was called
+\n
+            """
+        @config.print @stringWithColor msg, @config.color.fail()
+        msg = "#{indent} Misconfigured Spec Names:\n"
+        @config.print @stringWithColor msg, @config.color.fail()
+        for name in @doneErrorNames
+            msg = "#{indent}#{indent}#{@stringWithColor name}\n"
+            @config.print msg, @config.color.fail()
+
+        return
 
     # Print out failed specs
     printFailures: ->
