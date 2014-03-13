@@ -30,7 +30,8 @@
     "mkdirp": "~0.3.5",
     "minimist": "0.0.8",
     "jasmine-growl-reporter": "~0.2.0",
-    "xml2js": "^0.4.1"
+    "xml2js": "^0.4.1",
+    "grunt-exec": "^0.4.5"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "^0.10.1",

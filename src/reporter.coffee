@@ -5,23 +5,22 @@ noOp = -> return
 
 class TerminalReporter
     ANSIColors:
-        pass        : -> return '\x1B[32m' # Green
-        fail        : -> return '\x1B[31m' # Red
-        specTiming  : -> return '\x1B[34m' # Blue
-        suiteTiming : -> return '\x1B[33m' # Yelow
-        ignore      : -> return '\x1B[37m' # Light Gray
-        neutral     : -> return '\x1B[0m'  # Normal
+        pass        : '\x1B[32m' # Green
+        fail        : '\x1B[31m' # Red
+        specTiming  : '\x1B[34m' # Blue
+        suiteTiming : '\x1B[33m' # Yelow
+        ignore      : '\x1B[37m' # Light Gray
+        neutral     : '\x1B[0m'  # Normal
     NoColors:
-        pass        : -> return ''
-        fail        : -> return ''
-        specTiming  : -> return ''
-        suiteTiming : -> return ''
-        ignore      : -> return ''
-        neutral     : -> return ''
+        pass        : ''
+        fail        : ''
+        specTiming  : ''
+        suiteTiming : ''
+        ignore      : ''
+        neutral     : ''
 
     constructor: (options={}) ->
         defaults =
-            color: if options.noColor then @NoColors else @ANSIColors
             noStackTrace: true
             print: (str) ->
                 process.stdout.write util.format(str)
@@ -29,6 +28,11 @@ class TerminalReporter
             stackFilter: (t) ->
                 return t
             verbose: false
+
+        if options.noColor
+            @setColorFuncs @NoColors
+        else
+            @setColorFuncs @ANSIColors
 
         @config = _.clone options
         _.defaults @config, defaults
@@ -41,14 +45,20 @@ class TerminalReporter
             doneErrors: 0
         @allSpecs = {}
         @suiteNestLevel = 0
-        @done = false
-        @suiteTimeStart = {}
-        @suiteTimeDone = {}
-        @specTimeStart = {}
-        @specTimeDone = {}
+        @jasmineIsDone = false
+        @times =
+            suiteStart: {}
+            suiteDone: {}
+            specStart: {}
+            specDone: {}
+            jasmineStarted: 0
+            jasmineIsDone: 0
         @doneErrorNames = []
 
         return
+
+    setColorFuncs: (colorSet) ->
+        @[color] = func for color, func of colorSet
 
     # Callback for when Jasmine starts running
     # Example Packet:
@@ -62,39 +72,38 @@ class TerminalReporter
                 """
         if @config.verbose
             msg = "\nJasmine Started with #{runner.totalSpecsDefined} Specs\n"
-            @config.print @stringWithColor msg, @config.color.pass()
+            @config.print @stringWithColor msg, @pass
 
-        @startedAt = +new Date
+        @times.jasmineStarted = +new Date
         return
 
     # Callback for when Jasmine is finished running
     jasmineDone: =>
         if @config.debug
             @config.print "\nJasmine Reports Complete\n"
-            if @done
+            if @jasmineIsDone
                 @config.print "\nAlready seen done before\n"
 
-        if @done
+        if @jasmineIsDone
             @printDoneFailures()
             return
 
-        @done = true
-        now = +new Date
-        elapsed = now - @startedAt
+        @jasmineIsDone = true
+        @times.jasmineIsDone = (+new Date) - @times.jasmineStarted
 
         @printFailures()
         @printDoneFailures()
 
-        @config.print "\n\nFinished in #{elapsed/1000} seconds\n"
+        @config.print "\n\nFinished in #{@times.jasmineIsDone/1000} seconds\n"
         results = [
             "#{@counts.testsFinished} Tests"
             "#{@counts.failures} Failures"
             "#{@counts.skipped} Skipped\n\n"
         ]
         if @counts.failures > 0 or @counts.testsStarted isnt @counts.testsFinished
-            color = @config.color.fail()
+            color = @fail
         else
-            color = @config.color.pass()
+            color = @pass
 
         @reportUnfinished()
 
@@ -109,7 +118,7 @@ class TerminalReporter
         msg = """
 Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} complete\n
             """
-        @config.print @stringWithColor msg, @config.color.fail()
+        @config.print @stringWithColor msg, @fail
 
     # Callback for when a suite starts running
     # Example Packet:
@@ -122,13 +131,13 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     suiteStarted: (suite) =>
         if @config.debug
             @config.print "\nSuite #{suite.description} Started\n"
-            if @suiteTimeStart[suite.id]?
+            if @times.suiteStart[suite.id]?
                 @config.print "\nSuite already seen before\n"
 
-        if @suiteTimeStart[suite.id]?
+        if @times.suiteStart[suite.id]?
             @counts.doneErrors++
             return
-        @suiteTimeStart[suite.id] = +new Date
+        @times.suiteStart[suite.id] = +new Date
         @printVerboseSuiteStart(suite) if @config.verbose
         @suiteNestLevel++
         suite.parent = @currentSuite
@@ -140,7 +149,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         msg = ''
         for i in [0..@suiteNestLevel]
             msg += "  "
-        msg += @stringWithColor "#{suite.description} Start\n", @config.color.ignore()
+        msg += @stringWithColor "#{suite.description} Start\n", @ignore
         @config.print msg
 
     # Callback for when a suite is finished running
@@ -156,16 +165,16 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     suiteDone: (suite) =>
         if @config.debug
             @config.print "\nSuite #{suite.description} done\n"
-            unless @suiteTimeStart[suite.id]?
+            unless @times.suiteStart[suite.id]?
                 @config.print JSON.stringify suite
                 @config.print "\nSuite start wasn't reported\n"
 
         # Suite done gets called multiple times, just take the first one
-        if @suiteTimeDone[suite.id]? or not @suiteTimeStart[suite.id]?
+        if @times.suiteDone[suite.id]? or not @times.suiteStart[suite.id]?
             @counts.doneErrors++
             return
         @suiteNestLevel--
-        @suiteTimeDone[suite.id] = (+new Date) - @suiteTimeStart[suite.id]
+        @times.suiteDone[suite.id] = (+new Date) - @times.suiteStart[suite.id]
         if @config.verbose
             @printVerboseSuiteDone suite
         @currentSuite = @currentSuite.parent ? null
@@ -176,8 +185,8 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         msg = ''
         for i in [0..@suiteNestLevel]
             msg += "  "
-        msg += @stringWithColor "#{suite.description} Finish", @config.color.ignore()
-        msg += @stringWithColor " - #{@suiteTimeDone[suite.id]} ms\n\n", @config.color.suiteTiming()
+        msg += @stringWithColor "#{suite.description} Finish", @ignore
+        msg += @stringWithColor " - #{@times.suiteDone[suite.id]} ms\n\n", @suiteTiming
         @config.print msg
 
     # Example Packet:
@@ -188,11 +197,11 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "id": "spec1"
     #   }
     specStarted: (spec) =>
-        if @specTimeStart[spec.id]?
+        if @times.specStart[spec.id]?
             @counts.doneErrors++
             @doneErrorNames.push spec.fullName
             return
-        @specTimeStart[spec.id] = +new Date
+        @times.specStart[spec.id] = +new Date
         @counts.testsStarted++
         return
 
@@ -223,11 +232,11 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
     #       "status": "passed"
     #   }
     specDone: (spec) =>
-        if @specTimeDone[spec.id]? or not @specTimeStart[spec.id]?
+        if @times.specDone[spec.id]? or not @times.specStart[spec.id]?
             @counts.doneErrors++
             @doneErrorNames.push spec.fullName
             return
-        @specTimeDone[spec.id] = (+new Date) - @specTimeStart[spec.id]
+        @times.specDone[spec.id] = (+new Date) - @times.specStart[spec.id]
 
         (@allSpecs[@currentSuite.id] ?= []).push spec
         @counts.testsFinished++
@@ -245,34 +254,34 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         switch spec.status
             when 'pending'
                 @counts.skipped++
-                msg = @stringWithColor '-', @config.color.ignore()
+                msg = @stringWithColor '-', @ignore
             when 'passed'
-                msg = @stringWithColor '.', @config.color.pass()
+                msg = @stringWithColor '.', @pass
             when 'failed'
                 @counts.failures++
-                msg = @stringWithColor 'F', @config.color.fail()
+                msg = @stringWithColor 'F', @fail
             else
-                msg = @stringWithColor 'U', @config.color.fail()
+                msg = @stringWithColor 'U', @fail
         return msg
 
     makeVerbose: (spec) ->
-        elapsed = @specTimeDone[spec.id]
+        elapsed = @times.specDone[spec.id]
         msg = ''
         for i in [0..@suiteNestLevel]
             msg += "  "
         switch spec.status
             when 'pending'
                 @counts.skipped++
-                msg += @stringWithColor "#{spec.description}", @config.color.ignore()
+                msg += @stringWithColor "#{spec.description}", @ignore
             when 'passed'
-                msg += @stringWithColor "#{spec.description}", @config.color.pass()
+                msg += @stringWithColor "#{spec.description}", @pass
             when 'failed'
                 @counts.failures++
-                msg += @stringWithColor "#{spec.description}", @config.color.fail()
+                msg += @stringWithColor "#{spec.description}", @fail
             else
-                msg += @stringWithColor "#{spec.description}", @config.color.fail()
+                msg += @stringWithColor "#{spec.description}", @fail
 
-        msg += @stringWithColor " - #{elapsed} ms\n", @config.color.specTiming()
+        msg += @stringWithColor " - #{elapsed} ms\n", @specTiming
 
         return msg
 
@@ -284,15 +293,15 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         indent = "    "
         msg = """
 #{indent}Saw #{@counts.doneErrors} misfires on #{@doneErrorNames.length} spec/suite completions
-#{indent}This is likely because you executed more code after a `done()` was called
+#{indent}This is likely because you executed more code after a `done` was called
 \n
             """
-        @config.print @stringWithColor msg, @config.color.fail()
+        @config.print @stringWithColor msg, @fail
         msg = "#{indent} Misconfigured Spec Names:\n"
-        @config.print @stringWithColor msg, @config.color.fail()
+        @config.print @stringWithColor msg, @fail
         for name in @doneErrorNames
             msg = "#{indent}#{indent}#{@stringWithColor name}\n"
-            @config.print @stringWithColor msg, @config.color.neutral()
+            @config.print @stringWithColor msg, @neutral
 
         return
 
@@ -310,7 +319,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
 \n
 #{indent}#{count}) #{spec.fullName}
 #{indent}#{indent}Message:
-#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@config.color.fail())}\n
+#{indent}#{indent}#{indent}#{@stringWithColor(failure.message,@fail)}\n
                     """
                     unless @config.noStackTrace
                         stack = @config.stackFilter failure.stack
@@ -322,7 +331,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
 
         return
 
-    stringWithColor: (string, color=@config.color.neutral()) ->
-        return "#{color}#{string}#{@config.color.neutral()}"
+    stringWithColor: (string, color=@neutral) ->
+        return "#{color}#{string}#{@neutral}"
 
 module.exports = {TerminalReporter}

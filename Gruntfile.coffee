@@ -9,7 +9,12 @@ module.exports = (grunt) ->
                 files: [
                     'src/**/*.coffee'
                 ]
-                tasks: ['coffee']
+                tasks: ['coffee', 'exec:test']
+            test_files:
+                files: [
+                    'spec/**/*'
+                ]
+                tasks: ['exec:test']
         coffee:
             main:
                 expand: true
@@ -18,10 +23,15 @@ module.exports = (grunt) ->
                 src: ['**/*.coffee']
                 dest: 'lib/jasmine-node/'
                 ext: '.js'
+        exec:
+            test:
+                cmd: "node bin/jasmine-node --coffee --noColor --captureExceptions spec/"
+
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
+    grunt.loadNpmTasks 'grunt-exec'
 
-    grunt.registerTask 'default', ['coffee']
+    grunt.registerTask 'default', ['coffee', 'exec:test']
     grunt.renameTask 'watch', '_watch_'
     grunt.registerTask 'watch', ['default', '_watch_']
