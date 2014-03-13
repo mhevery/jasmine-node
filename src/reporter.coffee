@@ -60,6 +60,9 @@ class TerminalReporter
             @config.print """
 \nJasmine Starting with #{runner.totalSpecsDefined} Specs\n
                 """
+        if @config.verbose
+            msg = "\nJasmine Started with #{runner.totalSpecsDefined} Specs\n"
+            @config.print @stringWithColor msg, @config.color.pass()
 
         @startedAt = +new Date
         return
