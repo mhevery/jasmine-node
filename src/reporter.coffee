@@ -292,7 +292,7 @@ Started #{@counts.testsStarted} tests, but only had #{@counts.testsFinished} com
         @config.print @stringWithColor msg, @config.color.fail()
         for name in @doneErrorNames
             msg = "#{indent}#{indent}#{@stringWithColor name}\n"
-            @config.print msg, @config.color.fail()
+            @config.print @stringWithColor msg, @config.color.neutral()
 
         return
 
