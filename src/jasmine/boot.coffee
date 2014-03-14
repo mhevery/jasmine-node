@@ -36,7 +36,28 @@ boot = (jasmineRequire, clockCallback) ->
             return env.xdescribe description, specDefinitions
 
         it: (desc, func) ->
-            return env.it desc, func
+            spec =
+                done: false
+                doneFunc: -> return
+                returned: false
+            wrappedFunc = func
+            wrappedDone = ->
+                spec.done = true
+                if spec.returned
+                    return spec.doneFunc()
+                return
+
+            if func.length > 0
+                wrappedFunc = (done) ->
+                    spec.doneFunc = done
+                    func.call(@, wrappedDone)
+                    spec.returned = true
+                    if spec.done
+                        return spec.doneFunc()
+                    return
+
+
+            return env.it desc, wrappedFunc
 
         xit: (desc, func) ->
             return env.xit desc, func
