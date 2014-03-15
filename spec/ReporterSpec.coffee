@@ -40,6 +40,17 @@ describe "TerminalReporter", ->
 
         return
 
+    describe "Attempting to break reporter", ->
+        it "Is an imaginary test", ->
+            expect(true).toEqual true
+        it "Uses done to hopefully die a horrible death", (done) ->
+            expect(true).toBe true
+            cb = ->
+                expect(true).toBe(true)
+                done()
+            setTimeout(cb, 1000)
+            expect(true).toBe true
+
     describe "General Tests", ->
         it "Sets the Jasmine Started At DateTime", ->
             runner =
