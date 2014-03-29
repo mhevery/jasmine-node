@@ -238,6 +238,8 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
+*  _1.14.2_ Uhhh...not sure what happened here.
 *  _1.14.1_ Default to noColors if not in a TTY
 *  _1.14.0_ Add support for `iit`, `ddescribe` (thanks to [mgcrea](https://github.com/mgcrea))
 *  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
