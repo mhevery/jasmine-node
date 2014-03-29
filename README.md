@@ -81,7 +81,7 @@ watched for changes, allowing to watch for changes outside of specs directory
   * `--color`, indicates spec output should uses color to
 indicates passing (green) or failing (red) specs
   * `--noColor`, do not use color in the output
-  * `-m, --match REGEXP`, match only specs comtaining "REGEXPspec"
+  * `-m, --match REGEXP`, match only specs containing "REGEXPspec"
   * `--matchall`, relax requirement of "spec" in spec file names
   * `--verbose`, verbose output as the specs are run
   * `--junitreport`, export tests results as junitreport xml format
