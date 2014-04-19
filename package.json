@@ -31,7 +31,8 @@
     "minimist": "~0.0.8",
     "jasmine-growl-reporter": "~0.2.0",
     "xml2js": "~0.4.1",
-    "grunt-exec": "~0.4.5"
+    "grunt-exec": "~0.4.5",
+    "jasmine-reporters": "git://github.com/larrymyers/jasmine-reporters.git#0c34665406f7c2643f569329f023c827c1e8ae6a"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "~0.10.1",
