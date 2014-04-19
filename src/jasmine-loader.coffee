@@ -118,7 +118,9 @@ executeSpecsInFolder = (options) ->
     specsList = fileFinder.find options.specFolders, options.regExpSpec
 
     if options.junit
-        jasmine.addReporter new reporters.JUnitXmlReporter options
+        options.junitConfigOpts ?= {}
+        junit = new reporters.JUnitXmlReporter options.junitConfigOpts
+        jasmine.addReporter junit
     else
         jasmine.addReporter new jasmineEnv.TerminalReporter options
 

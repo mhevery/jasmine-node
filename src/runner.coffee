@@ -135,8 +135,8 @@ parseArgs = ->
         unless fs.existsSync(options.junitConfig)
             console.error "Junit Config File Doesn't Exist"
             help()
-
-        options.junitConfigOpts = require options.junitConfig
+        config = fs.readFileSync(options.junitConfig, 'utf8')
+        options.junitConfigOpts = JSON.parse(config)
         options.junit = true
 
     help() if _.isEmpty options.specFolders

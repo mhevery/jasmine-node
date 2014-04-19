@@ -107,6 +107,29 @@ Example:
 jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
 
+junitxml reporter
+-----------------
+
+To use default options, just specify `--junit`
+
+If you want to configure, use `--junitConfig path/to/config.json`
+
+### Example JSON File with known options ###
+
+Please checkout the
+[jasmine-reporters](https://github.com/larrymyers/jasmine-reporters) repo for
+more configuration information and documentation
+
+```json
+{
+    "savePath": "./junit-reports/",
+    "consolidateAll": true,
+    "consolidate": true,
+    "useDotNotation": false,
+    "filePrefix": ""
+}
+```
+
 growl notifications
 -------------------
 
