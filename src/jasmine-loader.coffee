@@ -118,10 +118,17 @@ executeSpecsInFolder = (options) ->
     specsList = fileFinder.find options.specFolders, options.regExpSpec
 
     if options.junit
-        options.junitConfigOpts ?= {}
-        junit = new reporters.JUnitXmlReporter options.junitConfigOpts
+        options.reporterConfigOpts ?= {}
+        junit = new reporters.JUnitXmlReporter options.reporterConfigOpts
         jasmine.addReporter junit
-    else
+
+    if options.nunit
+        options.reporterConfigOpts ?= {}
+        nunit = new reporters.NUnitXmlReporter options.reporterConfigOpts
+        jasmine.addReporter nunit
+
+    # If not using junit and not using nunit, Terminal Reporter!
+    unless options.junit or options.nunit
         jasmine.addReporter new jasmineEnv.TerminalReporter options
 
     if options.growl

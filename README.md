@@ -85,19 +85,19 @@ filled in by the defaults) to the `.run(<options>)` command and away you go!
 
 
 You can supply the following arguments:
-  *  `--autoTest`          - rerun automatically the specs when a file changes
-  *  `--coffee`            - load coffee-script which allows execution .coffee files
-  *  `--help, -h`          - display this help and exit
-  *  `--junit`             - use the junit xml reporter
-  *  `--junitConfig <file>`- configuration json file to use with junit, will
-     set --junit if used
-  *  `--match, -m REGEXP`  - load only specs containing "REGEXPspec"
-  *  `--matchAll`          - relax requirement of "spec" in spec file names
-  *  `--noColor`           - do not use color coding for output
-  *  `--noStackTrace`      - suppress the stack trace generated from a test failure
-  *  `--verbose`           - print extra information per each test run
-  *  `--version`           - show the current version
-  *  `--watchFolders PATH` - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
+  *  `--autoTest`               -  rerun automatically the specs when a file changes
+  *  `--coffee`                 -  load coffee-script which allows execution .coffee files
+  *  `--help, -h`               -  display this help and exit
+  *  `--junit`                  -  use the junit xml reporter
+  *  `--match, -m REGEXP`       -  load only specs containing "REGEXPspec"
+  *  `--matchAll`               -  relax requirement of "spec" in spec file names
+  *  `--noColor`                -  do not use color coding for output
+  *  `--noStackTrace`           -  suppress the stack trace generated from a test failure
+  *  `--nunit`                  -  use the nunit xml reporter
+  *  `--reporterConfig <file>`  -  configuration json file to use with jasmine-reporters
+  *  `--verbose`                -  print extra information per each test run
+  *  `--version`                -  show the current version
+  *  `--watchFolders PATH`      -  when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
 
 Individual files to test can be added as bare arguments to the end of the args.
 
@@ -107,12 +107,12 @@ Example:
 jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
 
-junitxml reporter
+jasmine-reporters options
 -----------------
 
-To use default options, just specify `--junit`
+To use default options, just specify `--junit` or `--nunit`
 
-If you want to configure, use `--junitConfig path/to/config.json`
+If you want to configure, also use `--reporterConfig path/to/config.json`
 
 ### Example JSON File with known options ###
 

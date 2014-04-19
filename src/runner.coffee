@@ -20,6 +20,7 @@ minimistOpts =
         "h"
         "help"
         "junit"
+        "nunit"
         "matchAll"
         "noColor"
         "noStackTrace"
@@ -27,7 +28,7 @@ minimistOpts =
         "version"
     ]
     string: [
-        "junitConfig"
+        "reporterConfig"
         "m"
         "match"
         "watchFolders"
@@ -46,12 +47,13 @@ minimistOpts =
         forceColor        : false
         growl             : false
         junit             : false
-        junitConfig       : ''
         match             : '.'
         matchAll          : false
         noColor           : false
         noStackTrace      : false
+        nunit             : false
         onComplete        : -> return
+        reporterConfig    : ''
         specFolders       : []
         verbose           : false
         watchFolders      : []
@@ -65,29 +67,30 @@ printVersion = ->
 
 # hositing not found? Don't know why it's not hoisting these
 help = ->
-  process.stdout.write """
+    process.stdout.write """
 USAGE: jasmine-node [--color|--noColor] [--verbose] [--coffee] directory
 
 Options:
-  --autoTest          - rerun automatically the specs when a file changes
-  --captureExceptions - listen to global exceptions, report them and exit (interferes with Domains)
-  --coffee            - load coffee-script which allows execution .coffee files
-  --growl             - display test run summary in a growl notification (in addition to other outputs)
-  --help, -h          - display this help and exit
-  --junit             - use the junit reporter
-  --junitConfig <file>- configuration json file to use with junit
-  --match, -m REGEXP  - load only specs containing "REGEXPspec"
-  --matchAll          - relax requirement of "spec" in spec file names
-  --noColor           - do not use color coding for output
-  --noStackTrace      - suppress the stack trace generated from a test failure
-  --verbose           - print extra information per each test run
-  --version           - show the current version
-  --watch PATH        - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
+  --autoTest               -  rerun automatically the specs when a file changes
+  --captureExceptions      -  listen to global exceptions, report them and exit (interferes with Domains)
+  --coffee                 -  load coffee-script which allows execution .coffee files
+  --growl                  -  display test run summary in a growl notification (in addition to other outputs)
+  --help, -h               -  display this help and exit
+  --junit                  -  use the junit reporter
+  --match, -m REGEXP       -  load only specs containing "REGEXPspec"
+  --matchAll               -  relax requirement of "spec" in spec file names
+  --noColor                -  do not use color coding for output
+  --noStackTrace           -  suppress the stack trace generated from a test failure
+  --nunit                  -  use the nunit reporter
+  --reporterConfig <file>  -  configuration json file to use with jasmine-reporters [nunit, junit]
+  --verbose                -  print extra information per each test run
+  --version                -  show the current version
+  --watch PATH             -  when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
 """
 
-#  --config NAME VALUE- set a global variable in process.env
-  process.exit -1
-  return
+    #  --config NAME VALUE- set a global variable in process.env
+    process.exit -1
+    return
 
 onExit = ->
     process.removeListener "exit", onExit
@@ -134,13 +137,12 @@ parseArgs = ->
         else
             options.specFolders.push path.join(process.cwd(), spec)
 
-    if options.junitConfig isnt ''
-        unless fs.existsSync(options.junitConfig)
-            console.error "Junit Config File Doesn't Exist"
+    if options.reporterConfig isnt ''
+        unless fs.existsSync(options.reporterConfig)
+            console.error "Reporter Config File Doesn't Exist"
             help()
-        config = fs.readFileSync(options.junitConfig, 'utf8')
-        options.junitConfigOpts = JSON.parse(config)
-        options.junit = true
+        config = fs.readFileSync(options.reporterConfig, 'utf8')
+        options.reporterConfigOpts = JSON.parse(config)
 
     help() if _.isEmpty options.specFolders
 
@@ -150,6 +152,8 @@ parseArgs = ->
 # Run the specs with the given options hash
 runSpecs = (config) ->
     options = _.clone config
+    if options.debug
+        console.log options
     _.defaults options, minimistOpts.default
 
     # Clean up after the last run
