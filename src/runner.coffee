@@ -12,12 +12,13 @@ autoTest         = require './auto-test'
 minimistOpts =
     boolean: [
         "autoTest"
-        "coffee"
         "captureExceptions"
+        "coffee"
         "debug"
         "growl"
         "h"
         "help"
+        "junit"
         "matchAll"
         "noColor"
         "noStackTrace"
@@ -25,6 +26,7 @@ minimistOpts =
         "version"
     ]
     string: [
+        "junitConfig"
         "m"
         "match"
         "watchFolders"
@@ -41,6 +43,8 @@ minimistOpts =
         debug             : false
         extensions        : "js"
         growl             : false
+        junit             : false
+        junitConfig       : ''
         match             : '.'
         matchAll          : false
         noColor           : false
@@ -64,17 +68,19 @@ USAGE: jasmine-node [--color|--noColor] [--verbose] [--coffee] directory
 
 Options:
   --autoTest          - rerun automatically the specs when a file changes
-  --watch PATH        - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
-  --noColor           - do not use color coding for output
-  -m, --match REGEXP  - load only specs containing "REGEXPspec"
-  --matchAll          - relax requirement of "spec" in spec file names
-  --verbose           - print extra information per each test run
-  --growl             - display test run summary in a growl notification (in addition to other outputs)
-  --coffee            - load coffee-script which allows execution .coffee files
-  --noStackTrace      - suppress the stack trace generated from a test failure
   --captureExceptions - listen to global exceptions, report them and exit (interferes with Domains)
+  --coffee            - load coffee-script which allows execution .coffee files
+  --growl             - display test run summary in a growl notification (in addition to other outputs)
+  --help, -h          - display this help and exit
+  --junit             - use the junit reporter
+  --junitConfig <file>- configuration json file to use with junit
+  --match, -m REGEXP  - load only specs containing "REGEXPspec"
+  --matchAll          - relax requirement of "spec" in spec file names
+  --noColor           - do not use color coding for output
+  --noStackTrace      - suppress the stack trace generated from a test failure
+  --verbose           - print extra information per each test run
   --version           - show the current version
-  -h, --help          - display this help and exit
+  --watch PATH        - when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
 """
 
 #  --config NAME VALUE- set a global variable in process.env
@@ -124,6 +130,14 @@ parseArgs = ->
             options.specFolders.push spec
         else
             options.specFolders.push path.join(process.cwd(), spec)
+
+    if options.junitConfig isnt ''
+        unless fs.existsSync(options.junitConfig)
+            console.error "Junit Config File Doesn't Exist"
+            help()
+
+        options.junitConfigOpts = require options.junitConfig
+        options.junit = true
 
     help() if _.isEmpty options.specFolders
 

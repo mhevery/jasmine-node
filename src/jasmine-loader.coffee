@@ -4,6 +4,7 @@ mkdirp         = require 'mkdirp'
 path           = require 'path'
 util           = require 'util'
 vm             = require 'vm'
+reporters      = require 'jasmine-reporters'
 
 fileFinder     = require './file-finder'
 booter         = require './jasmine/boot'
@@ -116,8 +117,10 @@ executeSpecsInFolder = (options) ->
 
     specsList = fileFinder.find options.specFolders, options.regExpSpec
 
-    jasmine.addReporter new jasmineEnv.TerminalReporter options
-    #jasmine.addReporter new jasmineEnv.JUnitReporter options
+    if options.junit
+        jasmine.addReporter new reporters.JUnitXmlReporter options
+    else
+        jasmine.addReporter new jasmineEnv.TerminalReporter options
 
     if options.growl
         jasmine.addReporter new jasmineEnv.GrowlReporter options.growl
