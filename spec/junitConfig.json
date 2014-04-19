@@ -1,0 +1,7 @@
+{
+    "savePath": "./junit-reports/",
+    "consolidateAll": true,
+    "consolidate": true,
+    "useDotNotation": false,
+    "filePrefix": ""
+}

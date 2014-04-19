@@ -1,4 +1,4 @@
 describe 'jasmine-node', ->
 
-  it 'should pass', ->
+  it 'should add two numbers together', ->
     expect(1+2).toEqual(3)

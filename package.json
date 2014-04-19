@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.14.3",
+  "version": "2.0.0-beta4",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Chris Moultrie <chris@moultrie.org>"
@@ -23,20 +23,35 @@
     "MIT"
   ],
   "dependencies": {
-    "coffee-script": ">=1.0.1",
-    "jasmine-reporters": ">=0.2.0",
-    "jasmine-growl-reporter": "~0.0.2",
-    "requirejs": ">=0.27.1",
-    "walkdir": ">= 0.0.1",
-    "underscore": ">= 1.3.1",
-    "gaze": "~0.3.2",
-    "mkdirp": "~0.3.5"
+    "coffee-script": "~1.7.1",
+    "walkdir": "~0.0.7",
+    "underscore": "~1.6.0",
+    "gaze": "~0.5.1",
+    "mkdirp": "~0.3.5",
+    "minimist": "~0.0.8",
+    "jasmine-growl-reporter": "~0.2.0",
+    "xml2js": "~0.4.1",
+    "grunt-exec": "~0.4.5",
+    "jasmine-reporters": "git://github.com/larrymyers/jasmine-reporters.git#2c7242dc11c15c2f156169bc704798568b8cb50d"
   },
-  "bin": "bin/jasmine-node",
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~0.4.2"
+  },
+  "bin": {
+    "jasmine-node": "./bin/jasmine-node"
+  },
   "preferGlobal": true,
-  "main": "lib/jasmine-node",
+  "main": "./lib/jasmine-node",
   "scripts": {
-    "test": "node lib/jasmine-node/cli.js spec"
+    "test": "node bin/jasmine-node ./spec"
   },
-  "devDependencies": {}
+  "bugs": {
+    "url": "https://github.com/mhevery/jasmine-node/issues"
+  },
+  "license": "ISC",
+  "engines": {
+    "node": ">=0.10.0"
+  }
 }

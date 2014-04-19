@@ -1,9 +1,77 @@
-
 describe('jasmine-node-flat', function(){
   it('should pass', function(){
     expect(1+2).toEqual(3);
   });
+  xit('should skip this one', function(){
+    expect(1+2).toEqual(3);
+  });
+  describe('jasmine-node-flat-nested', function(){
+      it('should also pass', function(){
+          expect(3).toBe(3);
+      });
+  });
 });
+
+describe('jasmine-node-deep-nest-incorrect', function(){
+    describe('jasmine-sub-describe', function() {
+        it("should handle an it within a deep describe", function() {
+            expect(1).toBe(1);
+        });
+        it("should handle an it within a deep describe2", function() {
+            expect(1).toBe(1);
+        });
+    });
+    it('should pass', function(){
+        expect(1+2).toEqual(3);
+    });
+  xit('should skip this one', function(){
+    expect(1+2).toEqual(3);
+  });
+  describe('jasmine-node-flat-nested', function(){
+      it('should also pass', function(){
+          expect(3).toBe(3);
+      });
+  });
+});
+
+describe('jasmine.any tests', function() {
+  it('handles string and not string', function() {
+      expect('abc').toEqual(jasmine.any(String));
+      expect(function(){}).not.toEqual(jasmine.any(String));
+      expect(123123).not.toEqual(jasmine.any(String));
+      expect({a:true}).not.toEqual(jasmine.any(String));
+      expect(true).not.toEqual(jasmine.any(String));
+  });
+  it('handles number and not number', function() {
+      expect(123123).toEqual(jasmine.any(Number));
+      expect('abc').not.toEqual(jasmine.any(Number));
+      expect(function(){}).not.toEqual(jasmine.any(Number));
+      expect({a:true}).not.toEqual(jasmine.any(Number));
+      expect(true).not.toEqual(jasmine.any(Number));
+  });
+  it('handles function and not function', function() {
+      expect(function(){}).toEqual(jasmine.any(Function));
+      expect(123123).not.toEqual(jasmine.any(Function));
+      expect('abc').not.toEqual(jasmine.any(Function));
+      expect({a:true}).not.toEqual(jasmine.any(Function));
+      expect(true).not.toEqual(jasmine.any(Function));
+  });
+  it('handles object and not object', function() {
+      expect({a:true}).toEqual(jasmine.any(Object));
+      expect(function(){}).not.toEqual(jasmine.any(Object));
+      expect(123123).not.toEqual(jasmine.any(Object));
+      expect('abc').not.toEqual(jasmine.any(Object));
+      expect(true).not.toEqual(jasmine.any(Object));
+  });
+  it('handles boolean and not boolean', function() {
+      expect(true).toEqual(jasmine.any(Boolean));
+      expect({a:true}).not.toEqual(jasmine.any(Boolean));
+      expect(function(){}).not.toEqual(jasmine.any(Boolean));
+      expect(123123).not.toEqual(jasmine.any(Boolean));
+      expect('abc').not.toEqual(jasmine.any(Boolean));
+  });
+});
+
 
 describe('beforeEach Timeout', function(){
   beforeEach(function(done) {
@@ -23,27 +91,11 @@ describe('afterEach Timeout', function(){
   });
 });
 
-describe('Testing some characters', function()  {
-    var chars = ['&', '\'', '"', '<', '>'];
-    for(var i = 0; i < chars.length; i+=1)  {
-        currentChar = chars[i];
-        it('should reject ' + currentChar, (function(currentChar)  {
-            expect(false).toEqual(false);
-        })(currentChar));
-    }
-});
-
-describe('Testing waitsfor functionality', function() {
-    it("Runs and then waitsFor", function() {
-        runs(function() {
-            1+1;
-        });
-        waitsFor(function() {
-            return true === false;
-        }, "the impossible", 1000);
-        runs(function() {
-            expect(true).toBeTruthy();
-        });
+describe('Testing done functionality', function() {
+    it("calls done", function(done) {
+        1+1;
+        expect(true).toBeTruthy();
+        done();
     });
 });
 

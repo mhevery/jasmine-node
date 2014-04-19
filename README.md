@@ -1,7 +1,8 @@
 jasmine-node
 ======
 
-[![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
+[![Build Status](https://travis-ci.org/tebriel/jasmine-node.png?branch=Jasmine2.0)](https://travis-ci.org/tebriel/jasmine-node)
+![Dependencies](https://david-dm.org/tebriel/jasmine-node.png)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework available in node.js.
@@ -9,30 +10,31 @@ spec framework available in node.js.
 jasmine
 -------
 
-Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a forked version from the
-[Karma project](https://github.com/karma-runner/karma-jasmine), which allows you to use the
-`ddescribe` and `iit` functions to run individual suites or specs.
+Version `2.0.0` of Jasmine is currently included with node-jasmine.
 
-BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
+requirements
+------------
+
+Requires version `10.x` of Node.js, please upgrade if you're on `0.8`, that's
+just painful.
 
 what's new
 ----------
-*  Growl notifications with the `--growl` flag (requires Growl to be installed)
-*  Ability to test specs written in Literate Coffee-Script
-*  Teamcity Reporter reinstated.
-*  Ability to specify multiple files to test via list in command line
-*  Ability to suppress stack trace with `--noStack`
-*  Async tests now run in the expected context instead of the global one
-*  `--config` flag that allows you to assign variables to process.env
-*  Terminal Reporters are now available in the Jasmine Object #184
-*  Done is now available in all timeout specs #199
-*  `afterEach` is available in requirejs #179
-*  Editors that replace instead of changing files should work with autotest #198
-*  Jasmine Mock Clock now works!
-*  Autotest now works!
-*  Using the latest Jasmine!
-*  Verbose mode tabs `describe` blocks much more accurately!
-*  `--coffee` now allows specs written in Literate CoffeeScript (`.litcoffee`)
+*  90% Refactor, Convert to Coffee-Script
+*  Isolate jasmine.js into a vm with a separate context for clean re-execution
+     of specs
+*  Now using Jasmine 2.0.0
+*  Removed Support for RequireJS as it was buggy, confusing, and I'm pretty
+     sure no one was using it.
+*  Removed Support for Custom Helpers (have to be inside a beforeEach, this is
+     a jasmine change, check out their docs on how to write one)
+*  Removed Custom Timeout (jasmine has added a done function and
+     `jasmine.DEfAULT_TIMEOUT_INTERVAL`, just use that instead of expecting a
+     test to take no longer than `x` milliseconds)
+*  Removed TeamCity Reporter (no support for Jasmine 2.0) will be re-added when
+     support is available
+*  Removed JUnit Reporter (no support for Jasmine 2.0) will be re-added when
+     support is available
 
 install
 ------
@@ -40,16 +42,13 @@ install
 To install the latest official version, use NPM:
 
 ```sh
-npm install jasmine-node -g
+npm install -g jasmine-node
 ```
-
-To install the latest _bleeding edge_ version, clone this repository and check
-out the `beta` branch.
 
 usage
 ------
 
-Write the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.
+Write the specifications for your code in `*Spec.js` and `*Spec.coffee` files in the `spec/` directory.
 You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly
 as you would in client-side jasmine specs.
 
@@ -57,6 +56,7 @@ as you would in client-side jasmine specs.
 which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
 otherwise jasmine-node won't find them!
 For example, `sampleSpecs.js` is wrong, `sampleSpec.js` is right.
+You can work around this by using either `--matchAll` or `-m REGEXP`
 
 If you have installed the npm package, you can run it with:
 
@@ -68,34 +68,36 @@ If you aren't using npm, you should add `pwd`/lib to the `$NODE_PATH`
 environment variable, then run:
 
 ```sh
-node lib/jasmine-node/cli.js
+node bin/jasmine-node
 ```
+
+You can also require jasmine-node as a node module
+
+```javascript
+jn = require('jasmine-node');
+jn.run({specFolders:['./spec']});
+```
+
+The jasmine-node object returned contains a defaults object so that you can see
+what the expected args are. Pass only the options you need (the rest will be
+filled in by the defaults) to the `.run(<options>)` command and away you go!
+
 
 
 You can supply the following arguments:
-
-  * `--autotest`, provides automatic execution of specs after each change
-  * `--watch`, when used with `--autotest`, paths after `--watch` will be
-watched for changes, allowing to watch for changes outside of specs directory
-  * `--coffee`, allow execution of `.coffee` and `.litcoffee` specs
-  * `--color`, indicates spec output should uses color to
-indicates passing (green) or failing (red) specs
-  * `--noColor`, do not use color in the output
-  * `-m, --match REGEXP`, match only specs containing "REGEXPspec"
-  * `--matchall`, relax requirement of "spec" in spec file names
-  * `--verbose`, verbose output as the specs are run
-  * `--junitreport`, export tests results as junitreport xml format
-  * `--output FOLDER`, defines the output folder for junitreport files
-  * `--teamcity`, converts all console output to teamcity custom test runner commands. (Normally auto detected.)
-  * `--growl`, display test run summary in a growl notification (in addition to other outputs)
-  * `--runWithRequireJs`, loads all specs using requirejs instead of node's native require method
-  * `--requireJsSetup`, file run before specs to include and configure RequireJS
-  * `--test-dir`, the absolute root directory path where tests are located
-  * `--nohelpers`, does not load helpers
-  * `--forceexit`, force exit once tests complete
-  * `--captureExceptions`, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well
-  * `--config NAME VALUE`, set a global variable in `process.env`
-  * `--noStack`, suppress the stack trace generated from a test failure
+  *  `--autoTest`               -  rerun automatically the specs when a file changes
+  *  `--coffee`                 -  load coffee-script which allows execution .coffee files
+  *  `--help, -h`               -  display this help and exit
+  *  `--junit`                  -  use the junit xml reporter
+  *  `--match, -m REGEXP`       -  load only specs containing "REGEXPspec"
+  *  `--matchAll`               -  relax requirement of "spec" in spec file names
+  *  `--noColor`                -  do not use color coding for output
+  *  `--noStackTrace`           -  suppress the stack trace generated from a test failure
+  *  `--nunit`                  -  use the nunit xml reporter
+  *  `--reporterConfig <file>`  -  configuration json file to use with jasmine-reporters
+  *  `--verbose`                -  print extra information per each test run
+  *  `--version`                -  show the current version
+  *  `--watchFolders PATH`      -  when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
 
 Individual files to test can be added as bare arguments to the end of the args.
 
@@ -105,105 +107,28 @@ Example:
 jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
 
-async tests
------------
+jasmine-reporters options
+-----------------
 
-jasmine-node includes an alternate syntax for writing asynchronous tests. Accepting
-a done callback in the specification will trigger jasmine-node to run the test
-asynchronously waiting until the `done()` callback is called.
+To use default options, just specify `--junit` or `--nunit`
 
-```javascript
-var request = require('request');
+If you want to configure, also use `--reporterConfig path/to/config.json`
 
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    expect(body).toEqual("hello world");
-    done();
-  });
-});
+### Example JSON File with known options ###
+
+Please checkout the
+[jasmine-reporters](https://github.com/larrymyers/jasmine-reporters) repo for
+more configuration information and documentation
+
+```json
+{
+    "savePath": "./junit-reports/",
+    "consolidateAll": true,
+    "consolidate": true,
+    "useDotNotation": false,
+    "filePrefix": ""
+}
 ```
-
-An asynchronous test will fail after `5000` ms if `done()` is not called. This timeout
-can be changed by setting `jasmine.getEnv().defaultTimeoutInterval` or by passing a timeout
-interval in the specification.
-
-```javascript
-var request = require('request');
-
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    done();
-  });
-}, 250); // timeout after 250 ms
-```
-
-or
-
-```javascript
-var request = require('request');
-
-jasmine.getEnv().defaultTimeoutInterval = 500;
-
-it("should respond with hello world", function(done) {
-  request("http://localhost:3000/hello", function(error, response, body){
-    done();
-  });  // timeout after 500 ms
-});
-```
-
-Checkout [`spec/SampleSpecs.js`](https://github.com/mhevery/jasmine-node/blob/master/spec/SampleSpecs.js) to see how to use it.
-
-
-requirejs
----------
-
-There is a sample project in `/spec-requirejs`. It is comprised of:
-
-1.  `requirejs-setup.js`, this pulls in our wrapper template (next)
-1.  `requirejs-wrapper-template`, this builds up requirejs settings
-1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs
-1.  `requirejs.spec.js`, the actual jasmine spec for testing
-
-To run it:
-
-```sh
-node lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/
-```
-
-exceptions
-----------
-
-Often you'll want to capture an uncaught exception and log it to the console,
-this is accomplished by using the `--captureExceptions` flag. Exceptions will
-be reported to the console, but jasmine-node will attempt to recover and
-continue. It was decided to not change the current functionality until `2.0`. So,
-until then, jasmine-node will still return `0` and continue on without this flag.
-
-### Scenario ###
-
-You require a module, but it doesn't exist, ie `require('Q')` instead of
-`require('q')`. Jasmine-Node reports the error to the console, but carries on
-and returns `0`. This messes up Travis-CI because you need it to return a
-non-zero status while doing CI tests.
-
-### Mitigation ###
-
-Before `--captureExceptions`
-
-```sh
-> jasmine-node --coffee spec
-> echo $status
-0
-```
-
-Run jasmine node with the `--captureExceptions` flag.
-
-```sh
-> jasmine-node --coffee --captureExceptions spec
-> echo $status
-1
-```
-
 
 growl notifications
 -------------------
@@ -223,21 +148,16 @@ Install the dependent packages by running:
 npm install
 ```
 
-Run the specs before you send your pull request:
+Run the specs before you send your pull request and ensure all pass:
 
 ```sh
 specs.sh
 ```
 
-__Note:__ Some tests are designed to fail in the specs.sh. After each of the
-individual runs completes, there is a line that lists what the expected
-Pass/Assert/Fail count should be. If you add/remove/edit tests, please be sure
-to update this with your PR.
-
-
 changelog
 ---------
 
+*  _2.0.0_ Upgrade to Jasmine 2.0.0, remove support for legacy/unused items
 *  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
 *  _1.14.2_ Uhhh...not sure what happened here.
 *  _1.14.1_ Default to noColors if not in a TTY

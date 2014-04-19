@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 
-if( !process.env.NODE_ENV ) process.env.NODE_ENV = 'test';
-
 var path = require('path');
-require(path.join(__dirname,'../lib/jasmine-node/cli.js'));
+runner = require(path.join(__dirname,'../lib/jasmine-node/runner.js'));
+
+if (require.main === module) {
+    if( !process.env.NODE_ENV ) process.env.NODE_ENV = 'test';
+
+    options = runner.parseArgs();
+    runner.runSpecs(options);
+} else {
+    exports.runner = runner;
+}
