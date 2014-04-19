@@ -8,7 +8,8 @@ walkdir       = require 'walkdir'
 # Remove the `--autoTest` arg from the arglist
 baseArgv = _.without process.argv, "--autoTest"
 
-# console.log process.stdout.isTTY and not ('--noColor' in baseArgv)
+# If this is a TTY and --noColor wasn't specified, force some color because
+# autoTest will cause isTTY to be false for later iterations
 if process.stdout.isTTY and not ('--noColor' in baseArgv)
     unless '--forceColor' in baseArgv
         baseArgv.splice(2, 0, '--forceColor')
