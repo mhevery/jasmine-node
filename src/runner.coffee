@@ -61,7 +61,7 @@ minimistOpts =
 exitCode = 0
 
 printVersion = ->
-    console.log "2.0.1"
+    console.log "2.0.0-beta4"
     process.exit 0
     return
 
