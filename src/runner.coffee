@@ -15,6 +15,7 @@ minimistOpts =
         "captureExceptions"
         "coffee"
         "debug"
+        "forceColor"
         "growl"
         "h"
         "help"
@@ -42,6 +43,7 @@ minimistOpts =
         coffee            : false
         debug             : false
         extensions        : "js"
+        forceColor        : false
         growl             : false
         junit             : false
         junitConfig       : ''
@@ -108,8 +110,9 @@ parseArgs = ->
             console.warn "#{key} was not a valid option"
             help()
 
-    # If it's not a TTY, no color for you!
-    unless process.stdout.isTTY
+    # If it's not a TTY, no color for you, unless we're forcing color
+    #   (typically via autoTest)
+    unless process.stdout.isTTY or options.forceColor
         options.noColor = true
 
     if options.version

@@ -5,9 +5,13 @@ gaze          = require 'gaze'
 path          = require 'path'
 walkdir       = require 'walkdir'
 
-
 # Remove the `--autoTest` arg from the arglist
 baseArgv = _.without process.argv, "--autoTest"
+
+# console.log process.stdout.isTTY and not ('--noColor' in baseArgv)
+if process.stdout.isTTY and not ('--noColor' in baseArgv)
+    unless '--forceColor' in baseArgv
+        baseArgv.splice(2, 0, '--forceColor')
 
 # Start in a dirty state
 lastRunSuccessful = false
