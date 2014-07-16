@@ -238,6 +238,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.14.4_ Rolled back jasmine reporter version (thanks to [tjmcduffie](https://github.com/tjmcduffie))
 *  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
 *  _1.14.2_ Uhhh...not sure what happened here.
 *  _1.14.1_ Default to noColors if not in a TTY
