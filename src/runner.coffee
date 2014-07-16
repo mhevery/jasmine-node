@@ -24,6 +24,7 @@ minimistOpts =
         "matchAll"
         "noColor"
         "noStackTrace"
+        "teamcity"
         "verbose"
         "version"
     ]
@@ -54,6 +55,7 @@ minimistOpts =
         nunit             : false
         onComplete        : -> return
         reporterConfig    : ''
+        teamcity          : false
         specFolders       : []
         verbose           : false
         watchFolders      : []
@@ -61,7 +63,7 @@ minimistOpts =
 exitCode = 0
 
 printVersion = ->
-    console.log "2.0.0-beta4"
+    console.log "2.0.1-colin1"
     process.exit 0
     return
 
@@ -83,6 +85,7 @@ Options:
   --noStackTrace           -  suppress the stack trace generated from a test failure
   --nunit                  -  use the nunit reporter
   --reporterConfig <file>  -  configuration json file to use with jasmine-reporters [nunit, junit]
+  --teamcity               -  use the teamcity reporter
   --verbose                -  print extra information per each test run
   --version                -  show the current version
   --watch PATH             -  when used with --autoTest, watches the given path(s) and runs all tests if a change is detected
