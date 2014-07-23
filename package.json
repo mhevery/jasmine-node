@@ -32,7 +32,7 @@
     "jasmine-growl-reporter": "~0.2.0",
     "xml2js": "~0.4.1",
     "grunt-exec": "~0.4.5",
-    "jasmine-reporters": "~2.0.1"
+    "jasmine-reporters": "~2.0.2"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "~0.10.1",
