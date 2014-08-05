@@ -53,7 +53,7 @@ boot = (jasmineRequire, clockCallback) ->
                 return spec.doneFunc()
             return
 
-        if func.length > 0
+        if func?.length
             wrappedFunc = (done) ->
                 spec.doneFunc = done
                 func.call(@, wrappedDone)
