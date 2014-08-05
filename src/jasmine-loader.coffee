@@ -152,7 +152,7 @@ executeSpecsInFolder = (options) ->
             console.log error
             throw error
 
-    jasmine.execute()
+    jasmine.executeFiltered()
     return
 
 module.exports = { executeSpecsInFolder, loadHelpersInFolder}
