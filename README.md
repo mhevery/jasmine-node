@@ -105,6 +105,11 @@ Example:
 jasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js
 ```
 
+Using autotest
+```bash
+jasmine-node --color --autotest bob_test.spec.js --watch bob.js
+```
+
 async tests
 -----------
 
