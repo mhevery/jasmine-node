@@ -11,7 +11,7 @@ jasmine
 
 Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a forked version from the
 [Karma project](https://github.com/karma-runner/karma-jasmine), which allows you to use the
-`ddescribe` and `iit` functions to run individual suites or specs.
+`ddescribe` and `it` functions to run individual suites or specs.
 
 BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
 
