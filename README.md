@@ -167,7 +167,7 @@ There is a sample project in `/spec-requirejs`. It is comprised of:
 To run it:
 
 ```sh
-node lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/
+jasmine-node lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/
 ```
 
 exceptions
