@@ -26,7 +26,7 @@
     "coffee-script": "~1.7.1",
     "walkdir": "~0.0.7",
     "underscore": "~1.6.0",
-    "gaze": "~0.5.1",
+    "gaze": "~1.1.2",
     "mkdirp": "~0.3.5",
     "minimist": "~0.0.8",
     "jasmine-growl-reporter": "~0.2.0",
