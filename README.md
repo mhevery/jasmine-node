@@ -18,7 +18,7 @@ BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
 what's new
 ----------
 *  Growl notifications with the `--growl` flag (requires Growl to be installed)
-*  Ability to test specs written in Literate Coffee-Script
+*  Ability to test specs written in Literate CoffeeScript
 *  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
 *  Ability to suppress stack trace with `--noStack`
@@ -244,7 +244,7 @@ changelog
 *  _1.14.2_ Uhhh...not sure what happened here.
 *  _1.14.1_ Default to noColors if not in a TTY
 *  _1.14.0_ Add support for `iit`, `ddescribe` (thanks to [mgcrea](https://github.com/mgcrea))
-*  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
+*  _1.13.1_ Add CoffeeScript support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
 *  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
 *  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful
    exception in --watch Resolves #278
@@ -271,7 +271,7 @@ changelog
 *  _1.7.1 - Removed unneeded fs dependency (thanks to
    [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
    node `0.6` (thanks to [abe33](https://github.com/abe33))_
-*  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_
+*  _1.7.0 - Literate CoffeeScript now testable (thanks to [magicmoose](https://github.com/magicmoose))_
 *  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
 *  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
 *  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_
