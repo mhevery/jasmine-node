@@ -157,6 +157,7 @@ specs.sh
 changelog
 ---------
 
+*  _2.0.1_ Update dependencies to resolve `npm audit` issues
 *  _2.0.0_ Upgrade to Jasmine 2.0.0, remove support for legacy/unused items
 *  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
 *  _1.14.2_ Uhhh...not sure what happened here.
