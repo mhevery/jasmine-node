@@ -35,9 +35,9 @@
     "jasmine-reporters": "git://github.com/larrymyers/jasmine-reporters.git#2c7242dc11c15c2f156169bc704798568b8cb50d"
   },
   "devDependencies": {
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt": "~0.4.2"
+    "grunt-contrib-coffee": "~2.0.0",
+    "grunt-contrib-watch": "~1.1.0",
+    "grunt": "~1.0.3"
   },
   "bin": {
     "jasmine-node": "./bin/jasmine-node"
