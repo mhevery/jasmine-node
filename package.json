@@ -27,9 +27,9 @@
     "walkdir": "~0.0.7",
     "underscore": "~1.6.0",
     "gaze": "~1.1.2",
+    "jasmine-growl-reporter": "~1.0.1",
     "mkdirp": "~0.3.5",
     "minimist": "~0.0.8",
-    "jasmine-growl-reporter": "~0.2.0",
     "xml2js": "~0.4.1",
     "grunt-exec": "~0.4.5",
     "jasmine-reporters": "git://github.com/larrymyers/jasmine-reporters.git#2c7242dc11c15c2f156169bc704798568b8cb50d"
