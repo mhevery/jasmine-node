@@ -19,9 +19,7 @@
     "Martin Häger <martin.haeger@gmail.com>",
     "Chris Moultrie <chris@moultrie.org>"
   ],
-  "licenses": [
-    "MIT"
-  ],
+  "license": "MIT",
   "dependencies": {
     "coffeescript": ">=1.0.1",
     "jasmine-reporters": "~1.0.0",
