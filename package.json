@@ -3,7 +3,9 @@
   "version": "1.15.0-dev",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
-    "Chris Moultrie <chris@moultrie.org>"
+    "Martin Häger <martin.haeger@gmail.com>",
+    "Chris Moultrie <chris@moultrie.org>",
+    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>"
   ],
   "homepage": "https://github.com/mhevery/jasmine-node",
   "repository": {
@@ -16,6 +18,7 @@
   ],
   "author": "Misko Hevery <misko@hevery.com>",
   "maintainers": [
+    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>",
     "Martin Häger <martin.haeger@gmail.com>",
     "Chris Moultrie <chris@moultrie.org>"
   ],
