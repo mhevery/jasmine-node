@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.15.0-dev",
+  "version": "1.15.0",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Martin Häger <martin.haeger@gmail.com>",
