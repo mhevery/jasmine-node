@@ -238,6 +238,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.14.6_ Update dependencies to resolve `npm audit` issues
 *  _1.14.5_ Using ~ instead of ^ for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))
 *  _1.14.4_ Rolled back jasmine reporter version (thanks to [tjmcduffie](https://github.com/tjmcduffie))
 *  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
