@@ -3,7 +3,7 @@ jasmine-node
 
 [![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
 
-This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
+This node.js module makes the wonderful [Pivotal Lab's Jasmine](http://github.com/pivotal/jasmine)
 spec framework available in node.js.
 
 jasmine
@@ -53,10 +53,16 @@ Write the specifications for your code in `*.js` and `*.coffee` files in the `sp
 You can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly
 as you would in client-side jasmine specs.
 
-**Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
-which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`;
-otherwise jasmine-node won't find them!
-For example, `sampleSpecs.js` is wrong, `sampleSpec.js` is right.
+**Note**: Your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,
+which matches the regular expression `/spec\.(js|coffee|litcoffee)$/i`,
+otherwise jasmine-node won't run them!
+
+Another interesting point is that jasmine-node does a case-insensitive match against 
+the final `spec` in the file name, but it requires that the `.js`, `.coffee`, or `.litcoffee` suffix
+must be all lowercase.
+
+For example, `sampleSpecs.js` and `sampleSpec.JS` won't match or run, but `sampleSpec.js`, `sampleSPEC.js`
+and `sample_spec.js` will run because they match the pattern.
 
 If you have installed the npm package, you can run it with:
 
