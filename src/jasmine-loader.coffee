@@ -127,8 +127,13 @@ executeSpecsInFolder = (options) ->
         nunit = new reporters.NUnitXmlReporter options.reporterConfigOpts
         jasmine.addReporter nunit
 
+    if options.teamcity
+        options.reporterConfigOpts ?= {}
+        teamcity = new reporters.TeamCityReporter options.reporterConfigOpts
+        jasmine.addReporter teamcity
+
     # If not using junit and not using nunit, Terminal Reporter!
-    unless options.junit or options.nunit
+    unless options.junit or options.nunit or options.teamcity
         jasmine.addReporter new jasmineEnv.TerminalReporter options
 
     if options.growl
