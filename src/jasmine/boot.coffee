@@ -23,6 +23,47 @@ boot = (jasmineRequire, clockCallback) ->
     jasmine.JUnitReporter    = junitReporter.JUnitReporter
     jasmine.GrowlReporter    = growlReporter
 
+    # Focussed spec and suite holders
+    focusedSuites = []
+    focusedSpecs = []
+    insideFocusedSuite = false
+
+    focuseSpec = (env, description, body) ->
+        spec = env.it description, body
+        focusedSpecs.push spec.id
+        spec
+
+    focuseSuite = (env, description, body) ->
+        return env.describe(description, body) if insideFocusedSuite
+        insideFocusedSuite = true
+        suite = env.describe(description, body)
+        insideFocusedSuite = false
+        focusedSuites.push suite.id
+        suite
+
+    wrapSpecFunc = (func) ->
+        spec =
+            done: false
+            doneFunc: -> return
+            returned: false
+        wrappedFunc = func
+        wrappedDone = ->
+            spec.done = true
+            if spec.returned
+                return spec.doneFunc()
+            return
+
+        if func?.length
+            wrappedFunc = (done) ->
+                spec.doneFunc = done
+                func.call(@, wrappedDone)
+                spec.returned = true
+                if spec.done
+                    return spec.doneFunc()
+                return
+
+        wrappedFunc
+
     ###
     ## The Global Interface
     *
@@ -32,32 +73,17 @@ boot = (jasmineRequire, clockCallback) ->
         describe: (description, specDefinitions) ->
             return env.describe description, specDefinitions
 
+        ddescribe: (description, specDefinitions) ->
+            return focuseSuite env, description, specDefinitions
+
         xdescribe: (description, specDefinitions) ->
             return env.xdescribe description, specDefinitions
 
         it: (desc, func) ->
-            spec =
-                done: false
-                doneFunc: -> return
-                returned: false
-            wrappedFunc = func
-            wrappedDone = ->
-                spec.done = true
-                if spec.returned
-                    return spec.doneFunc()
-                return
+            return env.it desc, wrapSpecFunc(func)
 
-            if func.length > 0
-                wrappedFunc = (done) ->
-                    spec.doneFunc = done
-                    func.call(@, wrappedDone)
-                    spec.returned = true
-                    if spec.done
-                        return spec.doneFunc()
-                    return
-
-
-            return env.it desc, wrappedFunc
+        iit: (desc, func) ->
+            return focuseSpec env, desc, wrapSpecFunc(func)
 
         xit: (desc, func) ->
             return env.xit desc, func
@@ -88,6 +114,14 @@ boot = (jasmineRequire, clockCallback) ->
     ###
     extend global, jasmineInterface
     global.jasmine = jasmine
+
+    env.executeFiltered = ->
+        if focusedSpecs.length
+          env.execute focusedSpecs
+        else if focusedSuites.length
+          env.execute focusedSuites
+        else
+          env.execute()
 
     clockInstaller = jasmine.currentEnv_.clock.install
     clockUninstaller = jasmine.currentEnv_.clock.uninstall
