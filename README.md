@@ -6,6 +6,14 @@ jasmine-node
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework available in node.js.
 
+
+Project status
+--------------
+
+This project is now in maintenance mode. It is recommended to use the `jasmine` or `jasmine-npm`
+package whenever possible.
+
+
 jasmine
 -------
 
@@ -238,6 +246,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.16.0_ Fix `dependencies` to prevent major package updates
 *  _1.15.1_ Use coffeescript@1 to avoid potentially breaking change in a minor release
 *  _1.15.0_ Switch to coffeescript package
 *  _1.14.6_ Update dependencies to resolve `npm audit` issues

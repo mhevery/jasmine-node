@@ -1,6 +1,6 @@
 {
   "name": "jasmine-node",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
   "contributors": [
     "Martin Häger <martin.haeger@gmail.com>",
@@ -25,13 +25,13 @@
   "license": "MIT",
   "dependencies": {
     "coffeescript": "^1.0.1",
-    "jasmine-reporters": "~1.0.0",
-    "jasmine-growl-reporter": "~1.0.1",
-    "requirejs": ">=0.27.1",
-    "walkdir": ">= 0.0.1",
-    "underscore": ">= 1.3.1",
     "gaze": "~1.1.2",
-    "mkdirp": "~0.3.5"
+    "jasmine-growl-reporter": "~1.0.1",
+    "jasmine-reporters": "~1.0.0",
+    "mkdirp": "~0.3.5",
+    "requirejs": "^2.3.6",
+    "underscore": "^1.9.1",
+    "walkdir": "~0.0.12"
   },
   "bin": "bin/jasmine-node",
   "preferGlobal": true,
