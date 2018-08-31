@@ -238,6 +238,7 @@ to update this with your PR.
 changelog
 ---------
 
+*  _1.15.1_ Use coffeescript@1 to avoid potentially breaking change in a minor release
 *  _1.15.0_ Switch to coffeescript package
 *  _1.14.6_ Update dependencies to resolve `npm audit` issues
 *  _1.14.5_ Using ~ instead of ^ for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))

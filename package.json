@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "coffeescript": ">=1.0.1",
+    "coffeescript": "^1.0.1",
     "jasmine-reporters": "~1.0.0",
     "jasmine-growl-reporter": "~1.0.1",
     "requirejs": ">=0.27.1",
