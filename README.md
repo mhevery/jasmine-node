@@ -246,52 +246,52 @@ to update this with your PR.
 changelog
 ---------
 
-*  _1.16.0_ Fix `dependencies` to prevent major package updates
-*  _1.15.0_ Switch to coffeescript package
-*  _1.14.6_ Update dependencies to resolve `npm audit` issues
-*  _1.14.5_ Using ~ instead of ^ for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))
-*  _1.14.4_ Rolled back jasmine reporter version (thanks to [tjmcduffie](https://github.com/tjmcduffie))
-*  _1.14.3_ Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
-*  _1.14.2_ Uhhh...not sure what happened here.
-*  _1.14.1_ Default to noColors if not in a TTY
-*  _1.14.0_ Add support for `iit`, `ddescribe` (thanks to [mgcrea](https://github.com/mgcrea))
-*  _1.13.1_ Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
-*  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
-*  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful
+* `1.16.0` Fix `dependencies` to prevent major package updates
+* `1.15.0` Switch to coffeescript package
+* `1.14.6` Update dependencies to resolve `npm audit` issues
+* `1.14.5` Using ~ instead of ^ for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))
+* `1.14.4` Rolled back jasmine reporter version (thanks to [tjmcduffie](https://github.com/tjmcduffie))
+* `1.14.3` Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
+* `1.14.2` Uhhh...not sure what happened here.
+* `1.14.1` Default to noColors if not in a TTY
+* `1.14.0` Add support for `iit`, `ddescribe` (thanks to [mgcrea](https://github.com/mgcrea))
+* `1.13.1` Add coffee-script support for 1.7.x (thanks to [nathancarter](https://github.com/nathancarter))
+* `1.13.0` Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))
+* `1.12.1` Fixed an issue where an undefined variable caused an unhelpful
    exception in --watch Resolves #278
-*  _1.12.0_
+* `1.12.0`
   *  Changed `util.print` to `stdout.write` (thanks to [nrstott](https://github.com/nrstott))
   *  Don’t affect line numbers with --requireJsSetup (thanks to [daviddaurelio](https://github.com/davidaurelio))
   *  Catch errors when loading helpers (thanks to [pimterry](https://github.com/pimterry))
   *  Keep autotesting until all tests have passed (thanks to [notclive](https://github.com/notclive))
-*  _1.11.0 - Added Growl notification option `--growl` (thanks to
-   [AlphaHydrae](https://github.com/AlphaHydrae))_
-*  _1.10.2 - Restored stack filter which was accidentally removed (thanks to
-   [kevinsawicki](https://github.com/kevinsawicki))_
-*  _1.10.1 - `beforeEach` and `afterEach` now properly handle the async-timeout function_
-*  _1.10.0 - Skipped tests now show in the terminal reporter's output (thanks
-   to [kevinsawicki](https://github.com/kevinsawicki))_
-*  _1.9.1 - Timeout now consistent between Async and Non-Async Calls (thanks to
-   [codemnky](https://github.com/codemnky))_
-*  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md,
-   printing version with `--version`_
-*  _1.8.1 - Fixed silent failure due to invalid REGEX (thanks to
-   [pimterry](https://github.com/pimterry))_
-*  _1.8.0 - Fixed bug in autotest with multiple paths and added `--watch` feature
-    (thanks to [davegb3](https://github.com/davegb3))_
-*  _1.7.1 - Removed unneeded fs dependency (thanks to
+* `1.11.0` Added Growl notification option `--growl` (thanks to
+   [AlphaHydrae](https://github.com/AlphaHydrae))
+* `1.10.2` Restored stack filter which was accidentally removed (thanks to
+   [kevinsawicki](https://github.com/kevinsawicki))
+* `1.10.1` `beforeEach` and `afterEach` now properly handle the async-timeout function
+* `1.10.0` Skipped tests now show in the terminal reporter's output (thanks
+   to [kevinsawicki](https://github.com/kevinsawicki))
+* `1.9.1` Timeout now consistent between Async and Non-Async Calls (thanks to
+   [codemnky](https://github.com/codemnky))
+* `1.9.0` Now re-throwing the file-not-found error, added info to README.md,
+   printing version with `--version`
+* `1.8.1` Fixed silent failure due to invalid REGEX (thanks to
+   [pimterry](https://github.com/pimterry))
+* `1.8.0` Fixed bug in autotest with multiple paths and added `--watch` feature
+    (thanks to [davegb3](https://github.com/davegb3))
+* `1.7.1` Removed unneeded fs dependency (thanks to
    [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
-   node `0.6` (thanks to [abe33](https://github.com/abe33))_
-*  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_
-*  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_
-*  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_
-*  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_
-*  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))_
-*  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_
-*  _1.3.0 - Added `--config` flag for changeable testing environments_
-*  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_
-*  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_
-*  _1.2.1 - Emergency fix for path reference missing_
-*  _1.2.0 - Fixed #149, #152, #171, #181, #195. `--autotest` now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_
-*  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_
-*  _1.1.0 - Updated Jasmine to `1.3.1`, fixed fs missing, catching uncaught exceptions, other fixes_
+   node `0.6` (thanks to [abe33](https://github.com/abe33))
+* `1.7.0` Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))
+* `1.6.0` Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))
+* `1.5.1` Missing files and require exceptions will now report instead of failing silently
+* `1.5.0` Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))
+* `1.4.0` Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))
+* `1.3.1` Fixed context for async tests (thanks to [omryn](https://github.com/omryn))
+* `1.3.0` Added `--config` flag for changeable testing environments
+* `1.2.3` Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests
+* `1.2.2` Revert Exception Capturing to avoid Breaking Domain Tests
+* `1.2.1` Emergency fix for path reference missing
+* `1.2.0` Fixed #149, #152, #171, #181, #195. `--autotest` now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning
+* `1.1.1` Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180
+* `1.1.0` Updated Jasmine to `1.3.1`, fixed fs missing, catching uncaught exceptions, other fixes
