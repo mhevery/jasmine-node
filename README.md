@@ -4,7 +4,7 @@ jasmine-node
 [![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
-spec framework available in node.js.
+spec framework (version 1) available in node.js.
 
 
 Project status
@@ -21,7 +21,7 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a fo
 [Karma project](https://github.com/karma-runner/karma-jasmine), which allows you to use the
 `ddescribe` and `iit` functions to run individual suites or specs.
 
-BETA `2.0.0` Support is available in the `Jasmine2.0` branch.
+NOTICE: BETA `2.0.0` Support in the `Jasmine2.0` branch is now abandoned and no longer supported.
 
 what's new
 ----------
