@@ -249,7 +249,7 @@ changelog
 * `1.16.0` Fix `dependencies` to prevent major package updates
 * `1.15.0` Switch to coffeescript package
 * `1.14.6` Update dependencies to resolve `npm audit` issues
-* `1.14.5` Using ~ instead of ^ for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))
+* `1.14.5` Using `~` instead of `^` for reporter version (thanks to [Maxim-Filimonov](https://github.com/Maxim-Filimonov))
 * `1.14.4` Rolled back jasmine reporter version (thanks to [tjmcduffie](https://github.com/tjmcduffie))
 * `1.14.3` Added 'onComplete' callback to TeamCityReporter (thanks to [JoergFiedler](https://github.com/JoergFiedler))
 * `1.14.2` Uhhh...not sure what happened here.
