@@ -246,6 +246,7 @@ to update this with your PR.
 changelog
 ---------
 
+* `1.16.2` Back to `jasmine-growl-reporter@~0.2.0` (needed by Node.js pre-4.0)
 * `1.16.1` Use `~` instead of `^` in `dependencies` (may be needed by some really old npm versions)
 * `1.16.0` Fix `dependencies` to prevent major package updates
 * `1.15.0` Switch to coffeescript package
