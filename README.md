@@ -21,12 +21,12 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a fo
 [Karma project](https://github.com/karma-runner/karma-jasmine), which allows you to use the
 `ddescribe` and `iit` functions to run individual suites or specs.
 
-NOTICE: BETA `2.0.0` Support in the `Jasmine2.0` branch is now abandoned and no longer supported.
+NOTICE: BETA `2.0.0` Support in the `Jasmine2.0` branch (with rewrite in CoffeeScript) is now abandoned and no longer supported.
 
 what's new
 ----------
 *  Growl notifications with the `--growl` flag (requires Growl to be installed)
-*  Ability to test specs written in Literate Coffee-Script
+*  Ability to test specs written in Literate CoffeeScript
 *  Teamcity Reporter reinstated.
 *  Ability to specify multiple files to test via list in command line
 *  Ability to suppress stack trace with `--noStack`
@@ -283,7 +283,7 @@ changelog
 * `1.7.1` Removed unneeded fs dependency (thanks to
    [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in
    node `0.6` (thanks to [abe33](https://github.com/abe33))
-* `1.7.0` Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))
+* `1.7.0` Literate CoffeeScript now testable (thanks to [magicmoose](https://github.com/magicmoose))
 * `1.6.0` Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))
 * `1.5.1` Missing files and require exceptions will now report instead of failing silently
 * `1.5.0` Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))
