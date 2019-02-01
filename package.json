@@ -27,7 +27,7 @@
     "walkdir": "~0.0.7",
     "underscore": "~1.6.0",
     "gaze": "~1.1.2",
-    "jasmine-growl-reporter": "~1.0.1",
+    "jasmine-growl-reporter": "~2.0.0",
     "mkdirp": "~0.3.5",
     "minimist": "~0.0.8",
     "xml2js": "~0.4.1",
