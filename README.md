@@ -1,6 +1,9 @@
 jasmine-node
 ======
 
+[![LICENSE](https://img.shields.io/github/license/mhevery/jasmine-node.svg?style=flat-square)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/jasmine-node.svg?style=flat-square)](https://www.npmjs.com/package/jasmine-node)
+[![contributors](https://img.shields.io/badge/contributors-many-purple.svg?style=flat-square)](https://github.com/mhevery/jasmine-node/graphs/contributors)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework (version 1) available in node.js.
