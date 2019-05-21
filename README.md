@@ -1,7 +1,6 @@
 jasmine-node
 ======
 
-[![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework (version 1) available in node.js.
