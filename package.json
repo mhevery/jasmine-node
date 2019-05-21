@@ -1,12 +1,7 @@
 {
   "name": "jasmine-node",
-  "version": "1.16.2",
+  "version": "3.0.0-dev",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
-  "contributors": [
-    "Martin Häger <martin.haeger@gmail.com>",
-    "Chris Moultrie <chris@moultrie.org>",
-    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>"
-  ],
   "homepage": "https://github.com/mhevery/jasmine-node",
   "repository": {
     "type": "git",
@@ -17,16 +12,11 @@
     "bdd"
   ],
   "author": "Misko Hevery <misko@hevery.com>",
-  "maintainers": [
-    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>",
-    "Martin Häger <martin.haeger@gmail.com>",
-    "Chris Moultrie <chris@moultrie.org>"
-  ],
   "license": "MIT",
   "dependencies": {
     "coffeescript": "~1.12.7",
     "gaze": "~1.1.2",
-    "jasmine-growl-reporter": "~0.2.0",
+    "jasmine-growl-reporter": "~2.0.0",
     "jasmine-reporters": "~1.0.0",
     "mkdirp": "~0.3.5",
     "requirejs": "~2.3.6",

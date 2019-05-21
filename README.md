@@ -1,7 +1,9 @@
 jasmine-node
 ======
 
-[![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)
+[![LICENSE](https://img.shields.io/github/license/mhevery/jasmine-node.svg?style=flat-square)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/jasmine-node.svg?style=flat-square)](https://www.npmjs.com/package/jasmine-node)
+[![contributors](https://img.shields.io/badge/contributors-many-purple.svg?style=flat-square)](https://github.com/mhevery/jasmine-node/graphs/contributors)
 
 This node.js module makes the wonderful [Pivotal Lab's jasmine](http://github.com/pivotal/jasmine)
 spec framework (version 1) available in node.js.
@@ -22,6 +24,19 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a fo
 `ddescribe` and `iit` functions to run individual suites or specs.
 
 NOTICE: BETA `2.0.0` Support in the `Jasmine2.0` branch (with rewrite in CoffeeScript) is now abandoned and no longer supported.
+
+Supported Node.js versions
+--------------------------
+
+* Current:
+  - 10
+  - 12
+* Deprecated:
+  - 8 (EOL in December 2019)
+  - 6 (already past EOL)
+  - 4 (already past EOL)
+
+Older versions of Node.js are no longer supported. It is *highly* recommended to upgrade to a supported version of Node.js.
 
 what's new
 ----------
