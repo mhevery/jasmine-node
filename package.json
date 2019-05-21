@@ -12,11 +12,6 @@
     "bdd"
   ],
   "author": "Misko Hevery <misko@hevery.com>",
-  "maintainers": [
-    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>",
-    "Martin Häger <martin.haeger@gmail.com>",
-    "Chris Moultrie <chris@moultrie.org>"
-  ],
   "license": "MIT",
   "dependencies": {
     "coffeescript": "~1.12.7",
