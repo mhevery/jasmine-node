@@ -2,11 +2,6 @@
   "name": "jasmine-node",
   "version": "3.0.0-dev",
   "description": "DOM-less simple JavaScript BDD testing framework for Node",
-  "contributors": [
-    "Martin Häger <martin.haeger@gmail.com>",
-    "Chris Moultrie <chris@moultrie.org>",
-    "Christopher J. Brody (@brodybits aka Chris Brody) <chris.brody@gmail.com>"
-  ],
   "homepage": "https://github.com/mhevery/jasmine-node",
   "repository": {
     "type": "git",
