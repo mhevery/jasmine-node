@@ -23,6 +23,19 @@ Version `1.3.1` of Jasmine is currently included with node-jasmine. This is a fo
 
 NOTICE: BETA `2.0.0` Support in the `Jasmine2.0` branch (with rewrite in CoffeeScript) is now abandoned and no longer supported.
 
+Supported Node.js versions
+--------------------------
+
+* Current:
+  - 10
+  - 12
+* Deprecated:
+  - 8 (EOL in December 2019)
+  - 6 (already past EOL)
+  - 4 (already past EOL)
+
+Older versions of Node.js are no longer supported. It is *highly* recommended to upgrade to a supported version of Node.js.
+
 what's new
 ----------
 *  Growl notifications with the `--growl` flag (requires Growl to be installed)
