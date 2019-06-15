@@ -1,4 +1,29 @@
 
+describe('toContain of undefined', function(){
+  it('should fail but not crash', function(){
+    expect(null).toContain('foo');
+  });
+  it('should fail on undefined by not crash', function(){
+    var foo;
+    expect(foo).toContain('foo');
+  });
+  it('should pass on when string does contain value', function(){
+    var foo='foo';
+    expect(foo).toContain('foo');
+  });
+  it('should fail on when string does not contain value', function(){
+    var foo='bar';
+    expect(foo).toContain('foo');
+  });
+  it('should pass on when array does contain value', function(){
+    var foo= [ 'foo', 'bar' ];
+    expect(foo).toContain('foo');
+  });
+  it('should fail on when array does not contain value', function(){
+    var foo= [ 'bar', 'baz' ];
+    expect(foo).toContain('foo');
+  });
+});
 describe('jasmine-node-flat', function(){
   it('should pass', function(){
     expect(1+2).toEqual(3);
