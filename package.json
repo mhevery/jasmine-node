@@ -13,6 +13,9 @@
   ],
   "author": "Misko Hevery <misko@hevery.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "dependencies": {
     "coffeescript": "~1.12.7",
     "gaze": "~1.1.2",
