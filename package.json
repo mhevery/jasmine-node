@@ -20,7 +20,7 @@
     "jasmine-reporters": "~1.0.0",
     "mkdirp": "~0.3.5",
     "requirejs": "~2.3.6",
-    "underscore": "~1.9.1",
+    "underscore": "^1.13.6",
     "walkdir": "~0.0.12"
   },
   "bin": "bin/jasmine-node",
